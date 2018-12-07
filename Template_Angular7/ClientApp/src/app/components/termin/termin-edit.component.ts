@@ -18,6 +18,10 @@ export class TerminEditComponent implements OnInit {
   form: FormGroup;
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsValue = new Date();
+  // Auswahlboxen
+  selGruppen: Gruppe[];
+  selTeilnehmer: Teilnehmer[];
+  selAktivitaeten: Code_aktivitaet[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -33,9 +37,10 @@ export class TerminEditComponent implements OnInit {
 
     // create an empty object from the Gruppe interface
     this.termin = <Termin>{};
-
-    // initialize the form
-    //this.createForm();
+    // init Comboboxinhalte
+    this.selGruppen = <Gruppe[]>{};
+    this.selTeilnehmer = <Teilnehmer[]>{};
+    this.selAktivitaeten = <Code_aktivitaet[]>{};
 
     var id = +this.activatedRoute.snapshot.params["id"];
     // check if we're in edit mode or not
@@ -46,13 +51,13 @@ export class TerminEditComponent implements OnInit {
       var url = this.baseUrl + "api/termine/" + id;
       this.http.get<Termin>(url).subscribe(res => {
         this.termin = res;
-
-
         //this.aktTerminDat = new Date('August 19, 1975'); // dummy value
         this.aktTerminDat = new Date(this.termin.Datum);
-
         this.title = "Edit - " + this.termin.Id;
-        //this.bsValue = this.termin.Datum;
+
+        this.loadGruppen(this.termin.IdGruppe);
+        this.loadTeilnehmer(this.termin.IdGruppe);
+        this.loadAktiviaeten(this.termin.IdGruppe);
         // update the form with the quiz value
         this.updateForm();
       }, error => console.error(error));
@@ -60,6 +65,7 @@ export class TerminEditComponent implements OnInit {
     else {
       this.editMode = false;
       this.title = "Erstelle neuen Termin";
+      this.loadGruppen(this.termin.IdGruppe);
     }
   }
 
@@ -98,6 +104,51 @@ export class TerminEditComponent implements OnInit {
 
   onBack() {
     this.router.navigate(["gruppen/edit", this.termin.IdGruppe]);
+  }
+
+  loadGruppen(id: number) {
+    let myUrl: string;
+    if (id > 0 ) {
+      myUrl = this.baseUrl + "api/gruppen/alle/" + id;
+    }
+    else {
+      myUrl = this.baseUrl + "api/gruppen/alle/0";  // alle holen
+    }
+
+    this.http.get<Gruppe[]>(myUrl).subscribe(res => {
+        this.selGruppen = res;
+      },
+      error => console.error(error));
+  }
+
+  loadTeilnehmer(id: number) {
+    let myUrl: string;
+    if (id > 0 ) {
+      myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
+    }
+    else {
+      myUrl = this.baseUrl + "api/teilnehmer/alle/0";  // alle holen
+    }
+
+    this.http.get<Teilnehmer[]>(myUrl).subscribe(res => {
+        this.selTeilnehmer = res;
+      },
+      error => console.error(error));
+  }
+
+  loadAktiviaeten(id: number) {
+    let myUrl: string;
+    if (id > 0 ) {
+      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/" + id;
+    }
+    else {
+      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/0";  // alle holen
+    }
+
+    this.http.get<Code_aktivitaet[]>(myUrl).subscribe(res => {
+        this.selAktivitaeten = res;
+      },
+      error => console.error(error));
   }
 
   ngOnInit() {

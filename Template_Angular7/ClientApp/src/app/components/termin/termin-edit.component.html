@@ -15,28 +15,44 @@
     <div class="form-group row">
       <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
       <div class="col-sm-3">
-        <input type="text" id="idGruppe"
+        <select id="idGruppe" formControlName="IdGruppe" required class="form-control">
+          <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id"  >
+            {{gruppe.Id}}  {{gruppe.Code}} {{gruppe.Bezeichnung}}
+          </option>
+        </select>
+        <!--<input type="text" id="idGruppe"
                formControlName="IdGruppe" required
                placeholder="Id der Gruppe eingeben..."
-               class="form-control" />
+               class="form-control" />-->
       </div>
     </div>
     <div class="form-group row">
       <label for="idTeilnehmer" class="col-sm-2 col-form-label">Teilnehmer:</label>
       <div class="col-sm-3">
-        <input type="text" id="idTeilnehmer"
+        <select id="idTeilnehmer" formControlName="IdTeilnehmer" required class="form-control">
+          <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id"  >
+            {{teilnehmer.Id}}  {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
+          </option>
+        </select>
+        <!--<input type="text" id="idTeilnehmer"
                formControlName="IdTeilnehmer" required
                placeholder="Id des Teilnehmers eingeben..."
-               class="form-control" />
+               class="form-control" />-->
       </div>
+
     </div>
     <div class="form-group row">
       <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
       <div class="col-sm-3">
-        <input type="text" id="idAktivitaet"
+        <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control">
+          <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id"  >
+            {{akt.Id}}  {{akt.Code}} {{akt.Bezeichnung}}
+          </option>
+        </select>
+        <!--<input type="text" id="idAktivitaet"
                formControlName="IdAktivitaet" required
                placeholder="Id der Aktivität eingeben..."
-               class="form-control" />
+               class="form-control" />-->
       </div>
     </div>
     <div class="form-group row">
@@ -74,7 +90,14 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-12">
+    <a>Form-Feldinhalte</a>
     <pre class="code-preview">{{form.value | json}}</pre>
+    <a>Auswahl: Gruppen</a>
+    <pre class="code-preview">{{selGruppen | json}}</pre>
+    <a>Auswahl: Teilnehmer</a>
+    <pre class="code-preview">{{selTeilnehmer | json}}</pre>
+    <a>Auswahl: Aktivitäten</a>
+    <pre class="code-preview">{{selAktivitaeten | json}}</pre>
   </div>
 </div>
 
