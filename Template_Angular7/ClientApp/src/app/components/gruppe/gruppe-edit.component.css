@@ -1,0 +1,11 @@
+.gruppe-edit {
+  width: 100%; }
+  @media (max-width: 767px) {
+    .gruppe-edit {
+      width: 100%; } }
+  .gruppe-edit textarea {
+    min-height: 100px; }
+  .gruppe-edit .commands {
+    margin-top: 20px; }
+
+/*# sourceMappingURL=gruppe-edit.component.css.map */

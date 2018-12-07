@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAQ;EACN,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,QAAQ;EACjB,MAAM,EAAE,eAAe;EACvB,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,IAAI;;AAEb,SAAU;EACR,cAAc,EAAE,MAAM;;AAExB,aAAc;EACZ,OAAO,EAAE,KAAK;;AAGhB,QAAS;EACP,UAAU,EAAE,KAAK",
+"sources": ["gruppe.component.scss"],
+"names": [],
+"file": "gruppe.component.css"
+}

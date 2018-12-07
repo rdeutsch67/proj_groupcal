@@ -1,0 +1,50 @@
+.navbar-image {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin: 15px 10px 15px 0px;
+}
+
+//.navbar {
+//  border-radius: 5px 5px 5px 5px;
+//  border-width: 5px;
+//  height: 70px;
+//
+//}
+
+@media (min-width: 768px) {
+  .main-nav {
+    top: 0px;
+    width: 100%;
+    min-width: 180px;
+
+    .navbar {
+      border-radius: 5px 5px 5px 5px;
+      border-width: 5px;
+      height: 60px;
+
+      ul {
+        float: left;
+      }
+
+      li {
+        float: left;
+        font-size: 16px;
+        margin: 6px;
+        a {
+          padding: 10px 16px;
+          border-radius: 4px;
+        }
+      }
+    }
+    .navbar-header {
+      float: left;
+      display: none;
+    }
+    .navbar-collapse {
+      padding: 0px;
+    }
+  }
+}

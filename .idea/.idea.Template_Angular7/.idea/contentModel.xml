@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_Template_Angular7.708412257.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Template_Angular7" t="IncludeRecursive">
+        <e p=".gitignore" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="ClientApp" t="Include">
+          <e p=".editorconfig" t="Include" />
+          <e p=".gitignore" t="Include" />
+          <e p=".idea" t="Include">
+            <e p="ClientApp.iml" t="Include" />
+            <e p="codeStyles" t="Include">
+              <e p="codeStyleConfig.xml" t="Include" />
+              <e p="Project.xml" t="Include" />
+            </e>
+            <e p="inspectionProfiles" t="Include">
+              <e p="Project_Default.xml" t="Include" />
+            </e>
+            <e p="misc.xml" t="Include" />
+            <e p="modules.xml" t="Include" />
+            <e p="workspace.xml" t="Include" />
+          </e>
+          <e p="angular.json" t="Include" />
+          <e p="e2e" t="Include">
+            <e p="app.e2e-spec.ts" t="Include" />
+            <e p="app.po.ts" t="Include" />
+            <e p="tsconfig.e2e.json" t="Include" />
+          </e>
+          <e p="info_install.txt" t="Include" />
+          <e p="karma.conf.js" t="Include" />
+          <e p="node_modules" t="ExcludeRecursive">
+            <e p="@angular/animations" t="IncludeRecursive" />
+            <e p="@angular/cli" t="IncludeRecursive" />
+            <e p="@angular/common" t="IncludeRecursive" />
+            <e p="@angular/compiler" t="IncludeRecursive" />
+            <e p="@angular/compiler-cli" t="IncludeRecursive" />
+            <e p="@angular/core" t="IncludeRecursive" />
+            <e p="@angular/forms" t="IncludeRecursive" />
+            <e p="@angular/http" t="IncludeRecursive" />
+            <e p="@angular/platform-browser" t="IncludeRecursive" />
+            <e p="@angular/platform-browser-dynamic" t="IncludeRecursive" />
+            <e p="@angular/platform-server" t="IncludeRecursive" />
+            <e p="@angular/router" t="IncludeRecursive" />
+            <e p="@angular-devkit/build-angular" t="IncludeRecursive" />
+            <e p="@fortawesome/angular-fontawesome" t="IncludeRecursive" />
+            <e p="@fortawesome/fontawesome-free" t="IncludeRecursive" />
+            <e p="@fortawesome/fontawesome-free-brands" t="IncludeRecursive" />
+            <e p="@fortawesome/fontawesome-free-regular" t="IncludeRecursive" />
+            <e p="@fortawesome/fontawesome-free-solid" t="IncludeRecursive" />
+            <e p="@fortawesome/fontawesome-svg-core" t="IncludeRecursive" />
+            <e p="@fortawesome/free-solid-svg-icons" t="IncludeRecursive" />
+            <e p="@ng-bootstrap/ng-bootstrap" t="IncludeRecursive" />
+            <e p="@nguniversal/module-map-ngfactory-loader" t="IncludeRecursive" />
+            <e p="@types" t="IncludeRecursive">
+              <e p="jasmine" t="IncludeRecursive" />
+              <e p="jasminewd2" t="IncludeRecursive" />
+              <e p="node" t="IncludeRecursive" />
+            </e>
+            <e p="aspnet-prerendering" t="IncludeRecursive" />
+            <e p="bootstrap" t="IncludeRecursive" />
+            <e p="codelyzer" t="IncludeRecursive" />
+            <e p="core-js" t="IncludeRecursive" />
+            <e p="jasmine-core" t="IncludeRecursive" />
+            <e p="jasmine-spec-reporter" t="IncludeRecursive" />
+            <e p="karma" t="IncludeRecursive" />
+            <e p="karma-chrome-launcher" t="IncludeRecursive" />
+            <e p="karma-coverage-istanbul-reporter" t="IncludeRecursive" />
+            <e p="karma-jasmine" t="IncludeRecursive" />
+            <e p="karma-jasmine-html-reporter" t="IncludeRecursive" />
+            <e p="ngx-bootstrap" t="IncludeRecursive" />
+            <e p="node-sass" t="IncludeRecursive" />
+            <e p="protractor" t="IncludeRecursive" />
+            <e p="rxjs" t="IncludeRecursive" />
+            <e p="ts-node" t="IncludeRecursive" />
+            <e p="tslint" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.dom.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.dom.iterable.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.collection.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.core.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.generator.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.iterable.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.promise.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.proxy.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.reflect.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.symbol.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2015.symbol.wellknown.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2016.array.include.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2016.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2016.full.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.full.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.intl.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.object.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.sharedmemory.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.string.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2017.typedarrays.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2018.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2018.full.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2018.intl.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2018.promise.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es2018.regexp.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es5.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.es6.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.array.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.asynciterable.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.full.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.intl.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.esnext.symbol.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.scripthost.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.webworker.d.ts" t="IncludeRecursive" />
+            <e p="typescript/lib/lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
+            <e p="zone.js" t="IncludeRecursive" />
+          </e>
+          <e p="package Kopie.json" t="Include" />
+          <e p="package-lock.json" t="Include" />
+          <e p="package.json" t="Include" />
+          <e p="protractor.conf.js" t="Include" />
+          <e p="README.md" t="Include" />
+          <e p="src" t="Include">
+            <e p="_variables.scss" t="Include" />
+            <e p="app" t="Include">
+              <e p="app.component.css" t="Include" />
+              <e p="app.component.html" t="Include" />
+              <e p="app.component.scss" t="Include" />
+              <e p="app.component.ts" t="Include" />
+              <e p="app.module.ts" t="Include" />
+              <e p="components" t="Include">
+                <e p="about" t="Include">
+                  <e p="about.component.html" t="Include" />
+                  <e p="about.component.ts" t="Include" />
+                </e>
+                <e p="code_aktivitaeten" t="Include">
+                  <e p="code_aktivitaeten-edit.component.css" t="Include" />
+                  <e p="code_aktivitaeten-edit.component.css.map" t="Include" />
+                  <e p="code_aktivitaeten-edit.component.html" t="Include" />
+                  <e p="code_aktivitaeten-edit.component.scss" t="Include" />
+                  <e p="code_aktivitaeten-edit.component.ts" t="Include" />
+                  <e p="code_aktivitaeten-liste.component.css" t="Include" />
+                  <e p="code_aktivitaeten-liste.component.css.map" t="Include" />
+                  <e p="code_aktivitaeten-liste.component.html" t="Include" />
+                  <e p="code_aktivitaeten-liste.component.scss" t="Include" />
+                  <e p="code_aktivitaeten-liste.component.ts" t="Include" />
+                </e>
+                <e p="gruppe" t="Include">
+                  <e p="gruppe-edit.component.css" t="Include" />
+                  <e p="gruppe-edit.component.css.map" t="Include" />
+                  <e p="gruppe-edit.component.html" t="Include" />
+                  <e p="gruppe-edit.component.scss" t="Include" />
+                  <e p="gruppe-edit.component.ts" t="Include" />
+                  <e p="gruppe.component.css" t="Include" />
+                  <e p="gruppe.component.css.map" t="Include" />
+                  <e p="gruppe.component.html" t="Include" />
+                  <e p="gruppe.component.scss" t="Include" />
+                  <e p="gruppe.component.ts" t="Include" />
+                  <e p="gruppen-liste.component.css" t="Include" />
+                  <e p="gruppen-liste.component.css.map" t="Include" />
+                  <e p="gruppen-liste.component.html" t="Include" />
+                  <e p="gruppen-liste.component.scss" t="Include" />
+                  <e p="gruppen-liste.component.ts" t="Include" />
+                </e>
+                <e p="pagenotfound.component" t="Include">
+                  <e p="pagenotfound.component.html" t="Include" />
+                  <e p="pagenotfound.component.ts" t="Include" />
+                </e>
+                <e p="teilnehmer" t="Include">
+                  <e p="teilnehmer-edit.component.css" t="Include" />
+                  <e p="teilnehmer-edit.component.css.map" t="Include" />
+                  <e p="teilnehmer-edit.component.html" t="Include" />
+                  <e p="teilnehmer-edit.component.scss" t="Include" />
+                  <e p="teilnehmer-edit.component.ts" t="Include" />
+                  <e p="teilnehmer-liste.component.css" t="Include" />
+                  <e p="teilnehmer-liste.component.css.map" t="Include" />
+                  <e p="teilnehmer-liste.component.html" t="Include" />
+                  <e p="teilnehmer-liste.component.scss" t="Include" />
+                  <e p="teilnehmer-liste.component.ts" t="Include" />
+                </e>
+                <e p="termin" t="Include">
+                  <e p="termin-edit.component.css" t="Include" />
+                  <e p="termin-edit.component.css.map" t="Include" />
+                  <e p="termin-edit.component.html" t="Include" />
+                  <e p="termin-edit.component.scss" t="Include" />
+                  <e p="termin-edit.component.ts" t="Include" />
+                  <e p="termin-liste.component.css" t="Include" />
+                  <e p="termin-liste.component.css.map" t="Include" />
+                  <e p="termin-liste.component.html" t="Include" />
+                  <e p="termin-liste.component.scss" t="Include" />
+                  <e p="termin-liste.component.ts" t="Include" />
+                </e>
+              </e>
+              <e p="home" t="Include">
+                <e p="home.component.html" t="Include" />
+                <e p="home.component.ts" t="Include" />
+              </e>
+              <e p="interface" t="Include">
+                <e p="code_aktivitaet.ts" t="Include" />
+                <e p="gruppe.ts" t="Include" />
+                <e p="Teilnehmer.ts" t="Include" />
+                <e p="termin.ts" t="Include" />
+              </e>
+              <e p="nav-menu" t="Include">
+                <e p="nav-menu.component.css" t="Include" />
+                <e p="nav-menu.component.css.map" t="Include" />
+                <e p="nav-menu.component.html" t="Include" />
+                <e p="nav-menu.component.scss" t="Include" />
+                <e p="nav-menu.component.ts" t="Include" />
+              </e>
+            </e>
+            <e p="assets" t="Include">
+              <e p=".gitkeep" t="Include" />
+            </e>
+            <e p="environments" t="Include">
+              <e p="environment.prod.ts" t="Include" />
+              <e p="environment.ts" t="Include" />
+            </e>
+            <e p="index.html" t="Include" />
+            <e p="main.ts" t="Include" />
+            <e p="polyfills.ts" t="Include" />
+            <e p="styles.css" t="Include" />
+            <e p="styles.scss" t="Include" />
+            <e p="test.ts" t="Include" />
+            <e p="tsconfig.app.json" t="Include" />
+            <e p="tsconfig.spec.json" t="Include" />
+            <e p="typings.d.ts" t="Include" />
+          </e>
+          <e p="tsconfig.json" t="Include" />
+          <e p="tslint.json" t="Include" />
+        </e>
+        <e p="Controllers" t="Include">
+          <e p="BaseApiController.cs" t="Include" />
+          <e p="CodesAktivitaetenController.cs" t="Include" />
+          <e p="GruppenController.cs" t="Include" />
+          <e p="TeilnehmerController.cs" t="Include" />
+          <e p="TermineController.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="ApplicationDbContext.cs" t="Include" />
+          <e p="DBSeeder.cs" t="Include" />
+          <e p="Models" t="Include">
+            <e p="ApplicationUser.cs" t="Include" />
+            <e p="CodeAktivitaeten.cs" t="Include" />
+            <e p="Gruppe.cs" t="Include" />
+            <e p="Teilnehmer.cs" t="Include" />
+            <e p="Termin.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Template_Angular7.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Pages" t="Include">
+          <e p="_ViewImports.cshtml" t="Include" />
+          <e p="Error.cshtml" t="Include" />
+          <e p="Error.cshtml.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="README.md" t="Include" />
+        <e p="Startup.cs" t="Include" />
+        <e p="Template_Angular7.csproj" t="IncludeRecursive" />
+        <e p="ViewModels" t="Include">
+          <e p="CodeAktivitaetenViewModel.cs" t="Include" />
+          <e p="GruppenViewModel.cs" t="Include" />
+          <e p="QuizViewModel.cs" t="Include" />
+          <e p="TeilnehmerViewModel.cs" t="Include" />
+          <e p="TerminViewModel.cs" t="Include" />
+        </e>
+        <e p="wwwroot" t="Include">
+          <e p="dist" t="Include">
+            <e p="logo.png" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+        </e>
+      </e>
+      <e p="Template_Angular7.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

@@ -1,0 +1,50 @@
+<h2>{{title}}</h2>
+<div *ngIf="myTeilnehmer.length > 0">
+<!--<div class="suggestion" *ngIf="myTeilnehmer">-->
+  <div class="table-responsive">
+    <table class="table table-hover questions">
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>Text</th>
+        <th>GruppenId</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let gruppenteilnehmer of myTeilnehmer">
+        <td>{{gruppenteilnehmer.Vorname}}</td>
+        <td>{{gruppenteilnehmer.Nachname}}</td>
+        <td>{{gruppenteilnehmer.GruppenId}}</td>
+        <td>
+          <button type="submit"
+                  (click)="onEdit(gruppenteilnehmer)"
+                  class="btn btn-sm btn-success">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="submit"
+                  (click)="onDelete(gruppenteilnehmer)"
+                  class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Löschen
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="myTeilnehmer.length == 0">
+  Diese Gruppe hat (noch) keine Teilnehmer: klicke auf <strong>Neuen Teilnehmer erstellen</strong> Button um die Erste zu erfassen!
+</div>
+
+<button *ngIf="!showAllData" (click)="onCreate()" class="btn btn-sm btn-primary">
+  <i class="fa fa-plus-circle"></i>
+  Neuen Teilnehmer erstellen
+</button>
+

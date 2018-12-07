@@ -1,0 +1,22 @@
+<div *ngIf="gruppe" class="gruppe">
+  <h2>{{gruppe.Bezeichnung}}</h2>
+  <ul>
+    <li>
+      <label>Kurzbezeichnung:</label>
+      <input [(ngModel)]="gruppe.Code" placeholder="Kurzbezeichnung eingeben..." />
+    </li>
+    <li>
+      <label>Bezeichnung:</label>
+      <input [(ngModel)]="gruppe.Bezeichnung" placeholder="Gruppenbezeichnung eingeben..." />
+    </li>
+    <li>
+      <label>Hinweis:</label>
+      <textarea [(ngModel)]="gruppe.Beschreibung"
+                placeholder="Beschreibung zur Gruppe..."></textarea>
+    </li>
+  </ul>
+  <div>
+    <input type="button" value="Edit" (click)="onEdit()" />
+  </div>
+</div>
+

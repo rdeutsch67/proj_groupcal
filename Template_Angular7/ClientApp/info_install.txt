@@ -1,0 +1,10 @@
+Bei Fehlermeldung "ngbCollapse":
+Der Grund für diese Meldung kann z.B. die NavBurger-Komp sein. Dazu folgende Schritte ausführen:
+app.module.ts:
+  import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+und unter imports:
+  NgbModule,
+
+Dazu im Terminal
+  npm install --save @ng-bootstrap/ng-bootstrap
+installieren.

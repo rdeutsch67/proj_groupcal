@@ -1,0 +1,13 @@
+.teilnehmer-edit {
+  width: 100%; }
+  @media (max-width: 767px) {
+    .teilnehmer-edit {
+      width: 100%; } }
+  .teilnehmer-edit textarea {
+    min-height: 100px; }
+  .teilnehmer-edit select {
+    max-width: 200px; }
+  .teilnehmer-edit .commands {
+    margin-top: 20px; }
+
+/*# sourceMappingURL=teilnehmer-edit.component.css.map */

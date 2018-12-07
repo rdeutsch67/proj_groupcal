@@ -1,0 +1,50 @@
+<h3>Aktivitätscodes</h3>
+<div *ngIf="code_aktivitaeten.length > 0">
+  <div class="table-responsive">
+    <table class="table table-hover questions">
+      <!--<colgroup> <col width="90px">  </colgroup>-->
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>Text</th>
+        <th>GruppenId</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let aktivitaet of code_aktivitaeten">
+        <td>{{aktivitaet.Code}}</td>
+        <td>{{aktivitaet.Bezeichnung}}</td>
+        <td>{{aktivitaet.GruppenId}}</td>
+        <td>
+          <button type="submit"
+                  (click)="onEdit(aktivitaet)"
+                  class="btn btn-sm btn-success">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="submit"
+                  (click)="onDelete(aktivitaet)"
+                  class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Löschen
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="code_aktivitaeten.length == 0">
+  Diese Gruppe hat (noch) keine Aktivitäten: klicke auf <strong>Neue Aktivität erstellen</strong> Button um die Erste zu erfassen!
+</div>
+
+<button *ngIf="!showAllData" (click)="onCreate()" class="btn btn-sm btn-primary">
+  <i class="fa fa-plus-circle"></i>
+  Neue Aktivität erstellen
+</button>
+

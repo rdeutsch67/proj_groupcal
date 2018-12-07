@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,iBAAiB;EACf,KAAK,EAAE,IAAI;;AAGb,gBAAiB;EACf,SAAS,EAAE,KAAK;;AAGlB,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB;;AAG/B,8BAA+B;EAC7B,gBAAgB,EAAE,yBAAyB",
+"sources": ["teilnehmer-liste.component.scss"],
+"names": [],
+"file": "teilnehmer-liste.component.css"
+}

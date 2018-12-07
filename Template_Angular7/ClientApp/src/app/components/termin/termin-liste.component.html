@@ -1,0 +1,55 @@
+<h3>Termine</h3>
+<div *ngIf="termine.length > 0">
+  <div class="table-responsive">
+    <table class="table table-hover questions">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Datum</th>
+        <th>IdGruppe</th>
+        <th>IdTeilnehmer</th>
+        <th>IdAktivität</th>
+        <th>Hinweis</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let termin of termine">
+        <td>{{termin.Id}}</td>
+        <td>{{termin.Datum | date: 'dd.MM.yyyy'}}</td>
+        <td>{{termin.IdGruppe}}</td>
+        <td>{{termin.IdTeilnehmer}}</td>
+        <td>{{termin.IdAktivitaet}}</td>
+        <td>{{termin.Hinweis}}</td>
+        <td>
+          <button type="submit"
+                  (click)="onEdit(termin)"
+                  class="btn btn-sm btn-success">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="submit"
+                  (click)="onDelete(termin)"
+                  class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Löschen
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="termine.length == 0">
+  Diese Gruppe hat (noch) keine Termine: klicke auf <strong>Neuen Termin erstellen</strong> Button um den Ersten zu erfassen!
+</div>
+
+<button *ngIf="!showAllData" (click)="onCreate()" class="btn btn-sm btn-primary">
+  <i class="fa fa-plus-circle"></i>
+  Neuen Termin erstellen
+</button>
+

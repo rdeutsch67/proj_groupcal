@@ -1,0 +1,49 @@
+<h2>{{title}}</h2>
+<div *ngIf="gruppen.length > 0">
+  <div class="table-responsive">
+    <table class="table table-hover gruppen">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Text</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let gruppe of gruppen"
+          [class.selected]="gruppe === selectedGruppe"
+          (click)="onSelect(gruppe)">
+        <td>{{gruppe.Id}}</td>
+        <td>{{gruppe.Code}}</td>
+        <td>{{gruppe.Bezeichnung}}</td>
+        <td>
+          <button type="submit"
+                  (click)="onEdit(gruppe)"
+                  class="btn btn-sm btn-success">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="submit"
+                  (click)="onDelete(gruppe)"
+                  class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Löschen
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="submit"
+            (click)="onCreate()"
+            class="btn btn-success">
+      <i class="fas fa-plus-circle"></i>
+      Gruppe erstellen
+    </button>
+  </div>
+</div>
+
+<!--<gruppe *ngIf="selectedGruppe" [gruppe]="selectedGruppe"></gruppe>-->

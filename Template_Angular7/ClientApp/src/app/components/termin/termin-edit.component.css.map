@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB",
+"sources": ["termin-edit.component.scss"],
+"names": [],
+"file": "termin-edit.component.css"
+}

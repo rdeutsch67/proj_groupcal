@@ -1,0 +1,46 @@
+<div class="main-nav">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-image" [routerLink]="['/home']">
+      <img src="/dist/logo.png" alt="Gruppenplaner"/>
+    </a>
+    <a class="navbar-brand" [routerLink]='["/"]' href="#" (click)='collapse()'>Gruppenplaner</a>
+    <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse"
+            data-target="#navbarTogglerDemo02" aria-expanded="false"
+            aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="isCollapsed"
+            aria-controls="navbarTogglerDemo02">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a data-toggle="collapse"  class="nav-link" [routerLink]="['/teilnehmer/alle/0']">
+            <i class="fas fa-address-book"></i>
+            Teilnehmer
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/codesaktivitaeten/alle/0']">
+            <i class="fa fa-book"></i>
+            Alle Aktivitätencodes
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/termine/alle/0']">
+            <i class="fa fa-calendar-alt"></i>
+            Termine
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/about']">
+            <i class="fa fa-info-circle"></i>
+            Info
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+
