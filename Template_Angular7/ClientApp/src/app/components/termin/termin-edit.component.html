@@ -12,49 +12,43 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
-      <div class="col-sm-3">
-        <select id="idGruppe" formControlName="IdGruppe" required class="form-control">
-          <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id"  >
-            {{gruppe.Id}}  {{gruppe.Code}} {{gruppe.Bezeichnung}}
-          </option>
-        </select>
-        <!--<input type="text" id="idGruppe"
-               formControlName="IdGruppe" required
-               placeholder="Id der Gruppe eingeben..."
-               class="form-control" />-->
+    <!--<div *ngIf="selGruppen.length > 0" >-->
+      <div class="form-group row">
+        <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
+        <div class="col-sm-3">
+          <select id="idGruppe" formControlName="IdGruppe" required class="form-control"
+                  (change)="onChangeGruppe($event.currentTarget.value)">
+            <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id"  >
+              {{gruppe.Id}}  {{gruppe.Code}} {{gruppe.Bezeichnung}}
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="idTeilnehmer" class="col-sm-2 col-form-label">Teilnehmer:</label>
-      <div class="col-sm-3">
-        <select id="idTeilnehmer" formControlName="IdTeilnehmer" required class="form-control">
-          <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id"  >
-            {{teilnehmer.Id}}  {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
-          </option>
-        </select>
-        <!--<input type="text" id="idTeilnehmer"
-               formControlName="IdTeilnehmer" required
-               placeholder="Id des Teilnehmers eingeben..."
-               class="form-control" />-->
+    <!--</div>-->
+    <!--<div *ngIf="selTeilnehmer.length > 0" >-->
+      <div class="form-group row">
+        <label for="idTeilnehmer" class="col-sm-2 col-form-label">Teilnehmer:</label>
+        <div class="col-sm-3">
+          <select id="idTeilnehmer" formControlName="IdTeilnehmer" required class="form-control">
+            <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id"  >
+              {{teilnehmer.Id}}  {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
+            </option>
+          </select>
+        </div>
       </div>
-
-    </div>
-    <div class="form-group row">
-      <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
-      <div class="col-sm-3">
-        <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control">
-          <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id"  >
-            {{akt.Id}}  {{akt.Code}} {{akt.Bezeichnung}}
-          </option>
-        </select>
-        <!--<input type="text" id="idAktivitaet"
-               formControlName="IdAktivitaet" required
-               placeholder="Id der Aktivität eingeben..."
-               class="form-control" />-->
+    <!--</div>
+    <div *ngIf="selAktivitaeten.length > 0" >-->
+      <div class="form-group row">
+        <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
+        <div class="col-sm-3">
+          <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control">
+            <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id"  >
+              {{akt.Id}}  {{akt.Code}} {{akt.Bezeichnung}}
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
+    <!--</div>-->
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>
       <div class="col-sm-3">

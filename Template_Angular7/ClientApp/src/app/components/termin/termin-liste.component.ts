@@ -57,7 +57,6 @@ export class TerminListeComponent implements OnChanges {
   }
 
   onCreate() {
-    /*this.router.navigate(["codesaktivitaeten/create", this.myGruppe.Id]);*/
     this.router.navigate(["termine/create", this.myGruppe.Id]);
   }
 
