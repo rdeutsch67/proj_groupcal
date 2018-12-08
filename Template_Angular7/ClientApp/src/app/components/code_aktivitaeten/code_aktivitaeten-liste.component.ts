@@ -19,7 +19,7 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
               private router: Router,
               @Inject('BASE_URL') private baseUrl: string) {
 
-    this.title = "Codes Aktivitäten";
+    this.title = "Aktivitäten";
     this.code_aktivitaeten = [];
 
     let id = +this.activatedRoute.snapshot.params["id"];  // Id der Gruppe

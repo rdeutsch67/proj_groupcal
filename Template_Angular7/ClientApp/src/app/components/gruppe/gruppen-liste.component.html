@@ -1,4 +1,4 @@
-<h2>{{title}}</h2>
+<h3>{{title}}</h3>
 <div *ngIf="gruppen.length > 0">
   <div class="table-responsive">
     <table class="table table-hover gruppen">
@@ -39,7 +39,7 @@
     </table>
     <button type="submit"
             (click)="onCreate()"
-            class="btn btn-success">
+            class="btn btn-sm btn-success">
       <i class="fas fa-plus-circle"></i>
       Gruppe erstellen
     </button>

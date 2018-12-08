@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
+import {PlanerdataService} from "../../Services/planerdata.service";
 
 @Component({
   selector: "termin-edit.component",
@@ -29,6 +30,7 @@ export class TerminEditComponent implements OnInit {
               private router: Router,
               private http: HttpClient,
               private fb: FormBuilder,
+              private loadDataService: PlanerdataService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.datePickerConfig = Object.assign({}, {containerClass: 'theme-dark-blue',
@@ -57,15 +59,19 @@ export class TerminEditComponent implements OnInit {
       var url = this.baseUrl + "api/termine/" + id;
       this.http.get<Termin>(url).subscribe(res => {
         this.myTermin = res;
-        //this.aktTerminDat = new Date('August 19, 1975'); // dummy value
+        this.title = "Edit - "+id;
         this.aktTerminDat = new Date(this.myTermin.Datum);
-        this.title = "Edit - " + this.myTermin.Id;
-
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
         this.http.get<Gruppe>(url).subscribe(res => {
           this.selGruppen = Array.of(res);
-          this.loadTeilnehmer(this.myTermin.IdGruppe);
-          this.loadAktiviaeten(this.myTermin.IdGruppe);
+          loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe( data => {
+            this.selTeilnehmer = data;
+            loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe( (data) => {
+              this.selAktivitaeten = data;
+                }
+              )
+            }
+          );
           // update the form with the quiz value
           this.updateForm();
         }, error => console.error(error));
@@ -78,26 +84,38 @@ export class TerminEditComponent implements OnInit {
       this.myTermin.Datum = new Date();
       this.myTermin.IdGruppe = id;
 
-      var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
+      let url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
       this.http.get<Gruppe>(url).subscribe(res => {
         this.selGruppen = Array.of(res);
-        this.loadTeilnehmer(this.myTermin.IdGruppe);
-        this.loadAktiviaeten(this.myTermin.IdGruppe);
+        loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe( (data) => {
+          this.selTeilnehmer = data;
+          loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe( (data) => {
+            this.selAktivitaeten = data;
+              }
+            )
+          }
+        );
         // update the form with the quiz value
         this.updateForm();
       }, error => console.error(error));
-
       // update the form with the quiz value
       this.updateForm();
-
     }
   }
 
   onChangeGruppe(newValue) {
     console.log(newValue);
     this.selectedGruppe = newValue;
-    this.loadTeilnehmer(this.selectedGruppe);
-    this.loadAktiviaeten(newValue);
+    this.loadDataService.loadTeilnehmer(newValue).subscribe( (data) => {
+        this.selTeilnehmer = data;
+        this.loadDataService.loadAktiviaeten(newValue).subscribe( (data) => {
+            this.selAktivitaeten = data;
+          }
+        )
+      }
+    );
+    //this.loadTeilnehmer(this.selectedGruppe);
+    //this.loadAktiviaeten(newValue);
   }
 
   onSubmit() {
@@ -119,7 +137,7 @@ export class TerminEditComponent implements OnInit {
         .subscribe(res => {
           this.myTermin = res;
           console.log("Termin " + this.myTermin.Id + " wurde mutiert.");
-          this.router.navigate(["home"]);
+          this.router.navigate(["gruppen/edit/"+this.myTermin.IdGruppe]);
         }, error => console.log(error));
     }
     else {  // neuen Termin erstellen
@@ -128,7 +146,7 @@ export class TerminEditComponent implements OnInit {
         .subscribe(res => {
           var q = res;
           console.log("Termin " + q.Id + " erstellt.");
-          this.router.navigate(["termine/edit/"+q.Id]);
+          this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
         }, error => console.log(error));
     }
   }
@@ -161,7 +179,9 @@ export class TerminEditComponent implements OnInit {
       error => console.error(error));
   }
 
-  loadTeilnehmer(id: number) {
+
+  /*loadTeilnehmer(id: number) {
+
     let myUrl: string;
     if (id > 0 ) {
       myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
@@ -174,22 +194,10 @@ export class TerminEditComponent implements OnInit {
         this.selTeilnehmer = res;
       },
       error => console.error(error));
-  }
+  }*/
 
-  loadAktiviaeten(id: number) {
-    let myUrl: string;
-    if (id > 0 ) {
-      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/" + id;
-    }
-    else {
-      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/0";  // alle holen
-    }
 
-    this.http.get<Code_aktivitaet[]>(myUrl).subscribe(res => {
-        this.selAktivitaeten = res;
-      },
-      error => console.error(error));
-  }
+
 
   ngOnInit() {
     this.form = this.fb.group({

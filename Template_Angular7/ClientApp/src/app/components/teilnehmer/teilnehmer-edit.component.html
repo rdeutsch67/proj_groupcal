@@ -21,7 +21,7 @@
       <!--<button *ngIf="editMode" type="submit"-->
       <button type="submit"
               [disabled]="form.invalid"
-              class="btn btn-success">
+              class="btn btn-sm btn-success">
         <i class="fas fa-save"></i>
         Speichern
       </button>
@@ -34,7 +34,7 @@
       <!--<button *ngIf="!editMode" type="submit"-->
       <button type="submit"
               (click)="onBack()"
-              class="btn btn-secondary">
+              class="btn btn-sm btn-secondary">
         <i class="fas fa-arrow-alt-circle-left"></i>
         Zurück
       </button>

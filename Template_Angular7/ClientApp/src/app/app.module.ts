@@ -8,6 +8,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule} from "ngx-bootstrap";
+
+
 import {GruppenListeComponent} from "./components/gruppe/gruppen-liste.component";
 import {GruppeComponent} from "./components/gruppe/gruppe.component";
 import {AboutComponent} from "./components/about/about.component";
@@ -19,6 +21,8 @@ import {TeilnehmerListeComponent} from "./components/teilnehmer/teilnehmer-liste
 import {TeilnehmerEditComponent} from "./components/teilnehmer/teilnehmer-edit.component";
 import {TerminEditComponent} from "./components/termin/termin-edit.component";
 import {TerminListeComponent} from "./components/termin/termin-liste.component";
+import {PlanerdataService} from "./Services/planerdata.service";
+import {KalenderComponent} from "./components/kalender/kalender.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +38,7 @@ import {TerminListeComponent} from "./components/termin/termin-liste.component";
     TeilnehmerEditComponent,
     TerminEditComponent,
     TerminListeComponent,
+    KalenderComponent,
     AboutComponent,
     PageNotFoundComponent
   ],
@@ -61,11 +66,12 @@ import {TerminListeComponent} from "./components/termin/termin-liste.component";
       { path: 'termine/alle/:id', component: TerminListeComponent },
       { path: 'termine/create/:id', component: TerminEditComponent },
       { path: 'termine/edit/:id', component: TerminEditComponent },
+      { path: 'kalender/:id', component: KalenderComponent },
       { path: 'about', component: AboutComponent },
       { path: '**', component: PageNotFoundComponent }
     ])
   ],
-  providers: [],
+  providers: [PlanerdataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

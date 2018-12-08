@@ -1,5 +1,5 @@
 <div class="termine-edit">
-  <h2>{{title}}</h2>
+  <h2>Termin: {{title}}</h2>
   <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
     <div class="form-group row">
       <label for="mydatum" class="col-sm-2 col-form-label">Datum:</label>
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <!--<div *ngIf="selGruppen.length > 0" >-->
+    <div *ngIf="selGruppen.length > 0" >
       <div class="form-group row">
         <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
         <div class="col-sm-3">
@@ -24,8 +24,8 @@
           </select>
         </div>
       </div>
-    <!--</div>-->
-    <!--<div *ngIf="selTeilnehmer.length > 0" >-->
+    </div>
+    <div *ngIf="selTeilnehmer.length > 0" >
       <div class="form-group row">
         <label for="idTeilnehmer" class="col-sm-2 col-form-label">Teilnehmer:</label>
         <div class="col-sm-3">
@@ -36,8 +36,8 @@
           </select>
         </div>
       </div>
-    <!--</div>
-    <div *ngIf="selAktivitaeten.length > 0" >-->
+    </div>
+    <div *ngIf="selAktivitaeten.length > 0" >
       <div class="form-group row">
         <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
         <div class="col-sm-3">
@@ -48,7 +48,7 @@
           </select>
         </div>
       </div>
-    <!--</div>-->
+    </div>
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>
       <div class="col-sm-3">
@@ -62,20 +62,20 @@
     <div class="form-group commands">
       <button *ngIf="editMode" type="submit"
               [disabled]="form.invalid"
-              class="btn btn-success">
+              class="btn btn-sm btn-success">
         <i class="fas fa-save"></i>
         Speichern
       </button>
       <button *ngIf="!editMode" type="submit"
               [disabled]="form.invalid"
-              class="btn btn-success">
+              class="btn btn-sm btn-success">
         <i class="fas fa-plus-circle"></i>
         Aktivität erstellen
       </button>
-      <!--<button *ngIf="!editMode" type="submit"-->
+
       <button type="submit"
               (click)="onBack()"
-              class="btn btn-secondary">
+              class="btn btn-sm btn-secondary">
         <i class="fas fa-arrow-alt-circle-left"></i>
         Zurück
       </button>
