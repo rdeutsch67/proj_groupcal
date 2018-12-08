@@ -23,6 +23,10 @@ import {TerminEditComponent} from "./components/termin/termin-edit.component";
 import {TerminListeComponent} from "./components/termin/termin-liste.component";
 import {PlanerdataService} from "./Services/planerdata.service";
 import {KalenderComponent} from "./components/kalender/kalender.component";
+import { FlatpickrModule } from 'angularx-flatpickr';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -48,7 +52,14 @@ import {KalenderComponent} from "./components/kalender/kalender.component";
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      }
+    ),
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: GruppenListeComponent },
@@ -74,4 +85,5 @@ import {KalenderComponent} from "./components/kalender/kalender.component";
   providers: [PlanerdataService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

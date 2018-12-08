@@ -64,10 +64,14 @@
               <e p="jasminewd2" t="IncludeRecursive" />
               <e p="node" t="IncludeRecursive" />
             </e>
+            <e p="angular-calendar" t="IncludeRecursive" />
+            <e p="angularx-flatpickr" t="IncludeRecursive" />
             <e p="aspnet-prerendering" t="IncludeRecursive" />
             <e p="bootstrap" t="IncludeRecursive" />
             <e p="codelyzer" t="IncludeRecursive" />
             <e p="core-js" t="IncludeRecursive" />
+            <e p="date-fns" t="IncludeRecursive" />
+            <e p="flatpickr" t="IncludeRecursive" />
             <e p="jasmine-core" t="IncludeRecursive" />
             <e p="jasmine-spec-reporter" t="IncludeRecursive" />
             <e p="karma" t="IncludeRecursive" />
@@ -169,6 +173,13 @@
                   <e p="gruppen-liste.component.scss" t="Include" />
                   <e p="gruppen-liste.component.ts" t="Include" />
                 </e>
+                <e p="kalender" t="Include">
+                  <e p="kalender.component.css" t="Include" />
+                  <e p="kalender.component.css.map" t="Include" />
+                  <e p="kalender.component.html" t="Include" />
+                  <e p="kalender.component.scss" t="Include" />
+                  <e p="kalender.component.ts" t="Include" />
+                </e>
                 <e p="pagenotfound.component" t="Include">
                   <e p="pagenotfound.component.html" t="Include" />
                   <e p="pagenotfound.component.ts" t="Include" />
@@ -215,6 +226,9 @@
                 <e p="nav-menu.component.scss" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
+              <e p="Services" t="Include">
+                <e p="planerdata.service.ts" t="Include" />
+              </e>
             </e>
             <e p="assets" t="Include">
               <e p=".gitkeep" t="Include" />
@@ -227,6 +241,7 @@
             <e p="main.ts" t="Include" />
             <e p="polyfills.ts" t="Include" />
             <e p="styles.css" t="Include" />
+            <e p="styles.css.map" t="Include" />
             <e p="styles.scss" t="Include" />
             <e p="test.ts" t="Include" />
             <e p="tsconfig.app.json" t="Include" />
