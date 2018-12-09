@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import {PlanerdataService} from "../../Services/planerdata.service";
 
 const colors: any = {
   red: {
@@ -28,6 +29,7 @@ const colors: any = {
 
 export class KalenderComponent {
   @ViewChild('modalContent')
+
   modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -59,7 +61,7 @@ export class KalenderComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
+  /*events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -98,11 +100,34 @@ export class KalenderComponent {
       },
       draggable: true
     }
-  ];
+  ];*/
+
+  events: CalendarEvent[];
+  //events: CalendarEvent[] = [];
+  //events: CalendarEvent[] = <CalendarEvent[]>{};
+
+
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal,
+              //private events: CalendarEvent[],
+              private loadDataService: PlanerdataService) {
+
+    //this.events = <CalendarEvent[]>{};
+    this.events = this.loadDataService.loadPlanerCalenderEvents(1);
+    //this.refresh.next();
+
+  }
+
+  /*ngOnInit() {
+
+    /!*this.events = <CalendarEvent[]>{};
+    this.events = this.loadDataService.loadPlanerCalenderEvents(1);*!/
+
+  }
+*/
+
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

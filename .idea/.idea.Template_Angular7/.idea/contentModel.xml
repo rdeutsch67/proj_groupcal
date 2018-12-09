@@ -26,6 +26,7 @@
             </e>
             <e p="misc.xml" t="Include" />
             <e p="modules.xml" t="Include" />
+            <e p="vcs.xml" t="Include" />
             <e p="workspace.xml" t="Include" />
           </e>
           <e p="angular.json" t="Include" />
