@@ -122,7 +122,7 @@ export class PlanerdataService {
                   for (let i = 0; i < termine.length; i++) {
                     calEvent = <CalendarEvent>{};
                     calEvent.start = new Date(termine[i].Datum);
-                    calEvent.title = 'neuer Event' + i;
+                    calEvent.title = 'Akt-ID: '+termine[i].IdAktivitaet;
                     calEvent.color = colors.yellow;
                     terminEvents.push(calEvent);
                   }
