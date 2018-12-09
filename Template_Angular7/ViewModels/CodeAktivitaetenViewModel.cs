@@ -22,6 +22,7 @@ namespace Template_Angular7.ViewModels
         public string Code { get; set; }               
         public string Bezeichnung { get; set; }
         public bool Summieren { get; set; }
+        public string Farbe { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         #endregion

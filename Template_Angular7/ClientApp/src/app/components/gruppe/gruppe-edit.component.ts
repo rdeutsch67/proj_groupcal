@@ -79,6 +79,10 @@ export class GruppeEditComponent {
     }
   }
 
+  onShowPlaner() {
+    this.router.navigate(["kalender/"+this.gruppe.Id]);
+  }
+
   onBack() {
     this.router.navigate(["home"]);
   }

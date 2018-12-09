@@ -149,6 +149,7 @@ namespace Template_Angular7.Data
                 Code = "Ja",
                 Bezeichnung = "Jasser, Teilnehmer",
                 Summieren = false,
+                Farbe = "#f44141",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -159,6 +160,7 @@ namespace Template_Angular7.Data
                 Code = "JT",
                 Bezeichnung = "Jasser + Teilnehmer",
                 Summieren = false,
+                Farbe = "#41f46a",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -169,6 +171,7 @@ namespace Template_Angular7.Data
                 Code = "Re",
                 Bezeichnung = "Reserve, einsetzbar bei Bedarf",
                 Summieren = false,
+                Farbe = "#4141f4",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -179,6 +182,7 @@ namespace Template_Angular7.Data
                 Code = "??",
                 Bezeichnung = "Klärt noch ab",
                 Summieren = false,
+                Farbe = "#dc41f4",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });

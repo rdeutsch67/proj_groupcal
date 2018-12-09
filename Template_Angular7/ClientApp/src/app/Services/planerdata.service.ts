@@ -1,7 +1,13 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {Observable, Observer} from "rxjs";
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarUtils,
+  CalendarView
+} from 'angular-calendar';
 import {NgIf} from "@angular/common";
 import {addDays, addHours, endOfMonth, startOfDay, subDays} from "date-fns";
 
@@ -45,57 +51,16 @@ export class PlanerdataService {
   loadTermine(myID: number): Observable<Termin[]> {
     let myUrl: string;
     if (myID > 0 ) {
-      myUrl = this.baseUrl + "api/termine/alle/" + myID;
+      myUrl = this.baseUrl + "api/termine/alle/spez/" + myID;
     }
     else {
       myUrl = this.baseUrl + "api/termine/alle/0";  // alle holen
     }
 
     return this.http.get<Termin[]>(myUrl);
-
-    /*this.http.get<Termin[]>(myUrl).subscribe(res => {
-      this.termine = res;
-    }, error => console.error(error));*/
   }
 
-
-
-
-   /* this.http.get<Termin[]>(myUrl).subscribe(res => {
-      termine = res;
-      if (termine.length > 0) {
-
-          terminEvents = new Array(termine.length);
-          for(let i=0; i<termine.length; i++){
-
-            terminEvents[i].start = termine[i].Datum;
-            terminEvents[i].color = colors.yellow;
-          }
-          return terminEvents;
-
-        }
-      },
-
-      error => console.log(error)
-    );
-  }*/
-
   loadPlanerCalenderEvents(myID: number): Observable<CalendarEvent[]> {
-
-    const colors: any = {
-      red: {
-        primary: '#ad2121',
-        secondary: '#FAE3E3'
-      },
-      blue: {
-        primary: '#1e90ff',
-        secondary: '#D1E8FF'
-      },
-      yellow: {
-        primary: '#e3bc08',
-        secondary: '#FDF1BA'
-      }
-    };
 
 
     let termine: Termin[];
@@ -103,18 +68,11 @@ export class PlanerdataService {
     let terminEvents: CalendarEvent[];
     let myUrl: string;
 
-    if (myID > 0) {
-      myUrl = this.baseUrl + "api/termine/alle/" + myID;
-    }
-    else {
-      myUrl = this.baseUrl + "api/termine/alle/0";  // alle holen
-    }
-
     terminEvents = [];
 
     return Observable.create(observer => {
       setTimeout(() => {
-          this.loadTermine(1)
+          this.loadTermine(myID)
             .subscribe((data) => {
                 termine = data;
 
@@ -123,8 +81,16 @@ export class PlanerdataService {
                     calEvent = <CalendarEvent>{};
                     calEvent.start = new Date(termine[i].Datum);
                     calEvent.title = 'Akt-ID: '+termine[i].IdAktivitaet;
-                    calEvent.color = colors.yellow;
-                    terminEvents.push(calEvent);
+                    var myColors: any = {
+                      myTerminColor: {
+                        primary: termine[i].Farbe,
+                        secondary: termine[i].Farbe
+                      }
+                    };
+                    calEvent.color = myColors.myTerminColor;
+                    calEvent.title = termine[i].Bezeichnung;
+
+                    terminEvents.push(calEvent);  // zum Array hinzufügen
                   }
                   observer.next(terminEvents);
                   observer.complete();

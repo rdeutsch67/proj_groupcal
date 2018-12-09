@@ -3,4 +3,6 @@ interface Code_aktivitaet {
   Code: string;
   Bezeichnung: string;
   GruppenId: number;
+  Summieren: boolean;
+  Farbe: string;
 }

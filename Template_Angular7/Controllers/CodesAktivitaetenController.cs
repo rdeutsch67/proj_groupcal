@@ -64,6 +64,7 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Code = model.Code;
             codeAktivitaet.Bezeichnung = model.Bezeichnung;
             codeAktivitaet.Summieren = model.Summieren;
+            codeAktivitaet.Farbe = model.Farbe;
             // properties set from server-side
             codeAktivitaet.CreatedDate = DateTime.Now;
             codeAktivitaet.LastModifiedDate = codeAktivitaet.CreatedDate;
@@ -109,6 +110,7 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Code = model.Code;
             codeAktivitaet.Bezeichnung = model.Bezeichnung;
             codeAktivitaet.Summieren = model.Summieren;
+            codeAktivitaet.Farbe = model.Farbe;
             // properties set from server-side
             codeAktivitaet.LastModifiedDate = codeAktivitaet.CreatedDate;
             

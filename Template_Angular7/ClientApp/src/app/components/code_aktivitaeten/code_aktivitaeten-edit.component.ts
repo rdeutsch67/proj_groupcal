@@ -54,6 +54,7 @@ export class Code_aktivitaetenEditComponent {
     tempAkt.Code = this.form.value.Code;
     tempAkt.Bezeichnung = this.form.value.Bezeichnung;
     tempAkt.GruppenId = this.code_aktivitaet.GruppenId;
+    tempAkt.Farbe = this.form.value.Farbe;
 
     let url = this.baseUrl + "api/codesaktivitaeten";
     if (this.editMode) {
@@ -86,14 +87,16 @@ export class Code_aktivitaetenEditComponent {
   createForm() {
     this.form = this.fb.group({
       Code: ['', Validators.required],
-      Bezeichnung: ''
+      Bezeichnung: '',
+      Farbe: ''
     });
   }
 
   updateForm() {
     this.form.setValue({
       Code: this.code_aktivitaet.Code,
-      Bezeichnung: this.code_aktivitaet.Bezeichnung || ''
+      Bezeichnung: this.code_aktivitaet.Bezeichnung || '',
+      Farbe: this.code_aktivitaet.Farbe
     });
   }
 }

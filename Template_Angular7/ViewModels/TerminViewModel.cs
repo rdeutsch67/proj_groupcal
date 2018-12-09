@@ -23,6 +23,11 @@ namespace Template_Angular7.ViewModels
         public int IdAktivitaet { get; set; }
         public DateTime Datum { get; set; }
         public string Hinweis { get; set; }             
+        
+        public string Farbe { get; set; }
+        public string Code { get; set; }
+        public string Bezeichnung { get; set; }
+        
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         #endregion

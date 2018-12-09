@@ -7,6 +7,7 @@ using System.Linq;
 using Template_Angular7.Data;
 using Template_Angular7.Controllers;
 using Mapster;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Template_Angular7.Controllers
 {
@@ -180,6 +181,31 @@ namespace Template_Angular7.Controllers
                     JsonSettings);
             }
             
+            
+        }
+        
+        // GET api/termine/spez
+        [HttpGet("alle/spez/{idGruppe}")]
+        public IActionResult spez(int idGruppe)
+        {
+            var query = (from ut in DbContext.Termine
+                join ua in DbContext.CodesAktivitaeten on ut.IdAktivitaet equals ua.Id
+                where ut.IdGruppe == idGruppe
+                select new
+                {
+                    ut.Id,
+                    ut.IdGruppe,
+                    ut.IdTeilnehmer,
+                    ut.IdAktivitaet,
+                    ut.Datum,
+                    ut.Hinweis,
+                    ua.Farbe,
+                    ua.Code,
+                    ua.Bezeichnung
+                }).ToList();
+            return new JsonResult(
+                query.Adapt<TerminViewModel[]>(),
+                JsonSettings);
             
         }
     }

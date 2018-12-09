@@ -45,7 +45,7 @@ export class TerminListeComponent implements OnChanges {
   loadData(myID: number) {
     let myUrl: string;
     if (myID > 0 ) {
-      myUrl = this.baseUrl + "api/termine/alle/" + this.myGruppe.Id;
+      myUrl = this.baseUrl + "api/termine/alle/spez/" + this.myGruppe.Id;
     }
     else {
       myUrl = this.baseUrl + "api/termine/alle/0";  // alle holen

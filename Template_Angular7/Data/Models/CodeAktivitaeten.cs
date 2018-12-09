@@ -28,6 +28,9 @@ namespace Template_Angular7.Data
         [Required]
         public string Bezeichnung { get; set; }
         
+        [Required]
+        public string Farbe { get; set; }
+        
         [DefaultValue(0)]
         public bool Summieren { get; set; }
         [Required]
