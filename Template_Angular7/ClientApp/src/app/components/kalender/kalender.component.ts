@@ -108,14 +108,19 @@ export class KalenderComponent {
 
 
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   constructor(private modal: NgbModal,
               //private events: CalendarEvent[],
               private loadDataService: PlanerdataService) {
 
     //this.events = <CalendarEvent[]>{};
-    this.events = this.loadDataService.loadPlanerCalenderEvents(1);
+    this.loadDataService.loadPlanerCalenderEvents(1).subscribe(res => {
+        this.events = res;
+        this.refresh.next();
+      },
+      error => console.error(error)
+    )
     //this.refresh.next();
 
   }

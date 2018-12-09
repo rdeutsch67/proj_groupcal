@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {Observable, Observer} from "rxjs";
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import {NgIf} from "@angular/common";
 import {addDays, addHours, endOfMonth, startOfDay, subDays} from "date-fns";
@@ -80,7 +80,7 @@ export class PlanerdataService {
     );
   }*/
 
-  loadPlanerCalenderEvents(myID: number): CalendarEvent[] {
+  loadPlanerCalenderEvents(myID: number): Observable<CalendarEvent[]> {
 
     const colors: any = {
       red: {
@@ -100,10 +100,10 @@ export class PlanerdataService {
 
     let termine: Termin[];
     let calEvent: CalendarEvent;
-    let terminEvents:CalendarEvent[];
+    let terminEvents: CalendarEvent[];
     let myUrl: string;
 
-    if (myID > 0 ) {
+    if (myID > 0) {
       myUrl = this.baseUrl + "api/termine/alle/" + myID;
     }
     else {
@@ -111,28 +111,30 @@ export class PlanerdataService {
     }
 
     terminEvents = [];
-    this.loadTermine(1)
-      .subscribe( (data) => {
-          termine = data;
-          if (termine.length > 0) {
 
+    return Observable.create(observer => {
+      setTimeout(() => {
+          this.loadTermine(1)
+            .subscribe((data) => {
+                termine = data;
 
-            for(let i=0; i<termine.length; i++){
+                if (termine.length > 0) {
+                  for (let i = 0; i < termine.length; i++) {
+                    calEvent = <CalendarEvent>{};
+                    calEvent.start = new Date(termine[i].Datum);
+                    calEvent.title = 'neuer Event' + i;
+                    calEvent.color = colors.yellow;
+                    terminEvents.push(calEvent);
+                  }
+                  observer.next(terminEvents);
+                  observer.complete();
+                }
+              }
+            );
 
-              calEvent = <CalendarEvent>{};
-              calEvent.start = new Date(termine[i].Datum);
-              calEvent.title = 'neuer Event'+i;
-              calEvent.color = colors.yellow;
-              terminEvents.push(calEvent);
-
-            }
-            return terminEvents;
-
-          }
-        }
-      );
-
-    return terminEvents;
+        },10);
+      }
+    );
   }
 
 }
