@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule} from "ngx-bootstrap";
 
+import {LOCALE_ID} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDECH from '@angular/common/locales/de-CH';
+
 
 import {GruppenListeComponent} from "./components/gruppe/gruppen-liste.component";
 import {GruppeComponent} from "./components/gruppe/gruppe.component";
@@ -27,6 +31,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+registerLocaleData(localeDECH);
 
 @NgModule({
   declarations: [
@@ -67,14 +73,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       { path: 'gruppen/create', component: GruppeEditComponent},
       { path: 'gruppen/edit/:id', component: GruppeEditComponent},
       { path: 'gruppen/:id', component: GruppeComponent},
-      { path: 'codesaktivitaeten/alle/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
+      { path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
       { path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
       { path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},
-      { path: 'codesaktivitaeten/alle/0', component: Code_aktivitaetenListeComponent }, // alle Codes anzeigen
+      { path: 'codesaktivitaeten/vaktivitaeten/0', component: Code_aktivitaetenListeComponent }, // alle Codes anzeigen
       { path: 'teilnehmer/alle/:id', component: TeilnehmerListeComponent },
+      { path: 'teilnehmer/vteilnehmer/:id', component: TeilnehmerListeComponent },
       { path: 'teilnehmer/create/:id', component: TeilnehmerEditComponent },
       { path: 'teilnehmer/edit/:id', component: TeilnehmerEditComponent },
-      { path: 'termine/alle/:id', component: TerminListeComponent },
+      { path: 'termine/vtermine/:id', component: TerminListeComponent },
       { path: 'termine/create/:id', component: TerminEditComponent },
       { path: 'termine/edit/:id', component: TerminEditComponent },
       { path: 'kalender/:id', component: KalenderComponent },
@@ -82,7 +89,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       { path: '**', component: PageNotFoundComponent }
     ])
   ],
-  providers: [PlanerdataService],
+  providers: [PlanerdataService,
+    { provide: LOCALE_ID, useValue: 'de-ch' }],
   bootstrap: [AppComponent]
 })
 

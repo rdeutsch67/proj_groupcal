@@ -31,6 +31,21 @@ export class PlanerdataService {
     return this.http.get<Teilnehmer[]>(myUrl);
   }
 
+  loadVTeilnehmer(id: number): Observable<VTeilnehmer[]> {
+
+    let myUrl: string;
+    if (id > 0 ) {
+      myUrl = this.baseUrl + "api/teilnehmer/vteilnehmer/" + id;
+    }
+    else {
+      myUrl = this.baseUrl + "api/teilnehmer/vteilnehmer/0";  // alle holen
+    }
+
+    return this.http.get<VTeilnehmer[]>(myUrl);
+  }
+
+
+
   loadAktiviaeten(id: number): Observable<Code_aktivitaet[]> {
     let myUrl: string;
     if (id > 0 ) {
@@ -51,10 +66,10 @@ export class PlanerdataService {
   loadTermine(myID: number): Observable<Termin[]> {
     let myUrl: string;
     if (myID > 0 ) {
-      myUrl = this.baseUrl + "api/termine/alle/spez/" + myID;
+      myUrl = this.baseUrl + "api/termine/vtermine/" + myID;
     }
     else {
-      myUrl = this.baseUrl + "api/termine/alle/0";  // alle holen
+      myUrl = this.baseUrl + "api/termine/vtermine/0";  // alle holen
     }
 
     return this.http.get<Termin[]>(myUrl);
@@ -80,15 +95,14 @@ export class PlanerdataService {
                   for (let i = 0; i < termine.length; i++) {
                     calEvent = <CalendarEvent>{};
                     calEvent.start = new Date(termine[i].Datum);
-                    calEvent.title = 'Akt-ID: '+termine[i].IdAktivitaet;
                     var myColors: any = {
                       myTerminColor: {
-                        primary: termine[i].Farbe,
-                        secondary: termine[i].Farbe
+                        primary: termine[i].AktFarbe,
+                        secondary: termine[i].AktFarbe
                       }
                     };
                     calEvent.color = myColors.myTerminColor;
-                    calEvent.title = termine[i].Bezeichnung;
+                    calEvent.title = termine[i].TnVorname + " " + termine[i].TnNachname + ": " + termine[i].AktBezeichnung;
 
                     terminEvents.push(calEvent);  // zum Array hinzufügen
                   }

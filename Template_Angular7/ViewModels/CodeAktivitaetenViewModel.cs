@@ -23,6 +23,12 @@ namespace Template_Angular7.ViewModels
         public string Bezeichnung { get; set; }
         public bool Summieren { get; set; }
         public string Farbe { get; set; }
+        
+        public string GruppeCode { get; set; }
+        public string GruppeBezeichnung { get; set; }
+        public string GruppeUserId { get; set; }
+        public bool GruppeAktiv { get; set; }
+        
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         #endregion

@@ -179,5 +179,54 @@ namespace Template_Angular7.Controllers
             
             
         }
+        
+        // GET api/teilnehmer/vteilnehmer
+        [HttpGet("vteilnehmer/{idGruppe}")]
+        public IActionResult vteilnehmer(int idGruppe)
+        {
+
+            if (idGruppe > 0)
+            {
+                var query = (from ut in DbContext.Teilnehmer
+                    join ug in DbContext.Gruppen on ut.GruppenId equals ug.Id
+                    where ut.GruppenId == idGruppe
+                    select new
+                    {
+                        ut.Id,
+                        ut.GruppenId,
+                        ut.Vorname,
+                        ut.Nachname,
+                        ut.Berechtigungen,
+                        GruppeCode = ug.Code,
+                        GruppeBezeichnung = ug.Bezeichnung,
+                        GruppeUserId = ug.UserId,
+                        GruppeAktiv = ug.Aktiv
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<TeilnehmerViewModel[]>(),
+                    JsonSettings); 
+            }
+            else
+            {
+                var query = (from ut in DbContext.Teilnehmer
+                    join ug in DbContext.Gruppen on ut.GruppenId equals ug.Id
+                    select new
+                    {
+                        ut.Id,
+                        ut.GruppenId,
+                        ut.Vorname,
+                        ut.Nachname,
+                        ut.Berechtigungen,
+                        GruppeCode = ug.Code,
+                        GruppeBezeichnung = ug.Bezeichnung,
+                        GruppeUserId = ug.UserId,
+                        GruppeAktiv = ug.Aktiv
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<TeilnehmerViewModel[]>(),
+                    JsonSettings);
+            }
+            
+        }
     }
 }

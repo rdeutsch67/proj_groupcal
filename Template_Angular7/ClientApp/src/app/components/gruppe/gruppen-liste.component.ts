@@ -53,6 +53,10 @@ export class GruppenListeComponent {
     this.router.navigate(["gruppen/create"]);
   }
 
+  onShowPlaner(gruppe : Gruppe){
+    this.router.navigate(["kalender/"+ gruppe.Id]);
+  }
+
   onEdit(gruppe : Gruppe) {
     this.onSelect(gruppe);
   }

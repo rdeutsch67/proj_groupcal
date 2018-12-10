@@ -1,10 +1,11 @@
-import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, Input} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import {PlanerdataService} from "../../Services/planerdata.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { CalendarDatePipe} from "angular-calendar/modules/common/calendar-date.pipe";
 
 const colors: any = {
   red: {
@@ -31,9 +32,17 @@ const colors: any = {
 export class KalenderComponent {
   @ViewChild('modalContent')
 
+  events: CalendarEvent[] = [];
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
+
   modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
+
+  locale: string = 'de-ch';
 
   CalendarView = CalendarView;
 
@@ -63,6 +72,9 @@ export class KalenderComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[];
+
+
+
 
   activeDayIsOpen: boolean = false;
 
