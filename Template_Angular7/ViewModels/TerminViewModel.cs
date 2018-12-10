@@ -21,7 +21,8 @@ namespace Template_Angular7.ViewModels
         public int IdGruppe { get; set; }
         public int IdTeilnehmer { get; set; }
         public int IdAktivitaet { get; set; }
-        public DateTime Datum { get; set; }
+        public DateTime DatumBeginn { get; set; }
+        public DateTime DatumEnde { get; set; }
         public string Hinweis { get; set; }             
         
         public string AktFarbe { get; set; }

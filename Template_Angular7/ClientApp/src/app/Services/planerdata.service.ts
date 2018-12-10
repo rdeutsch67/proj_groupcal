@@ -81,7 +81,6 @@ export class PlanerdataService {
     let termine: Termin[];
     let calEvent: CalendarEvent;
     let terminEvents: CalendarEvent[];
-    let myUrl: string;
 
     terminEvents = [];
 
@@ -94,7 +93,8 @@ export class PlanerdataService {
                 if (termine.length > 0) {
                   for (let i = 0; i < termine.length; i++) {
                     calEvent = <CalendarEvent>{};
-                    calEvent.start = new Date(termine[i].Datum);
+                    calEvent.start = new Date(termine[i].DatumBeginn);
+                    calEvent.end  = new Date(termine[i].DatumEnde);
                     var myColors: any = {
                       myTerminColor: {
                         primary: termine[i].AktFarbe,

@@ -16,7 +16,7 @@ namespace Template_Angular7.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Template_Angular7.Data.ApplicationUser", b =>
@@ -138,7 +138,9 @@ namespace Template_Angular7.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("Datum");
+                    b.Property<DateTime>("DatumBeginn");
+
+                    b.Property<DateTime>("DatumEnde");
 
                     b.Property<string>("Hinweis");
 
