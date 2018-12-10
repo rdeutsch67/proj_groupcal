@@ -67,14 +67,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       { path: 'gruppen/create', component: GruppeEditComponent},
       { path: 'gruppen/edit/:id', component: GruppeEditComponent},
       { path: 'gruppen/:id', component: GruppeComponent},
-      { path: 'codesaktivitaeten/alle/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
+      { path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
       { path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
       { path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},
-      { path: 'codesaktivitaeten/alle/0', component: Code_aktivitaetenListeComponent }, // alle Codes anzeigen
+      { path: 'codesaktivitaeten/vaktivitaeten/0', component: Code_aktivitaetenListeComponent }, // alle Codes anzeigen
       { path: 'teilnehmer/alle/:id', component: TeilnehmerListeComponent },
+      { path: 'teilnehmer/vteilnehmer/:id', component: TeilnehmerListeComponent },
       { path: 'teilnehmer/create/:id', component: TeilnehmerEditComponent },
       { path: 'teilnehmer/edit/:id', component: TeilnehmerEditComponent },
-      { path: 'termine/alle/:id', component: TerminListeComponent },
+      { path: 'termine/vtermine/:id', component: TerminListeComponent },
       { path: 'termine/create/:id', component: TerminEditComponent },
       { path: 'termine/edit/:id', component: TerminEditComponent },
       { path: 'kalender/:id', component: KalenderComponent },

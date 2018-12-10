@@ -4,9 +4,11 @@
     <table class="table table-hover gruppen">
       <thead>
       <tr>
+        <th></th>
         <th>Id</th>
         <th>Code</th>
-        <th>Text</th>
+        <th>Bezeichnung</th>
+        <th>Aktiv</th>
         <th></th>
         <th></th>
       </tr>
@@ -15,9 +17,18 @@
       <tr *ngFor="let gruppe of gruppen"
           [class.selected]="gruppe === selectedGruppe"
           (click)="onSelect(gruppe)">
+        <td>
+          <button type="submit"
+                  (click)="onShowPlaner(gruppe)"
+                  class="btn btn-sm btn-primary">
+            <i class="fas fa-calendar-alt"></i>
+            Zeige Planer
+          </button>
+        </td>
         <td>{{gruppe.Id}}</td>
         <td>{{gruppe.Code}}</td>
         <td>{{gruppe.Bezeichnung}}</td>
+        <td>{{gruppe.Aktiv}}</td>
         <td>
           <button type="submit"
                   (click)="onEdit(gruppe)"
@@ -47,3 +58,5 @@
 </div>
 
 <!--<gruppe *ngIf="selectedGruppe" [gruppe]="selectedGruppe"></gruppe>-->
+
+

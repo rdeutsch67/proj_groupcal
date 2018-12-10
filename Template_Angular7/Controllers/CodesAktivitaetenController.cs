@@ -153,7 +153,7 @@ namespace Template_Angular7.Controllers
         }
         #endregion
         
-        // GET api/gruppen/alle
+        // GET api/codesaktivitaeten/alle
         [HttpGet("alle/{gruppenId}")]
         public IActionResult alle(int gruppenId)
         {
@@ -177,6 +177,54 @@ namespace Template_Angular7.Controllers
                     JsonSettings);
             }
             
+            
+        }
+        
+        // GET api/codesaktivitaeten/vaktivitaeten
+        [HttpGet("vaktivitaeten/{idGruppe}")]
+        public IActionResult vaktivitaeten(int idGruppe)
+        {
+            if (idGruppe > 0)
+            {
+                var query = (from ut in DbContext.CodesAktivitaeten
+                    join ug in DbContext.Gruppen on ut.GruppenId equals ug.Id
+                    where ut.GruppenId == idGruppe
+                    select new
+                    {
+                        ut.Id,
+                        ut.GruppenId,
+                        ut.Code,
+                        ut.Bezeichnung,
+                        ut.Summieren,
+                        GruppeCode = ug.Code,
+                        GruppeBezeichnung = ug.Bezeichnung,
+                        GruppeUserId = ug.UserId,
+                        GruppeAktiv = ug.Aktiv
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<CodeAktivitaetenViewModel[]>(),
+                    JsonSettings); 
+            }
+            else
+            {
+                var query = (from ut in DbContext.CodesAktivitaeten
+                    join ug in DbContext.Gruppen on ut.GruppenId equals ug.Id
+                    select new
+                    {
+                        ut.Id,
+                        ut.GruppenId,
+                        ut.Code,
+                        ut.Bezeichnung,
+                        ut.Summieren,
+                        GruppeCode = ug.Code,
+                        GruppeBezeichnung = ug.Bezeichnung,
+                        GruppeUserId = ug.UserId,
+                        GruppeAktiv = ug.Aktiv
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<CodeAktivitaetenViewModel[]>(),
+                    JsonSettings); 
+            }
             
         }
     }

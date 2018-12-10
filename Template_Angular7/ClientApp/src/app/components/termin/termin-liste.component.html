@@ -6,9 +6,9 @@
       <tr>
         <th>ID</th>
         <th>Datum</th>
-        <th>IdGruppe</th>
-        <th>IdTeilnehmer</th>
-        <th>IdAktivität</th>
+        <th>Gruppe</th>
+        <th>Teilnehmer</th>
+        <th>Aktivität</th>
         <th>Hinweis</th>
         <th></th>
         <th></th>
@@ -18,9 +18,9 @@
       <tr *ngFor="let termin of termine">
         <td>{{termin.Id}}</td>
         <td>{{termin.Datum | date: 'dd.MM.yyyy'}}</td>
-        <td>{{termin.IdGruppe}}</td>
-        <td>{{termin.IdTeilnehmer}}</td>
-        <td>{{termin.IdAktivitaet}}</td>
+        <td>{{termin.GrpCode}}</td>
+        <td>{{termin.TnVorname}} {{termin.TnNachname}}</td>
+        <td>{{termin.AktCode}}</td>
         <td>{{termin.Hinweis}}</td>
         <td>
           <button type="submit"

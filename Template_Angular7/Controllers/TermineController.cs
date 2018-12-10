@@ -7,6 +7,7 @@ using System.Linq;
 using Template_Angular7.Data;
 using Template_Angular7.Controllers;
 using Mapster;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Template_Angular7.Controllers
@@ -185,27 +186,82 @@ namespace Template_Angular7.Controllers
         }
         
         // GET api/termine/spez
-        [HttpGet("alle/spez/{idGruppe}")]
-        public IActionResult spez(int idGruppe)
+        [HttpGet("vtermine/{idGruppe}")]
+        public IActionResult vtermine(int idGruppe)
         {
-            var query = (from ut in DbContext.Termine
-                join ua in DbContext.CodesAktivitaeten on ut.IdAktivitaet equals ua.Id
-                where ut.IdGruppe == idGruppe
-                select new
-                {
-                    ut.Id,
-                    ut.IdGruppe,
-                    ut.IdTeilnehmer,
-                    ut.IdAktivitaet,
-                    ut.Datum,
-                    ut.Hinweis,
-                    ua.Farbe,
-                    ua.Code,
-                    ua.Bezeichnung
-                }).ToList();
-            return new JsonResult(
-                query.Adapt<TerminViewModel[]>(),
-                JsonSettings);
+            if (idGruppe > 0)
+            {
+                var query = (from ut in DbContext.Termine
+                             from ua in DbContext.CodesAktivitaeten.Where(x => x.Id == ut.IdAktivitaet).DefaultIfEmpty()
+                             from uu in DbContext.Teilnehmer.Where(x => x.Id == ut.IdTeilnehmer).DefaultIfEmpty()
+                             from ug in DbContext.Gruppen.Where(x => x.Id == ut.IdGruppe).DefaultIfEmpty()
+                             where ut.IdGruppe == idGruppe
+                             select new
+                             {
+                                 ut.Id,
+                                 ut.IdGruppe,
+                                 ut.IdTeilnehmer,
+                                 ut.IdAktivitaet,
+                                 ut.Datum,
+                                 ut.Hinweis,
+                                 AktFarbe = ua.Farbe,
+                                 AktCode = ua.Code,
+                                 AktBezeichnung = ua.Bezeichnung,
+                                 AktSummieren = ua.Summieren,
+                                 TnVorname = uu.Vorname,
+                                 TnNachname = uu.Nachname,
+                                 GrpCode = ug.Code,
+                                 GrpBezeichnung = ug.Bezeichnung
+                             }).ToList();
+                return new JsonResult(
+                    query.Adapt<TerminViewModel[]>(),
+                    JsonSettings);    
+            }
+            else
+            {
+                var query = (from ut in DbContext.Termine
+                             from ua in DbContext.CodesAktivitaeten.Where(x => x.Id == ut.IdAktivitaet).DefaultIfEmpty()
+                             from uu in DbContext.Teilnehmer.Where(x => x.Id == ut.IdTeilnehmer).DefaultIfEmpty()
+                             from ug in DbContext.Gruppen.Where(x => x.Id == ut.IdGruppe).DefaultIfEmpty()
+                    select new
+                    {
+                        ut.Id,
+                        ut.IdGruppe,
+                        ut.IdTeilnehmer,
+                        ut.IdAktivitaet,
+                        ut.Datum,
+                        ut.Hinweis,
+                        AktFarbe = ua.Farbe,
+                        AktCode = ua.Code,
+                        AktBezeichnung = ua.Bezeichnung,
+                        AktSummieren = ua.Summieren,
+                        TnVorname = uu.Vorname,
+                        TnNachname = uu.Nachname,
+                        GrpCode = ug.Code,
+                        GrpBezeichnung = ug.Bezeichnung
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<TerminViewModel[]>(),
+                    JsonSettings);
+                
+                /*var query = (from ut in DbContext.Termine
+                    join ua in DbContext.CodesAktivitaeten on ut.IdAktivitaet equals ua.Id
+                    select new
+                    {
+                        ut.Id,
+                        ut.IdGruppe,
+                        ut.IdTeilnehmer,
+                        ut.IdAktivitaet,
+                        ut.Datum,
+                        ut.Hinweis,
+                        ua.Farbe,
+                        ua.Code,
+                        ua.Bezeichnung
+                    }).ToList();
+                return new JsonResult(
+                    query.Adapt<TerminViewModel[]>(),
+                    JsonSettings);*/
+            }
             
         }
     }

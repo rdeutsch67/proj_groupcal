@@ -6,8 +6,9 @@
       <thead>
       <tr>
         <th>Code</th>
-        <th>Text</th>
-        <th>GruppenId</th>
+        <th>Bezeichnung</th>
+        <th>Gruppe</th>
+        <!--<th>Gruppe Id</th>-->
         <th></th>
         <th></th>
       </tr>
@@ -16,7 +17,8 @@
       <tr *ngFor="let aktivitaet of code_aktivitaeten">
         <td>{{aktivitaet.Code}}</td>
         <td>{{aktivitaet.Bezeichnung}}</td>
-        <td>{{aktivitaet.GruppenId}}</td>
+        <td>{{aktivitaet.GruppeCode}}</td>
+        <!--<td>{{aktivitaet.GruppenId}}</td>-->
         <td>
           <button type="submit"
                   (click)="onEdit(aktivitaet)"

@@ -53,6 +53,7 @@ export class GruppeEditComponent {
     tempGruppe.Code = this.form.value.Code;
     tempGruppe.Bezeichnung = this.form.value.Bezeichnung;
     tempGruppe.Beschreibung = this.form.value.Beschreibung;
+    tempGruppe.Aktiv = this.form.value.Aktiv;
 
     var url = this.baseUrl + "api/gruppen";
     if (this.editMode) {
@@ -64,7 +65,7 @@ export class GruppeEditComponent {
         .subscribe(res => {
           this.gruppe = res;
           console.log("Gruppe " + this.gruppe.Id + " wurde mutiert.");
-          this.router.navigate(["home"]);
+          //this.router.navigate(["home"]);
         }, error => console.log(error));
     }
     else {  // neue Gruppe erstellen
@@ -91,7 +92,8 @@ export class GruppeEditComponent {
     this.form = this.fb.group({
       Code: ['', Validators.required],
       Bezeichnung: '',
-      Beschreibung: ''
+      Beschreibung: '',
+      Aktiv: false
     });
   }
 
@@ -100,6 +102,7 @@ export class GruppeEditComponent {
       Code: this.gruppe.Code,
       Bezeichnung: this.gruppe.Bezeichnung || '',
       Beschreibung: this.gruppe.Beschreibung || ''
+      Aktiv: this.gruppe.Aktiv
     });
   }
 }

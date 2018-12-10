@@ -22,8 +22,16 @@ namespace Template_Angular7.ViewModels
         public string Vorname { get; set; }               
         public string Nachname { get; set; }
         public int Berechtigungen { get; set; }
+        
+        // Gruppeninfo
+        public string GruppeCode { get; set; }
+        public string GruppeBezeichnung { get; set; }
+        public string GruppeUserId { get; set; }
+        public bool GruppeAktiv { get; set; }
+        
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         #endregion
     }
 }
+

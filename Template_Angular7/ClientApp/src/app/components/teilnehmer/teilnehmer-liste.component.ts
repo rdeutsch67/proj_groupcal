@@ -1,6 +1,8 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import {PlanerdataService} from "../../Services/planerdata.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: "teilnehmer-liste",
@@ -10,13 +12,14 @@ import { HttpClient } from "@angular/common/http";
 
 export class TeilnehmerListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
-  myTeilnehmer: Teilnehmer[];
+  myTeilnehmer: VTeilnehmer[];
   title: string;
   showAllData: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
+              private dataService: PlanerdataService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Teilnehmer";
@@ -24,8 +27,8 @@ export class TeilnehmerListeComponent implements OnChanges {
 
     let id = +this.activatedRoute.snapshot.params["id"];  // Id der Gruppe
     this.showAllData = id <= 0;
-    if (id <= 0) {
-      this.loadData(id);
+    if (this.showAllData) {
+      this.loadVTeilnehmer(0);
     }
   }
 
@@ -37,12 +40,12 @@ export class TeilnehmerListeComponent implements OnChanges {
       // only perform the task if the value has been changed
       //if (!change.isFirstChange()) {
       // execute the Http request and retrieve the result
-      this.loadData(this.myGruppe.Id);
+      this.loadVTeilnehmer(this.myGruppe.Id);
       //}
     }
   }
 
-  loadData(id: number) {
+  /*loadData(id: number) {
     let myUrl: string;
     if (id > 0 ) {
       myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
@@ -55,6 +58,14 @@ export class TeilnehmerListeComponent implements OnChanges {
       this.myTeilnehmer = res;
     },
         error => console.error(error));
+  }*/
+
+  loadVTeilnehmer(id: number) {
+
+    this.dataService.loadVTeilnehmer(id).subscribe( res => {
+      this.myTeilnehmer = res;
+    },
+      error => console.error(error));
   }
 
   onCreate() {
@@ -73,7 +84,7 @@ export class TeilnehmerListeComponent implements OnChanges {
         .subscribe(res => {
           console.log("Teilnehmer " + myTeilnehmer.Id + " wurde gelöscht.");
           // refresh the question list
-          this.loadData(0);
+          this.loadVTeilnehmer(0);
         }, error => console.log(error));
     }
   }

@@ -10,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 
 export class Code_aktivitaetenListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
-  code_aktivitaeten: Code_aktivitaet[];
+  code_aktivitaeten: VCode_aktivitaet[];
   title: string;
   showAllData: boolean;
 
@@ -45,13 +45,13 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   loadData(myID: number) {
     let myUrl: string;
     if (myID > 0 ) {
-      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/" + this.myGruppe.Id;
+      myUrl = this.baseUrl + "api/codesaktivitaeten/vaktivitaeten/" + this.myGruppe.Id;
     }
     else {
-      myUrl = this.baseUrl + "api/codesaktivitaeten/alle/0";  // alle holen
+      myUrl = this.baseUrl + "api/codesaktivitaeten/vaktivitaeten/0";  // alle holen
     }
 
-    this.http.get<Code_aktivitaet[]>(myUrl).subscribe(res => {
+    this.http.get<VCode_aktivitaet[]>(myUrl).subscribe(res => {
       this.code_aktivitaeten = res;
     }, error => console.error(error));
   }

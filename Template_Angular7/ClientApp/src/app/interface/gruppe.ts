@@ -3,4 +3,5 @@ interface Gruppe {
     Code: string;
     Bezeichnung: string;
     Beschreibung: string;
+    Aktiv: boolean;
 }

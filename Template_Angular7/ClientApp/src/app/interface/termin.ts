@@ -5,7 +5,15 @@ interface Termin {
   IdAktivitaet: number;
   Datum: Date,
   Hinweis: string;
-  Farbe: string;
-  Code: string;
-  Bezeichnung: string;
+
+  AktFarbe: string;
+  AktCode: string;
+  AktBezeichnung: string;
+  AktSummieren: boolean;
+
+  TnVorname: string;
+  TnNachname: string;
+
+  GrpCode: string;
+  GrpBezeichnung: string;
 }
