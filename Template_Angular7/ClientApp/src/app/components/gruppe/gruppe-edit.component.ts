@@ -101,7 +101,7 @@ export class GruppeEditComponent {
     this.form.setValue({
       Code: this.gruppe.Code,
       Bezeichnung: this.gruppe.Bezeichnung || '',
-      Beschreibung: this.gruppe.Beschreibung || ''
+      Beschreibung: this.gruppe.Beschreibung || '',
       Aktiv: this.gruppe.Aktiv
     });
   }
