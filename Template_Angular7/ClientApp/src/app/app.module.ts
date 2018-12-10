@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule} from "ngx-bootstrap";
 
+import {LOCALE_ID} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDECH from '@angular/common/locales/de-CH';
+
 
 import {GruppenListeComponent} from "./components/gruppe/gruppen-liste.component";
 import {GruppeComponent} from "./components/gruppe/gruppe.component";
@@ -27,6 +31,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+registerLocaleData(localeDECH);
 
 @NgModule({
   declarations: [
@@ -83,7 +89,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       { path: '**', component: PageNotFoundComponent }
     ])
   ],
-  providers: [PlanerdataService],
+  providers: [PlanerdataService,
+    { provide: LOCALE_ID, useValue: 'de-ch' }],
   bootstrap: [AppComponent]
 })
 

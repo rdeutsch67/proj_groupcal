@@ -7,13 +7,13 @@
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="activeDayIsOpen = false">
-        Zurück
+        Previous
       </div>
       <div
         class="btn btn-outline-secondary"
         mwlCalendarToday
         [(viewDate)]="viewDate">
-        Heute
+        Today
       </div>
       <div
         class="btn btn-primary"
@@ -21,34 +21,32 @@
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="activeDayIsOpen = false">
-        Vor
+        Next
       </div>
     </div>
   </div>
-
   <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale  }}</h3>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
   </div>
-
   <div class="col-md-4">
     <div class="btn-group">
       <div
         class="btn btn-primary"
         (click)="view = CalendarView.Month"
         [class.active]="view === CalendarView.Month">
-        Monat
+        Month
       </div>
       <div
         class="btn btn-primary"
         (click)="view = CalendarView.Week"
         [class.active]="view === CalendarView.Week">
-        Woche
+        Week
       </div>
       <div
         class="btn btn-primary"
         (click)="view = CalendarView.Day"
         [class.active]="view === CalendarView.Day">
-        Tag
+        Day
       </div>
     </div>
   </div>
@@ -60,8 +58,6 @@
     [viewDate]="viewDate"
     [events]="events"
     [locale]="locale"
-    [weekStartsOn]="weekStartsOn"
-    [weekendDays]="weekendDays"
     [refresh]="refresh"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
@@ -73,11 +69,11 @@
     [viewDate]="viewDate"
     [events]="events"
     [locale]="locale"
-    [weekStartsOn]="weekStartsOn"
-    [weekendDays]="weekendDays"
     [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)">
+    [weekStartsOn]="weekStartsOn"
+    [weekendDays]="weekendDays">
   </mwl-calendar-week-view>
   <mwl-calendar-day-view
     *ngSwitchCase="CalendarView.Day"
@@ -90,5 +86,87 @@
   </mwl-calendar-day-view>
 </div>
 
+<br><br><br>
 
+<h3>
+  Edit events
+  <button
+    class="btn btn-primary pull-right"
+    (click)="addEvent()">
+    Add new
+  </button>
+  <div class="clearfix"></div>
+</h3>
 
+<table class="table table-bordered">
+
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Primary color</th>
+    <th>Secondary color</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
+    <th>Remove</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let event of events; let index = index">
+    <td>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="event.title"
+        (keyup)="refresh.next()">
+    </td>
+    <td>
+      <input
+        type="color"
+        [(ngModel)]="event.color.primary"
+        (change)="refresh.next()">
+    </td>
+    <td>
+      <input
+        type="color"
+        [(ngModel)]="event.color.secondary"
+        (change)="refresh.next()">
+    </td>
+    <td>
+      <input
+        class="form-control"
+        type="text"
+        mwlFlatpickr
+        [(ngModel)]="event.start"
+        (ngModelChange)="refresh.next()"
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        placeholder="Not set">
+    </td>
+    <td>
+      <input
+        class="form-control"
+        type="text"
+        mwlFlatpickr
+        [(ngModel)]="event.end"
+        (ngModelChange)="refresh.next()"
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        placeholder="Not set">
+    </td>
+    <td>
+      <button
+        class="btn btn-danger"
+        (click)="events.splice(index, 1); refresh.next()">
+        Delete
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
