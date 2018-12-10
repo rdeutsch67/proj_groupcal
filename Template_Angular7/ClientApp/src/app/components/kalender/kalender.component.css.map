@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,EAAG;EACD,MAAM,EAAE,QAAQ;;AAGlB,GAAI;EACF,gBAAgB,EAAE,OAAO;EACzB,OAAO,EAAE,IAAI",
+"sources": ["kalender.component.scss"],
+"names": [],
+"file": "kalender.component.css"
+}
