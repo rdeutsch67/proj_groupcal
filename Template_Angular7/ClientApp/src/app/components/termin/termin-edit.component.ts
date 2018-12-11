@@ -14,9 +14,11 @@ import {PlanerdataService} from "../../Services/planerdata.service";
 export class TerminEditComponent implements OnInit {
   title: string;
   editMode: boolean;
+  showDataJson: boolean = true;
   myTermin: Termin;
 
-  aktTerminDat = new Date();
+  aktTerminDatBeginn = new Date();
+  aktTerminDatEnde = new Date();
   form: FormGroup;
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsValue = new Date();
@@ -60,7 +62,8 @@ export class TerminEditComponent implements OnInit {
       this.http.get<Termin>(url).subscribe(res => {
         this.myTermin = res;
         this.title = "Edit - "+id;
-        this.aktTerminDat = new Date(this.myTermin.Datum);
+        this.aktTerminDatBeginn = new Date(this.myTermin.DatumBeginn);
+        this.aktTerminDatEnde = new Date(this.myTermin.DatumEnde);
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
         this.http.get<Gruppe>(url).subscribe(res => {
           this.selGruppen = Array.of(res);
@@ -81,7 +84,7 @@ export class TerminEditComponent implements OnInit {
       this.title = "Erstelle neuen Termin";
 
 
-      this.myTermin.Datum = new Date();
+      this.myTermin.DatumBeginn = new Date();
       this.myTermin.IdGruppe = id;
 
       let url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
@@ -121,7 +124,8 @@ export class TerminEditComponent implements OnInit {
   onSubmit() {
     // build a temporary termin object from form values
     var tempTermin = <Termin>{};
-    tempTermin.Datum = this.form.value.Datum;
+    tempTermin.DatumBeginn = this.form.value.DatumBeginn;
+    tempTermin.DatumEnde = this.form.value.DatumEnde;
     tempTermin.IdGruppe = this.form.value.IdGruppe;
     tempTermin.IdTeilnehmer = this.form.value.IdTeilnehmer;
     tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
@@ -155,21 +159,6 @@ export class TerminEditComponent implements OnInit {
     this.router.navigate(["gruppen/edit", this.myTermin.IdGruppe]);
   }
 
-  /*loadGruppen(id: number) {
-    let myUrl: string;
-    if (id > 0 ) {
-      myUrl = this.baseUrl + "api/gruppen/" + id;
-    }
-    else {
-      myUrl = this.baseUrl + "api/gruppen/alle/0";  // alle holen
-    }
-
-    this.http.get<Gruppe[]>(myUrl).subscribe(res => {
-        this.selGruppen = res;
-      },
-      error => console.error(error));
-  }*/
-
   loadGruppen(id: number) {
     let myUrl: string;
     myUrl = this.baseUrl + "api/gruppen/alle/0";  // alle holen
@@ -179,29 +168,10 @@ export class TerminEditComponent implements OnInit {
       error => console.error(error));
   }
 
-
-  /*loadTeilnehmer(id: number) {
-
-    let myUrl: string;
-    if (id > 0 ) {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
-    }
-    else {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/0";  // alle holen
-    }
-
-    this.http.get<Teilnehmer[]>(myUrl).subscribe(res => {
-        this.selTeilnehmer = res;
-      },
-      error => console.error(error));
-  }*/
-
-
-
-
   ngOnInit() {
     this.form = this.fb.group({
-      Datum: new Date(),
+      DatumBeginn: new Date(),
+      DatumEnde: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -211,18 +181,21 @@ export class TerminEditComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      Datum: new Date(),
+      DatumBeginn: new Date(),
+      DatumEnde: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
       Hinweis: ''
     });
+    this.onShowDataJson();
   }
 
   updateForm() {
     if (this.editMode) {
       this.form.setValue({
-        Datum: this.aktTerminDat,
+        DatumBeginn: this.aktTerminDatBeginn,
+        DatumEnde: this.aktTerminDatEnde,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: this.myTermin.IdTeilnehmer,
         IdAktivitaet: this.myTermin.IdAktivitaet,
@@ -231,12 +204,17 @@ export class TerminEditComponent implements OnInit {
     }
     else {
       this.form.setValue({
-        Datum: this.myTermin.Datum,
+        DatumBeginn: this.myTermin.DatumBeginn,
+        DatumEnde: '',
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',
         Hinweis: ''
       });
     }
+  }
+
+  onShowDataJson() {
+    this.showDataJson = !this.showDataJson;
   }
 }

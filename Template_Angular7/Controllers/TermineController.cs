@@ -66,7 +66,8 @@ namespace Template_Angular7.Controllers
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.Datum = model.Datum;
+            termin.DatumBeginn = model.DatumBeginn;
+            termin.DatumEnde = model.DatumEnde;
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
@@ -113,7 +114,8 @@ namespace Template_Angular7.Controllers
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.Datum = model.Datum;
+            termin.DatumBeginn = model.DatumBeginn;
+            termin.DatumEnde = model.DatumEnde;
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
@@ -166,7 +168,7 @@ namespace Template_Angular7.Controllers
             {
                 var termine = DbContext.Termine
                     .Where(q => q.IdGruppe == idGruppe)
-                    .OrderBy(q => q.Datum)
+                    .OrderBy(q => q.DatumBeginn)
                     .ToArray();
                 return new JsonResult(
                     termine.Adapt<TerminViewModel[]>(),
@@ -175,7 +177,7 @@ namespace Template_Angular7.Controllers
             else
             {   // alle Aktiviäten
                 var termine = DbContext.Termine
-                    .OrderBy(q => q.IdGruppe).ThenBy(q => q.Datum)    
+                    .OrderBy(q => q.IdGruppe).ThenBy(q => q.DatumBeginn)    
                     .ToArray();
                 return new JsonResult(
                     termine.Adapt<TerminViewModel[]>(),
@@ -202,7 +204,8 @@ namespace Template_Angular7.Controllers
                                  ut.IdGruppe,
                                  ut.IdTeilnehmer,
                                  ut.IdAktivitaet,
-                                 ut.Datum,
+                                 ut.DatumBeginn,
+                                 ut.DatumEnde,
                                  ut.Hinweis,
                                  AktFarbe = ua.Farbe,
                                  AktCode = ua.Code,
@@ -229,7 +232,8 @@ namespace Template_Angular7.Controllers
                         ut.IdGruppe,
                         ut.IdTeilnehmer,
                         ut.IdAktivitaet,
-                        ut.Datum,
+                        ut.DatumBeginn,
+                        ut.DatumEnde,
                         ut.Hinweis,
                         AktFarbe = ua.Farbe,
                         AktCode = ua.Code,
@@ -243,26 +247,9 @@ namespace Template_Angular7.Controllers
                 return new JsonResult(
                     query.Adapt<TerminViewModel[]>(),
                     JsonSettings);
-                
-                /*var query = (from ut in DbContext.Termine
-                    join ua in DbContext.CodesAktivitaeten on ut.IdAktivitaet equals ua.Id
-                    select new
-                    {
-                        ut.Id,
-                        ut.IdGruppe,
-                        ut.IdTeilnehmer,
-                        ut.IdAktivitaet,
-                        ut.Datum,
-                        ut.Hinweis,
-                        ua.Farbe,
-                        ua.Code,
-                        ua.Bezeichnung
-                    }).ToList();
-                return new JsonResult(
-                    query.Adapt<TerminViewModel[]>(),
-                    JsonSettings);*/
             }
             
         }
     }
 }
+

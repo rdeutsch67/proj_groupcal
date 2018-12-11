@@ -3,7 +3,8 @@ interface Termin {
   IdGruppe: number;
   IdTeilnehmer: number;
   IdAktivitaet: number;
-  Datum: Date,
+  DatumBeginn: Date;
+  DatumEnde: Date;
   Hinweis: string;
 
   AktFarbe: string;

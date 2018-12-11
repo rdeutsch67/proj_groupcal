@@ -71,7 +71,7 @@ export class KalenderComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[];
+  //events: CalendarEvent[];
 
 
 

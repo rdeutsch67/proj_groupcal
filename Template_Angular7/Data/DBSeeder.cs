@@ -278,7 +278,8 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 1,
                 IdAktivitaet = 1,
-                Datum = createdDate,
+                DatumBeginn = createdDate,
+                DatumEnde = createdDate,
                 Hinweis = "Bin gerne mit dabei.",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
@@ -289,7 +290,8 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 2,
                 IdAktivitaet = 2,
-                Datum = createdDate,
+                DatumBeginn = createdDate,
+                DatumEnde = createdDate,
                 Hinweis = "Bin auch mit dabei.",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
@@ -300,7 +302,8 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 3,
                 IdAktivitaet = 4,
-                Datum = createdDate,
+                DatumBeginn = createdDate,
+                DatumEnde = createdDate,
                 Hinweis = "Mal guggen.",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate

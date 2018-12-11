@@ -27,7 +27,8 @@ namespace Template_Angular7.Data
         public int IdAktivitaet { get; set; }
         
         [Required]
-        public DateTime Datum { get; set; }
+        public DateTime DatumBeginn { get; set; }
+        public DateTime DatumEnde { get; set; }
         
         public string Hinweis { get; set; }
         

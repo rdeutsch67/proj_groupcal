@@ -55,6 +55,7 @@ export class Code_aktivitaetenEditComponent {
     tempAkt.Bezeichnung = this.form.value.Bezeichnung;
     tempAkt.GruppenId = this.code_aktivitaet.GruppenId;
     tempAkt.Farbe = this.form.value.Farbe;
+    tempAkt.Summieren = this.form.value.Summieren;
 
     let url = this.baseUrl + "api/codesaktivitaeten";
     if (this.editMode) {
@@ -88,7 +89,8 @@ export class Code_aktivitaetenEditComponent {
     this.form = this.fb.group({
       Code: ['', Validators.required],
       Bezeichnung: '',
-      Farbe: ''
+      Farbe: '',
+      Summieren: false
     });
   }
 
@@ -96,7 +98,8 @@ export class Code_aktivitaetenEditComponent {
     this.form.setValue({
       Code: this.code_aktivitaet.Code,
       Bezeichnung: this.code_aktivitaet.Bezeichnung || '',
-      Farbe: this.code_aktivitaet.Farbe
+      Farbe: this.code_aktivitaet.Farbe,
+      Summieren: this.code_aktivitaet.Summieren
     });
   }
 }

@@ -5,7 +5,8 @@
       <thead>
       <tr>
         <th>ID</th>
-        <th>Datum</th>
+        <th>Beginn</th>
+        <th>Ende</th>
         <th>Gruppe</th>
         <th>Teilnehmer</th>
         <th>Aktivität</th>
@@ -17,7 +18,8 @@
       <tbody>
       <tr *ngFor="let termin of termine">
         <td>{{termin.Id}}</td>
-        <td>{{termin.Datum | date: 'dd.MM.yyyy'}}</td>
+        <td>{{termin.DatumBeginn | date: 'dd.MM.yy'}}</td>
+        <td>{{termin.DatumEnde | date: 'dd.MM.yy'}}</td>
         <td>{{termin.GrpCode}}</td>
         <td>{{termin.TnVorname}} {{termin.TnNachname}}</td>
         <td>{{termin.AktCode}}</td>
