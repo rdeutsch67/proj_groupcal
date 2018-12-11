@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,wBAAwB;EACtB,KAAK,EAAE,IAAI;;AAGb,uBAAwB;EACtB,SAAS,EAAE,KAAK;;AAGlB,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB;;AAG/B,8BAA+B;EAC7B,gBAAgB,EAAE,yBAAyB",
+"mappings": "AAAA,wBAAwB;EACtB,KAAK,EAAE,IAAI;;AAGb,uBAAwB;EACtB,SAAS,EAAE,KAAK;;AAGlB,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB;;AAG/B,8BAA+B;EAC7B,gBAAgB,EAAE,yBAAyB;;AAG7C,OAAO;EACL,UAAU,EAAE,GAAG;EACf,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI",
 "sources": ["code_aktivitaeten-liste.component.scss"],
 "names": [],
 "file": "code_aktivitaeten-liste.component.css"

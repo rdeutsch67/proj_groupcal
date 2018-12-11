@@ -83,6 +83,7 @@ registerLocaleData(localeDECH);
       { path: 'teilnehmer/edit/:id', component: TeilnehmerEditComponent },
       { path: 'termine/vtermine/:id', component: TerminListeComponent },
       { path: 'termine/create/:id', component: TerminEditComponent },
+      { path: 'termine/new_event', component: TerminEditComponent, data: { id: 0, myday: new Date() } },
       { path: 'termine/edit/:id', component: TerminEditComponent },
       { path: 'kalender/:id', component: KalenderComponent },
       { path: 'about', component: AboutComponent },

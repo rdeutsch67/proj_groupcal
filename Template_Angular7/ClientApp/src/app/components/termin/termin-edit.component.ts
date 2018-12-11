@@ -14,7 +14,11 @@ import {PlanerdataService} from "../../Services/planerdata.service";
 export class TerminEditComponent implements OnInit {
   title: string;
   editMode: boolean;
+  newPlanerEvent: boolean;
   showDataJson: boolean = true;
+  showDataJsonTitle: string;
+  showDataJsonBtnClass: string;
+  showDataJsonBtnIcon: string;
   myTermin: Termin;
 
   aktTerminDatBeginn = new Date();
@@ -55,6 +59,17 @@ export class TerminEditComponent implements OnInit {
     var id = +this.activatedRoute.snapshot.params["id"];
     // check if we're in edit mode or not
     this.editMode = (this.activatedRoute.snapshot.url[1].path === "edit");
+    this.newPlanerEvent = (this.activatedRoute.snapshot.url[1].path === "new_event");
+
+    if (this.newPlanerEvent) {
+      /*this.heroes$ = this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => {
+          // (+) before `params.get()` turns the string into a number
+          this.selectedId = +params.get('id');
+          return this.service.getHeroes();
+        })
+      );*/
+    }
 
     if (this.editMode) {
       // Termin holen
@@ -205,7 +220,7 @@ export class TerminEditComponent implements OnInit {
     else {
       this.form.setValue({
         DatumBeginn: this.myTermin.DatumBeginn,
-        DatumEnde: '',
+        DatumEnde: this.myTermin.DatumBeginn,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',
@@ -216,5 +231,15 @@ export class TerminEditComponent implements OnInit {
 
   onShowDataJson() {
     this.showDataJson = !this.showDataJson;
+    if (this.showDataJson){
+      this.showDataJsonTitle = 'JSON-Daten verbergen'
+      this.showDataJsonBtnClass = 'btn btn-sm btn-warning';
+      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';
+    }
+    else {
+      this.showDataJsonTitle = 'JSON-Daten anzeigen'
+      this.showDataJsonBtnClass = 'btn btn-sm btn-primary';
+      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
+    }
   }
 }

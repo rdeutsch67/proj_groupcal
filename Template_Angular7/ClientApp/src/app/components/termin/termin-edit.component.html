@@ -20,6 +20,7 @@
       </div>
     </div>
 
+
     <div *ngIf="selGruppen.length > 0" >
       <div class="form-group row">
         <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
@@ -90,10 +91,9 @@
     </div>
     <div class="form-group commands">
       <button id="btnShowDataJson " type="button" (click)="onShowDataJson()"
-              class="btn btn-sm btn-success">
-        <i class="fas fa-eye"></i>
-        <span *ngIf="showDataJson"> JSON-Daten verbergen</span>
-        <span *ngIf="!showDataJson"> JSON-Daten anzeigen</span>
+              class={{showDataJsonBtnClass}} >
+        <i class={{showDataJsonBtnIcon}}></i>
+        {{showDataJsonTitle}}
       </button>
     </div>
   </form>

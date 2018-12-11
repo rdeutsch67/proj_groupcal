@@ -1,4 +1,4 @@
-<h3>{{title}}</h3>
+<h3 xmlns:Background-color="http://www.w3.org/1999/xhtml">{{title}}</h3>
 <div *ngIf="code_aktivitaeten.length > 0">
   <div class="table-responsive">
     <table class="table table-hover questions">
@@ -8,8 +8,9 @@
         <th>Code</th>
         <th>Bezeichnung</th>
         <th>Gruppe</th>
+        <th></th>
         <th>Summieren</th>
-        <th>Summieren</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -19,6 +20,12 @@
         <td>{{aktivitaet.Code}}</td>
         <td>{{aktivitaet.Bezeichnung}}</td>
         <td>{{aktivitaet.GruppeCode}}</td>
+        <!--<td>{{aktivitaet.Farbe}}</td>-->
+        <td>
+          <!--<h5 [style.color]=[aktivitaet.Farbe] >Farbe</h5>-->
+          <p class="square" [style.background-color]=[aktivitaet.Farbe]></p>
+        </td>
+
         <td>{{aktivitaet.Summieren}}</td>
         <!--<td>{{aktivitaet.GruppenId}}</td>-->
         <td>

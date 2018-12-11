@@ -103,6 +103,13 @@ export class PlanerdataService {
                     };
                     calEvent.color = myColors.myTerminColor;
                     calEvent.title = termine[i].TnVorname + " " + termine[i].TnNachname + ": " + termine[i].AktBezeichnung;
+                    calEvent.draggable = false;
+                    if (termine[i].AktSummieren) {
+                      calEvent.meta = 'sum'
+                    }
+                    else {
+                      calEvent.meta = 'notsum'
+                    }
 
                     terminEvents.push(calEvent);  // zum Array hinzufügen
                   }

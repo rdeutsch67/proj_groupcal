@@ -1,53 +1,70 @@
-import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, Input} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, ViewEncapsulation, OnInit, Input} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import {
+  CalendarDateFormatter,
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarMonthViewDay,
+  CalendarView, DateFormatterParams,
+  DAYS_OF_WEEK
+} from 'angular-calendar';
 import {PlanerdataService} from "../../Services/planerdata.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import { CalendarDatePipe} from "angular-calendar/modules/common/calendar-date.pipe";
+import {formatDate} from "@angular/common";
 
 const colors: any = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
   }
 };
+
+class CustomDateFormatter extends CalendarDateFormatter {
+
+  public monthViewColumnHeader({date, locale}: DateFormatterParams): string {
+    return formatDate(date, 'EEE', locale); // use short week days
+  }
+
+}
 
 @Component({
   selector: 'kalender.component',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['kalender.component.css'],
-  templateUrl: 'kalender.component.html'
+  templateUrl: 'kalender.component.html',
+  styles: [
+    `
+      .odd-cell {
+        background-color: #eeffee !important;        
+      }
+      .weekend-cell {
+        background-color: #ecf7ff !important;        
+      }
+    `
+  ],
+  providers: [{
+    provide: CalendarDateFormatter,
+    useClass: CustomDateFormatter
+  }]
 })
 
 export class KalenderComponent {
   @ViewChild('modalContent')
 
   events: CalendarEvent[] = [];
-
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
-
   modalContent: TemplateRef<any>;
-
   view: CalendarView = CalendarView.Month;
-
   locale: string = 'de-ch';
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
+  clickedDate: Date;
+  currentIdGruppe: number;
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -70,12 +87,6 @@ export class KalenderComponent {
   ];
 
   refresh: Subject<any> = new Subject();
-
-  //events: CalendarEvent[];
-
-
-
-
   activeDayIsOpen: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -84,6 +95,7 @@ export class KalenderComponent {
               private loadDataService: PlanerdataService) {
 
     let id = +this.activatedRoute.snapshot.params["id"];
+    this.currentIdGruppe = id;
     this.loadDataService.loadPlanerCalenderEvents(id).subscribe(res => {
         this.events = res;
         this.refresh.next();
@@ -92,9 +104,42 @@ export class KalenderComponent {
     )
   }
 
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach(day => {
+        day.badgeTotal = 0;
+
+        // aktueller Tag einfärben
+        if (day.date.getDate() == new Date().getDate()) {
+          day.cssClass = 'odd-cell';
+        }
+
+        // Wochenende einfärben
+        if ((day.date.getDay() == 0) || (day.date.getDay() == 6)) {
+          day.cssClass = 'weekend-cell';
+        }
+
+        // Summieren
+        if (this.events) {
+          this.events.forEach(myElement => {
+              if (day.inMonth && (day.date.getDate() >= myElement.start.getDate()) &&
+                (day.date.getDate() <= myElement.end.getDate())) {
+                if (myElement.meta === 'sum') {
+                  day.badgeTotal++;
+                }
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
+
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
+      this.clickedDate = date;
+
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
@@ -104,6 +149,11 @@ export class KalenderComponent {
         this.activeDayIsOpen = true;
       }
     }
+  }
+
+  onCreateTermin() {
+    //this.router.navigate(["termine/create", this.currentIdGruppe]);
+    this.router.navigate(['termine/new_event', { id: this.currentIdGruppe, myday: this.clickedDate }]);
   }
 
   eventTimesChanged({

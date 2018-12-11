@@ -28,6 +28,10 @@
 
   <div class="col-md-4">
     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale  }}</h3>
+    <button *ngIf="!showAllData" (click)="onCreateTermin()" class="btn btn-sm btn-primary">
+      <i class="fa fa-plus-circle"></i>
+      Neuen Termin erstellen
+    </button>
   </div>
 
   <div class="col-md-4">
@@ -53,12 +57,20 @@
     </div>
   </div>
 </div>
+
 <br>
 <div [ngSwitch]="view">
+  <!--<mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    (beforeViewRender)="beforeMonthViewRender($event)">
+  </mwl-calendar-month-view>-->
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
     [viewDate]="viewDate"
     [events]="events"
+    (beforeViewRender)="beforeMonthViewRender($event)"
     [locale]="locale"
     [weekStartsOn]="weekStartsOn"
     [weekendDays]="weekendDays"
