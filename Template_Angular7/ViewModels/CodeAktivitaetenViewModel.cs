@@ -24,6 +24,9 @@ namespace Template_Angular7.ViewModels
         public bool Summieren { get; set; }
         public string Farbe { get; set; }
         
+        public DateTime ZeitBeginn { get; set; }
+        public DateTime ZeitEnde { get; set; }
+        
         public string GruppeCode { get; set; }
         public string GruppeBezeichnung { get; set; }
         public string GruppeUserId { get; set; }

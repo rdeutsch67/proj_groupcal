@@ -97,8 +97,6 @@ export class TerminEditComponent implements OnInit {
     }
     else {
       this.title = "Erstelle neuen Termin";
-
-
       this.myTermin.DatumBeginn = new Date();
       this.myTermin.IdGruppe = id;
 

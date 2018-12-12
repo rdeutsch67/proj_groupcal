@@ -5,6 +5,8 @@ interface Code_aktivitaet {
   GruppenId: number;
   Summieren: boolean;
   Farbe: string;
+  ZeitBeginn: Date;
+  ZeitEnde: Date;
 }
 
 interface VCode_aktivitaet {
@@ -14,6 +16,8 @@ interface VCode_aktivitaet {
   GruppenId: number;
   Summieren: boolean;
   Farbe: string;
+  ZeitBeginn: Date;
+  ZeitEnde: Date;
 
   GruppeCode: string;
   GruppeBezeichnung: string;

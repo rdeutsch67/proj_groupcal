@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, OnChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -15,6 +15,9 @@ export class Code_aktivitaetenEditComponent {
   editMode: boolean;
   form: FormGroup;
 
+  aktZeitBeginn = new Date();
+  aktZeitEnde = new Date();
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
@@ -23,6 +26,8 @@ export class Code_aktivitaetenEditComponent {
 
     // leeres Aktivität-Objekt erstellen
     this.code_aktivitaet = <Code_aktivitaet>{};
+
+    //this.ZeitBeginnFormat = new Date();
 
     // initialize the form
     this.createForm();
@@ -37,6 +42,8 @@ export class Code_aktivitaetenEditComponent {
       this.http.get<Code_aktivitaet>(url).subscribe(res => {
         this.code_aktivitaet = res;
         this.title = "Edit - " + this.code_aktivitaet.Code;
+        this.aktZeitBeginn = new Date(this.code_aktivitaet.ZeitBeginn);
+        this.aktZeitEnde = new Date(this.code_aktivitaet.ZeitEnde);
 
         // update the form with the quiz value
         this.updateForm();
@@ -48,6 +55,11 @@ export class Code_aktivitaetenEditComponent {
     }
   }
 
+  // to catch the event
+  changeDate(event: any) {
+    console.log(event);
+  }
+
   onSubmit() {
     // build a temporary quiz object from form values
     var tempAkt = <Code_aktivitaet>{};
@@ -56,6 +68,8 @@ export class Code_aktivitaetenEditComponent {
     tempAkt.GruppenId = this.code_aktivitaet.GruppenId;
     tempAkt.Farbe = this.form.value.Farbe;
     tempAkt.Summieren = this.form.value.Summieren;
+    tempAkt.ZeitBeginn = this.form.value.ZeitBeginn;
+    tempAkt.ZeitEnde = this.form.value.ZeitEnde;
 
     let url = this.baseUrl + "api/codesaktivitaeten";
     if (this.editMode) {
@@ -90,16 +104,29 @@ export class Code_aktivitaetenEditComponent {
       Code: ['', Validators.required],
       Bezeichnung: '',
       Farbe: '',
-      Summieren: false
+      Summieren: false,
+      ZeitBeginn: [new Date().getHours() + ':00', Validators.required],
+      ZeitEnde: [new Date().getHours() + ':00', Validators.required]
     });
   }
 
   updateForm() {
+    /*function addZero(i) {
+      if (i < 10) {
+        i = '0' + i;
+      }
+      return i;
+    }*/
+
     this.form.setValue({
       Code: this.code_aktivitaet.Code,
       Bezeichnung: this.code_aktivitaet.Bezeichnung || '',
       Farbe: this.code_aktivitaet.Farbe,
-      Summieren: this.code_aktivitaet.Summieren
+      Summieren: this.code_aktivitaet.Summieren,
+      ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + this.aktZeitBeginn.getMinutes(),
+      ZeitEnde: this.aktZeitEnde.getHours() + ':' + this.aktZeitEnde.getMinutes()
+      /*ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes()),
+      ZeitEnde: this.aktZeitEnde.getHours() + ':' + ((this.aktZeitEnde.getMinutes() < 10 ? '0' : '') + this.aktZeitEnde.getMinutes())*/
     });
   }
 }

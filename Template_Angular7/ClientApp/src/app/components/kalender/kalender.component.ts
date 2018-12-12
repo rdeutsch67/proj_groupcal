@@ -37,12 +37,12 @@ class CustomDateFormatter extends CalendarDateFormatter {
   styleUrls: ['kalender.component.css'],
   templateUrl: 'kalender.component.html',
   styles: [
-    `
+      `
       .odd-cell {
-        background-color: #eeffee !important;        
+        background-color: #eeffee !important;
       }
       .weekend-cell {
-        background-color: #ecf7ff !important;        
+        background-color: #ecf7ff !important;
       }
     `
   ],
@@ -108,12 +108,12 @@ export class KalenderComponent {
     body.forEach(day => {
         day.badgeTotal = 0;
 
-        // aktueller Tag einfärben
+        // aktueller Tag einfÃ¤rben
         if (day.date.getDate() == new Date().getDate()) {
           day.cssClass = 'odd-cell';
         }
 
-        // Wochenende einfärben
+        // Wochenende einfÃ¤rben
         if ((day.date.getDay() == 0) || (day.date.getDay() == 6)) {
           day.cssClass = 'weekend-cell';
         }

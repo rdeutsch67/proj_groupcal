@@ -150,6 +150,8 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser, Teilnehmer",
                 Summieren = false,
                 Farbe = "#f44141",
+                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
+                ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -161,6 +163,8 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser + Teilnehmer",
                 Summieren = false,
                 Farbe = "#41f46a",
+                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
+                ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -172,6 +176,8 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Reserve, einsetzbar bei Bedarf",
                 Summieren = false,
                 Farbe = "#4141f4",
+                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
+                ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -183,6 +189,8 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Klärt noch ab",
                 Summieren = false,
                 Farbe = "#dc41f4",
+                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
+                ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });

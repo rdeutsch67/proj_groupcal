@@ -65,6 +65,8 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Bezeichnung = model.Bezeichnung;
             codeAktivitaet.Summieren = model.Summieren;
             codeAktivitaet.Farbe = model.Farbe;
+            codeAktivitaet.ZeitBeginn = model.ZeitBeginn;
+            codeAktivitaet.ZeitEnde = model.ZeitEnde;
             // properties set from server-side
             codeAktivitaet.CreatedDate = DateTime.Now;
             codeAktivitaet.LastModifiedDate = codeAktivitaet.CreatedDate;
@@ -111,6 +113,8 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Bezeichnung = model.Bezeichnung;
             codeAktivitaet.Summieren = model.Summieren;
             codeAktivitaet.Farbe = model.Farbe;
+            codeAktivitaet.ZeitBeginn = model.ZeitBeginn;
+            codeAktivitaet.ZeitEnde = model.ZeitEnde;
             // properties set from server-side
             codeAktivitaet.LastModifiedDate = codeAktivitaet.CreatedDate;
             
@@ -197,6 +201,8 @@ namespace Template_Angular7.Controllers
                         ut.Bezeichnung,
                         ut.Summieren,
                         ut.Farbe,
+                        ut.ZeitBeginn,
+                        ut.ZeitEnde,
                         GruppeCode = ug.Code,
                         GruppeBezeichnung = ug.Bezeichnung,
                         GruppeUserId = ug.UserId,
@@ -218,6 +224,8 @@ namespace Template_Angular7.Controllers
                         ut.Bezeichnung,
                         ut.Summieren,
                         ut.Farbe,
+                        ut.ZeitBeginn,
+                        ut.ZeitEnde,
                         GruppeCode = ug.Code,
                         GruppeBezeichnung = ug.Bezeichnung,
                         GruppeUserId = ug.UserId,
