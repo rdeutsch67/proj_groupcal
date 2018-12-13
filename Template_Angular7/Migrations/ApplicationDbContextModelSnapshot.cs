@@ -70,6 +70,10 @@ namespace Template_Angular7.Migrations
 
                     b.Property<bool>("Summieren");
 
+                    b.Property<DateTime>("ZeitBeginn");
+
+                    b.Property<DateTime>("ZeitEnde");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GruppenId");

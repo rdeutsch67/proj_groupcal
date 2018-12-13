@@ -13,6 +13,10 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   code_aktivitaeten: VCode_aktivitaet[];
   title: string;
   showAllData: boolean;
+  showDataJson: boolean = true;
+  showDataJsonTitle: string;
+  showDataJsonBtnClass: string;
+  showDataJsonBtnIcon: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
@@ -20,13 +24,15 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Aktivitäten";
-    this.code_aktivitaeten = [];
+    //this.code_aktivitaeten = [];
+    this.code_aktivitaeten = <VCode_aktivitaet[]>{};
 
     let id = +this.activatedRoute.snapshot.params["id"];  // Id der Gruppe
     this.showAllData = id <= 0;
     if (id <= 0) {
       this.loadData(id);
     }
+    this.onShowDataJson();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -53,6 +59,7 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
 
     this.http.get<VCode_aktivitaet[]>(myUrl).subscribe(res => {
       this.code_aktivitaeten = res;
+
     }, error => console.error(error));
   }
 
@@ -75,6 +82,20 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
           // refresh the question list
           this.loadData(0);
         }, error => console.log(error));
+    }
+  }
+
+  onShowDataJson() {
+    this.showDataJson = !this.showDataJson;
+    if (this.showDataJson){
+      this.showDataJsonTitle = 'JSON-Daten verbergen'
+      this.showDataJsonBtnClass = 'btn btn-sm btn-warning';
+      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';
+    }
+    else {
+      this.showDataJsonTitle = 'JSON-Daten anzeigen'
+      this.showDataJsonBtnClass = 'btn btn-sm btn-primary';
+      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
     }
   }
 }
