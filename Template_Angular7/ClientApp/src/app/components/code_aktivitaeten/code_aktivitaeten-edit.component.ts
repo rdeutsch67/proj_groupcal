@@ -111,22 +111,18 @@ export class Code_aktivitaetenEditComponent {
   }
 
   updateForm() {
-    /*function addZero(i) {
-      if (i < 10) {
-        i = '0' + i;
-      }
-      return i;
-    }*/
-
     this.form.setValue({
       Code: this.code_aktivitaet.Code,
       Bezeichnung: this.code_aktivitaet.Bezeichnung || '',
       Farbe: this.code_aktivitaet.Farbe,
       Summieren: this.code_aktivitaet.Summieren,
-      ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + this.aktZeitBeginn.getMinutes(),
-      ZeitEnde: this.aktZeitEnde.getHours() + ':' + this.aktZeitEnde.getMinutes()
-      /*ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes()),
-      ZeitEnde: this.aktZeitEnde.getHours() + ':' + ((this.aktZeitEnde.getMinutes() < 10 ? '0' : '') + this.aktZeitEnde.getMinutes())*/
+      /*ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + this.aktZeitBeginn.getMinutes(),
+      ZeitEnde: this.aktZeitEnde.getHours() + ':' + this.aktZeitEnde.getMinutes()*/
+      // hier bei den Zeiten führende Null zufügen, ansonsten wird die Uhrzeit nicht dargestellt
+      ZeitBeginn: ((this.aktZeitBeginn.getHours() < 10 ? '0' : '') + this.aktZeitBeginn.getHours()) + ':'
+                + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes()),
+      ZeitEnde:   ((this.aktZeitEnde.getHours() < 10 ? '0' : '') + this.aktZeitEnde.getHours()) + ':'
+                + ((this.aktZeitEnde.getMinutes() < 10 ? '0' : '') + this.aktZeitEnde.getMinutes())
     });
   }
 }
