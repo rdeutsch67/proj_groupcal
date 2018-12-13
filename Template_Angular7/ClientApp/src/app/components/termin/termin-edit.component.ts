@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
 import {PlanerdataService} from "../../Services/planerdata.service";
+import {using} from "rxjs";
 
 @Component({
   selector: "termin-edit.component",
@@ -46,7 +47,6 @@ export class TerminEditComponent implements OnInit {
                                                            dateInputFormat: 'DD.MM.YYYY',
                                                            showWeekNumbers: false});
 
-
     // create an empty object from the Gruppe interface
     this.myTermin = <Termin>{};
 
@@ -81,8 +81,6 @@ export class TerminEditComponent implements OnInit {
         this.title = "Edit - "+id;
         this.aktTerminDatBeginn = new Date(this.myTermin.DatumBeginn);
         this.aktTerminDatEnde = new Date(this.myTermin.DatumEnde);
-        /*this.aktTerminZeitBeginn = new Date(this.myTermin.ZeitBeginn);
-        this.aktTerminZeitEnde = new Date(this.myTermin.ZeitEnde);*/
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
         this.http.get<Gruppe>(url).subscribe(res => {
           this.selGruppen = Array.of(res);

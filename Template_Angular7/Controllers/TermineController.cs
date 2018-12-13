@@ -114,8 +114,8 @@ namespace Template_Angular7.Controllers
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.DatumBeginn = model.DatumBeginn;
-            termin.DatumEnde = model.DatumEnde;
+            termin.DatumBeginn = model.DatumBeginn.ToLocalTime();
+            termin.DatumEnde = model.DatumEnde.ToLocalTime();
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
