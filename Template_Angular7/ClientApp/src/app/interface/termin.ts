@@ -11,6 +11,8 @@ interface Termin {
   AktCode: string;
   AktBezeichnung: string;
   AktSummieren: boolean;
+  AktZeitBeginn: Date;
+  AktZeitEnde: Date;
 
   TnVorname: string;
   TnNachname: string;

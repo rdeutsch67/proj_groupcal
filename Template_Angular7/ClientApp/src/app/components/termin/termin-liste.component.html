@@ -10,6 +10,8 @@
         <th>Gruppe</th>
         <th>Teilnehmer</th>
         <th>Aktivität</th>
+        <th>Akt Beginn</th>
+        <th>Akt Ende</th>
         <th>Hinweis</th>
         <th></th>
         <th></th>
@@ -23,6 +25,8 @@
         <td>{{termin.GrpCode}}</td>
         <td>{{termin.TnVorname}} {{termin.TnNachname}}</td>
         <td>{{termin.AktCode}}</td>
+        <td>{{termin.AktZeitBeginn | date: 'HH:mm'}}</td>
+        <td>{{termin.AktZeitEnde | date: 'HH:mm'}}</td>
         <td>{{termin.Hinweis}}</td>
         <td>
           <button type="submit"
