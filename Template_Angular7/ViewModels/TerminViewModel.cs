@@ -29,8 +29,6 @@ namespace Template_Angular7.ViewModels
         public string AktCode { get; set; }
         public string AktBezeichnung { get; set; }
         public bool AktSummieren { get; set; }
-        public DateTime AktZeitBeginn { get; set; }
-        public DateTime AktZeitEnde { get; set; }
         
         public string TnVorname { get; set; }
         public string TnNachname { get; set; }

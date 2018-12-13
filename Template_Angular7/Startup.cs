@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,11 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template_Angular7.Data;
+using Newtonsoft.Json;
+//using System.Web.OData.Extensions Namespace;
 
 namespace Template_Angular7
 {
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +34,14 @@ namespace Template_Angular7
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+            
+            services.AddMvc().AddJsonOptions(config =>
+            {
+                // This prevents the json serializer from parsing dates
+                config.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                // This changes how the timezone is converted - RoundtripKind keeps the timezone that was provided and doesn't convert it
+                config.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind;
             });
         }
 
@@ -56,6 +68,11 @@ namespace Template_Angular7
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+            
+            /*app.UseMvc(b=>{
+                b.SetTimeZoneInfo(TimeZoneInfo.Utc);
+                b.MapODataServiceRoute(....);
+            })*/
 
             app.UseSpa(spa =>
             {

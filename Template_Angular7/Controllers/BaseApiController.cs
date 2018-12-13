@@ -21,7 +21,8 @@ namespace Template_Angular7.Controllers
             // that can be reused multiple times.
             JsonSettings = new JsonSerializerSettings()
             {
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                DateParseHandling = DateParseHandling.None
             };
         }
         #endregion

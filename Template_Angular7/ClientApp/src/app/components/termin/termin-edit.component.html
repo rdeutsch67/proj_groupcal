@@ -19,6 +19,18 @@
                [value]="DatumEnde" />
       </div>
     </div>
+    <div class="form-group row">
+      <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="time" [value]="ZeitBeginn" id="zeitBeginn"
+               formControlName="ZeitBeginn"/>
+      </div>
+      ...
+      <div class="col-sm-3">
+        <input class="form-control" type="time" [value]="ZeitEnde" id="zeitEnde"
+               formControlName="ZeitEnde"/>
+      </div>
+    </div>
 
 
     <div *ngIf="selGruppen.length > 0" >

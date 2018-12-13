@@ -150,8 +150,8 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser, Teilnehmer",
                 Summieren = false,
                 Farbe = "#f44141",
-                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
-                ZeitEnde = new DateTime(2018,01,01,21,00,00),
+                ZeitBeginn = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,19,00,00),
+                ZeitEnde = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });

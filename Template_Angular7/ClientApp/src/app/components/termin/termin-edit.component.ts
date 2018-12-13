@@ -23,6 +23,8 @@ export class TerminEditComponent implements OnInit {
 
   aktTerminDatBeginn = new Date();
   aktTerminDatEnde = new Date();
+  /*aktTerminZeitBeginn = new Date();
+  aktTerminZeitEnde = new Date();*/
   form: FormGroup;
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsValue = new Date();
@@ -79,6 +81,8 @@ export class TerminEditComponent implements OnInit {
         this.title = "Edit - "+id;
         this.aktTerminDatBeginn = new Date(this.myTermin.DatumBeginn);
         this.aktTerminDatEnde = new Date(this.myTermin.DatumEnde);
+        /*this.aktTerminZeitBeginn = new Date(this.myTermin.ZeitBeginn);
+        this.aktTerminZeitEnde = new Date(this.myTermin.ZeitEnde);*/
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
         this.http.get<Gruppe>(url).subscribe(res => {
           this.selGruppen = Array.of(res);
@@ -130,15 +134,25 @@ export class TerminEditComponent implements OnInit {
         )
       }
     );
-    //this.loadTeilnehmer(this.selectedGruppe);
-    //this.loadAktiviaeten(newValue);
   }
 
   onSubmit() {
     // build a temporary termin object from form values
     var tempTermin = <Termin>{};
-    tempTermin.DatumBeginn = this.form.value.DatumBeginn;
-    tempTermin.DatumEnde = this.form.value.DatumEnde;
+    var myBeginnDate: Date = new Date(this.form.value.DatumBeginn);
+    var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
+    var myHour = parseInt(myZeit.substring(0,2),10);
+    var myMinutes = parseInt(myZeit.substring(3,5),10);
+    myBeginnDate.setHours(myHour,myMinutes,0,0);
+    tempTermin.DatumBeginn = myBeginnDate;
+
+    var myEndeDate: Date = new Date(this.form.value.DatumEnde);
+    var myZeit: string = this.form.value.ZeitEnde;
+    var myHour = parseInt(myZeit.substring(0,2),10);
+    var myMinutes = parseInt(myZeit.substring(3,5),10);
+    myEndeDate.setHours(myHour,myMinutes,0,0);
+    tempTermin.DatumEnde = myEndeDate;
+
     tempTermin.IdGruppe = this.form.value.IdGruppe;
     tempTermin.IdTeilnehmer = this.form.value.IdTeilnehmer;
     tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
@@ -158,6 +172,8 @@ export class TerminEditComponent implements OnInit {
         }, error => console.log(error));
     }
     else {  // neuen Termin erstellen
+
+
       this.http
         .put<Termin>(url, tempTermin)
         .subscribe(res => {
@@ -185,6 +201,8 @@ export class TerminEditComponent implements OnInit {
     this.form = this.fb.group({
       DatumBeginn: new Date(),
       DatumEnde: '',
+      ZeitBeginn: '',
+      ZeitEnde: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -196,6 +214,8 @@ export class TerminEditComponent implements OnInit {
     this.form = this.fb.group({
       DatumBeginn: new Date(),
       DatumEnde: '',
+      ZeitBeginn: '',
+      ZeitEnde: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -209,6 +229,10 @@ export class TerminEditComponent implements OnInit {
       this.form.setValue({
         DatumBeginn: this.aktTerminDatBeginn,
         DatumEnde: this.aktTerminDatEnde,
+        ZeitBeginn: ((this.aktTerminDatBeginn.getHours() < 10 ? '0' : '') + this.aktTerminDatBeginn.getHours()) + ':'
+          + ((this.aktTerminDatBeginn.getMinutes() < 10 ? '0' : '') + this.aktTerminDatBeginn.getMinutes()),
+        ZeitEnde:   ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
+          + ((this.aktTerminDatEnde.getMinutes() < 10 ? '0' : '') + this.aktTerminDatEnde.getMinutes()),
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: this.myTermin.IdTeilnehmer,
         IdAktivitaet: this.myTermin.IdAktivitaet,
@@ -219,6 +243,10 @@ export class TerminEditComponent implements OnInit {
       this.form.setValue({
         DatumBeginn: this.myTermin.DatumBeginn,
         DatumEnde: this.myTermin.DatumBeginn,
+        ZeitBeginn: ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
+          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),
+        ZeitEnde:   ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
+          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',
