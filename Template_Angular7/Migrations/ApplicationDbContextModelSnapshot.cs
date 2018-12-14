@@ -64,6 +64,8 @@ namespace Template_Angular7.Migrations
                     b.Property<string>("Farbe")
                         .IsRequired();
 
+                    b.Property<bool>("GanzerTag");
+
                     b.Property<int>("GruppenId");
 
                     b.Property<DateTime>("LastModifiedDate");
@@ -145,6 +147,8 @@ namespace Template_Angular7.Migrations
                     b.Property<DateTime>("DatumBeginn");
 
                     b.Property<DateTime>("DatumEnde");
+
+                    b.Property<bool>("GanzerTag");
 
                     b.Property<string>("Hinweis");
 

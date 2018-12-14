@@ -24,14 +24,15 @@ export class TerminEditComponent implements OnInit {
 
   aktTerminDatBeginn = new Date();
   aktTerminDatEnde = new Date();
-  /*aktTerminZeitBeginn = new Date();
-  aktTerminZeitEnde = new Date();*/
+  selGanzerTag: boolean;
   form: FormGroup;
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsValue = new Date();
   // Auswahlboxen
   selGruppen: Gruppe[];
   selectedGruppe: number;
+  selectedAktivitaet: number;
+
   selTeilnehmer: Teilnehmer[];
   selAktivitaeten: Code_aktivitaet[];
 
@@ -134,23 +135,111 @@ export class TerminEditComponent implements OnInit {
     );
   }
 
+  onChangeAktivitaet(newValue, orGanzerTag?: boolean, newGanzerTag?: boolean) {
+    console.log(newValue);
+    this.selectedAktivitaet = newValue;
+
+    var selAktivitaet: Code_aktivitaet[];
+    selAktivitaet = <Code_aktivitaet[]>{};
+    selAktivitaet =  this.selAktivitaeten.filter(x => x.Id == this.selectedAktivitaet);
+
+    if (!orGanzerTag) {
+      if (selAktivitaet[0].GanzerTag == true) {
+        myZeitBeginn$ = "00:00";
+        myZeitEnde$ = "23:59";
+      }
+      else {
+        // Zeiten gemäss Codedefinition anzeigen
+        var myZeitBeginn: Date = new Date(selAktivitaet[0].ZeitBeginn);
+        var myZeitBeginn$ = ((myZeitBeginn.getHours() < 10 ? '0' : '') + myZeitBeginn.getHours()) + ':'
+          + ((myZeitBeginn.getMinutes() < 10 ? '0' : '') + myZeitBeginn.getMinutes());
+        var myZeitEnde: Date = new Date(selAktivitaet[0].ZeitEnde);
+        var myZeitEnde$ = ((myZeitEnde.getHours() < 10 ? '0' : '') + myZeitEnde.getHours()) + ':'
+          + ((myZeitEnde.getMinutes() < 10 ? '0' : '') + myZeitEnde.getMinutes());
+      }
+    }
+    else {
+      if (newGanzerTag == true) {
+        myZeitBeginn$ = "00:00";
+        myZeitEnde$ = "23:59";
+      }
+      else {
+        // Zeiten gemäss Codedefinition anzeigen
+        var myZeitBeginn: Date = new Date(selAktivitaet[0].ZeitBeginn);
+        var myZeitBeginn$ = ((myZeitBeginn.getHours() < 10 ? '0' : '') + myZeitBeginn.getHours()) + ':'
+          + ((myZeitBeginn.getMinutes() < 10 ? '0' : '') + myZeitBeginn.getMinutes());
+        var myZeitEnde: Date = new Date(selAktivitaet[0].ZeitEnde);
+        var myZeitEnde$ = ((myZeitEnde.getHours() < 10 ? '0' : '') + myZeitEnde.getHours()) + ':'
+          + ((myZeitEnde.getMinutes() < 10 ? '0' : '') + myZeitEnde.getMinutes());
+      }
+    }
+
+    if (orGanzerTag) {
+      this.form.setValue(
+        {
+          DatumBeginn: this.form.value.DatumBeginn,
+          DatumEnde: this.form.value.DatumEnde,
+          GanzerTag: newGanzerTag,
+          ZeitBeginn: myZeitBeginn$,
+          ZeitEnde: myZeitEnde$,
+          IdGruppe: this.form.value.IdGruppe,
+          IdTeilnehmer: this.form.value.IdTeilnehmer,
+          IdAktivitaet: this.form.value.IdAktivitaet,
+          Hinweis: this.form.value.Hinweis,
+        }
+      );
+    }
+    else {
+      this.form.setValue(
+        {
+          DatumBeginn: this.form.value.DatumBeginn,
+          DatumEnde: this.form.value.DatumEnde,
+          GanzerTag: selAktivitaet[0].GanzerTag,
+          ZeitBeginn: myZeitBeginn$,
+          ZeitEnde: myZeitEnde$,
+          IdGruppe: this.form.value.IdGruppe,
+          IdTeilnehmer: this.form.value.IdTeilnehmer,
+          IdAktivitaet: this.form.value.IdAktivitaet,
+          Hinweis: this.form.value.Hinweis,
+        }
+      );
+    }
+
+  }
+
+  onClickGanzerTag(e) {
+    this.selGanzerTag = e.target.checked;
+    this.onChangeAktivitaet(this.form.value.IdAktivitaet, true, this.selGanzerTag);
+  }
+
   onSubmit() {
     // build a temporary termin object from form values
     var tempTermin = <Termin>{};
+
+    tempTermin.GanzerTag = this.form.value.GanzerTag;
+
     var myBeginnDate: Date = new Date(this.form.value.DatumBeginn);
-    var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
-    var myHour = parseInt(myZeit.substring(0,2),10);
-    var myMinutes = parseInt(myZeit.substring(3,5),10);
-    myBeginnDate.setHours(myHour,myMinutes,0,0);
-    tempTermin.DatumBeginn = myBeginnDate;
-
     var myEndeDate: Date = new Date(this.form.value.DatumEnde);
-    var myZeit: string = this.form.value.ZeitEnde;
-    var myHour = parseInt(myZeit.substring(0,2),10);
-    var myMinutes = parseInt(myZeit.substring(3,5),10);
-    myEndeDate.setHours(myHour,myMinutes,0,0);
+    if (tempTermin.GanzerTag == true) {
+      // Beginn
+      myBeginnDate.setHours(0,0,0,0);
+      // Ende
+      myEndeDate.setHours(23,59,59,999);
+    }
+    else {
+      // Beginn
+      var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
+      var myHour = parseInt(myZeit.substring(0,2),10);
+      var myMinutes = parseInt(myZeit.substring(3,5),10);
+      myBeginnDate.setHours(myHour,myMinutes,0,0);
+      // Ende
+      myZeit = this.form.value.ZeitEnde;
+      myHour = parseInt(myZeit.substring(0,2),10);
+      myMinutes = parseInt(myZeit.substring(3,5),10);
+      myEndeDate.setHours(myHour,myMinutes,0,0);
+    }
+    tempTermin.DatumBeginn = myBeginnDate;
     tempTermin.DatumEnde = myEndeDate;
-
     tempTermin.IdGruppe = this.form.value.IdGruppe;
     tempTermin.IdTeilnehmer = this.form.value.IdTeilnehmer;
     tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
@@ -199,6 +288,7 @@ export class TerminEditComponent implements OnInit {
     this.form = this.fb.group({
       DatumBeginn: new Date(),
       DatumEnde: '',
+      GanzerTag: false,
       ZeitBeginn: '',
       ZeitEnde: '',
       IdGruppe: '',
@@ -212,6 +302,7 @@ export class TerminEditComponent implements OnInit {
     this.form = this.fb.group({
       DatumBeginn: new Date(),
       DatumEnde: '',
+      GanzerTag: false,
       ZeitBeginn: '',
       ZeitEnde: '',
       IdGruppe: '',
@@ -227,6 +318,7 @@ export class TerminEditComponent implements OnInit {
       this.form.setValue({
         DatumBeginn: this.aktTerminDatBeginn,
         DatumEnde: this.aktTerminDatEnde,
+        GanzerTag: this.myTermin.GanzerTag,
         ZeitBeginn: ((this.aktTerminDatBeginn.getHours() < 10 ? '0' : '') + this.aktTerminDatBeginn.getHours()) + ':'
           + ((this.aktTerminDatBeginn.getMinutes() < 10 ? '0' : '') + this.aktTerminDatBeginn.getMinutes()),
         ZeitEnde:   ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
@@ -241,10 +333,13 @@ export class TerminEditComponent implements OnInit {
       this.form.setValue({
         DatumBeginn: this.myTermin.DatumBeginn,
         DatumEnde: this.myTermin.DatumBeginn,
-        ZeitBeginn: ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
+        GanzerTag: this.myTermin.GanzerTag,
+        ZeitBeginn: "00:00",
+        ZeitEnde: "23:59",
+        /*ZeitBeginn: ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
           + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),
         ZeitEnde:   ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
-          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),
+          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),*/
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',

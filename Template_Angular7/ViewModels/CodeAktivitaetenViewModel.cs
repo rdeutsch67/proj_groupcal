@@ -24,6 +24,7 @@ namespace Template_Angular7.ViewModels
         public bool Summieren { get; set; }
         public string Farbe { get; set; }
         
+        public bool GanzerTag { get; set; }
         public DateTime ZeitBeginn { get; set; }
         public DateTime ZeitEnde { get; set; }
         

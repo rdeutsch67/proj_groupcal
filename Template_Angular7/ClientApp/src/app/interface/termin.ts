@@ -5,6 +5,7 @@ interface Termin {
   IdAktivitaet: number;
   DatumBeginn: Date;
   DatumEnde: Date;
+  GanzerTag: boolean;
   Hinweis: string;
 
   AktFarbe: string;

@@ -19,19 +19,6 @@
                [value]="DatumEnde" />
       </div>
     </div>
-    <div class="form-group row">
-      <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
-      <div class="col-sm-3">
-        <input class="form-control" type="time" [value]="ZeitBeginn" id="zeitBeginn"
-               formControlName="ZeitBeginn"/>
-      </div>
-      ...
-      <div class="col-sm-3">
-        <input class="form-control" type="time" [value]="ZeitEnde" id="zeitEnde"
-               formControlName="ZeitEnde"/>
-      </div>
-    </div>
-
 
     <div *ngIf="selGruppen.length > 0" >
       <div class="form-group row">
@@ -62,7 +49,8 @@
       <div class="form-group row">
         <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
         <div class="col-sm-3">
-          <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control">
+          <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control"
+                  (change)="onChangeAktivitaet($event.currentTarget.value)">
             <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id"  >
               {{akt.Id}}  {{akt.Code}} {{akt.Bezeichnung}}
             </option>
@@ -70,6 +58,29 @@
         </div>
       </div>
     </div>
+
+    <div class="input-group row">
+      <label for="ganzertag" class="col-sm-2">Ganztägig:</label>
+      <div class="input-group-prepend col-sm-3">
+        <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
+      </div>
+    </div>
+
+    <div *ngIf="!GanzerTag == true" >
+      <div class="form-group row">
+        <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
+        <div class="col-sm-3">
+          <input class="form-control" type="time" [value]="ZeitBeginn" id="zeitBeginn"
+                 formControlName="ZeitBeginn"/>
+        </div>
+        ...
+        <div class="col-sm-3">
+          <input class="form-control" type="time" [value]="ZeitEnde" id="zeitEnde"
+                 formControlName="ZeitEnde"/>
+        </div>
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>
       <div class="col-sm-3">

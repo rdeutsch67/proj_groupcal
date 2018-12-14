@@ -150,6 +150,7 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser, Teilnehmer",
                 Summieren = false,
                 Farbe = "#f44141",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,19,00,00),
                 ZeitEnde = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,21,00,00),
                 CreatedDate = createdDate,
@@ -163,6 +164,7 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser + Teilnehmer",
                 Summieren = false,
                 Farbe = "#41f46a",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
@@ -176,6 +178,7 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Reserve, einsetzbar bei Bedarf",
                 Summieren = false,
                 Farbe = "#4141f4",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
@@ -189,8 +192,23 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Klärt noch ab",
                 Summieren = false,
                 Farbe = "#dc41f4",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate
+            });
+            
+            EntityEntry<CodeAktivitaeten> e5 = dbContext.CodesAktivitaeten.Add(new CodeAktivitaeten()
+            {
+                GruppenId = gruppeId,
+                Code = "??",
+                Bezeichnung = "Jasser-Ausflug",
+                Summieren = false,
+                Farbe = "#345675",
+                GanzerTag = true,
+                ZeitBeginn = new DateTime(2018,01,01,00,00,00),
+                ZeitEnde = new DateTime(2018,01,01,23,59,59),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -286,6 +304,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 1,
                 IdAktivitaet = 1,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Bin gerne mit dabei.",
@@ -298,6 +317,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 2,
                 IdAktivitaet = 2,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Bin auch mit dabei.",
@@ -310,6 +330,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 3,
                 IdAktivitaet = 4,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Mal guggen.",

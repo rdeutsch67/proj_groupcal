@@ -28,6 +28,11 @@ namespace Template_Angular7.Data
         public string Farbe { get; set; }
         [DefaultValue(0)]
         public bool Summieren { get; set; }
+        
+        [Required]
+        [DefaultValue(0)]
+        public bool GanzerTag { get; set; }
+            
         [Required]
         public DateTime ZeitBeginn { get; set; }
         [Required]

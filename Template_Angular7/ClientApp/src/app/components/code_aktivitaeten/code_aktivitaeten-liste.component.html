@@ -8,6 +8,7 @@
         <th>Code</th>
         <th>Bezeichnung</th>
         <th>Gruppe</th>
+        <th>GanzerTag</th>
         <th>Beginn</th>
         <th>Ende</th>
         <th></th>
@@ -22,16 +23,15 @@
         <td>{{aktivitaet.Code}}</td>
         <td>{{aktivitaet.Bezeichnung}}</td>
         <td>{{aktivitaet.GruppeCode}}</td>
-        <td>{{aktivitaet.ZeitBeginn | date: 'HH:mm'}}</td>
-        <td>{{aktivitaet.ZeitEnde | date: 'HH:mm'}}</td>
-        <!--<td>{{aktivitaet.Farbe}}</td>-->
+        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.GanzerTag" onclick="return false;"/></td>
+        <td *ngIf="aktivitaet.GanzerTag"></td>
+        <td *ngIf="aktivitaet.GanzerTag"></td>
+        <td *ngIf="!aktivitaet.GanzerTag">{{aktivitaet.ZeitBeginn | date: 'HH:mm'}}</td>
+        <td *ngIf="!aktivitaet.GanzerTag">{{aktivitaet.ZeitEnde | date: 'HH:mm'}}</td>
         <td>
-          <!--<h5 [style.color]=[aktivitaet.Farbe] >Farbe</h5>-->
           <p class="square" [style.background-color]=[aktivitaet.Farbe]></p>
         </td>
-
-        <td>{{aktivitaet.Summieren}}</td>
-        <!--<td>{{aktivitaet.GruppenId}}</td>-->
+        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.Summieren" onclick="return false;"/></td>
         <td>
           <button type="submit"
                   (click)="onEdit(aktivitaet)"

@@ -15,6 +15,7 @@ export class Code_aktivitaetenEditComponent {
   editMode: boolean;
   form: FormGroup;
 
+  selGanzerTag: boolean;
   aktZeitBeginn = new Date();
   aktZeitEnde = new Date();
 
@@ -60,6 +61,11 @@ export class Code_aktivitaetenEditComponent {
     console.log(event);
   }
 
+  onChangeGanzerTag(newValue) {
+    console.log(newValue);
+    this.selGanzerTag = newValue;
+  }
+
   onSubmit() {
     // build a temporary quiz object from form values
     var tempAkt = <Code_aktivitaet>{};
@@ -68,8 +74,10 @@ export class Code_aktivitaetenEditComponent {
     tempAkt.GruppenId = this.code_aktivitaet.GruppenId;
     tempAkt.Farbe = this.form.value.Farbe;
     tempAkt.Summieren = this.form.value.Summieren;
+    tempAkt.GanzerTag = this.form.value.GanzerTag;
     tempAkt.ZeitBeginn = this.form.value.ZeitBeginn;
     tempAkt.ZeitEnde = this.form.value.ZeitEnde;
+
 
     let url = this.baseUrl + "api/codesaktivitaeten";
     if (this.editMode) {
@@ -105,6 +113,7 @@ export class Code_aktivitaetenEditComponent {
       Bezeichnung: '',
       Farbe: '',
       Summieren: false,
+      GanzerTag: false,
       ZeitBeginn: [new Date().getHours() + ':00', Validators.required],
       ZeitEnde: [new Date().getHours() + ':00', Validators.required]
     });
@@ -118,6 +127,7 @@ export class Code_aktivitaetenEditComponent {
       Summieren: this.code_aktivitaet.Summieren,
       /*ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + this.aktZeitBeginn.getMinutes(),
       ZeitEnde: this.aktZeitEnde.getHours() + ':' + this.aktZeitEnde.getMinutes()*/
+      GanzerTag: this.code_aktivitaet.GanzerTag,
       // hier bei den Zeiten führende Null zufügen, ansonsten wird die Uhrzeit nicht dargestellt
       ZeitBeginn: ((this.aktZeitBeginn.getHours() < 10 ? '0' : '') + this.aktZeitBeginn.getHours()) + ':'
                 + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes()),

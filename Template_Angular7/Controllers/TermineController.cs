@@ -66,8 +66,9 @@ namespace Template_Angular7.Controllers
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.DatumBeginn = model.DatumBeginn;
-            termin.DatumEnde = model.DatumEnde;
+            termin.GanzerTag = model.GanzerTag;
+            termin.DatumBeginn = model.DatumBeginn.ToLocalTime();
+            termin.DatumEnde = model.DatumEnde.ToLocalTime();
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
@@ -114,6 +115,7 @@ namespace Template_Angular7.Controllers
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
+            termin.GanzerTag = model.GanzerTag;
             termin.DatumBeginn = model.DatumBeginn.ToLocalTime();
             termin.DatumEnde = model.DatumEnde.ToLocalTime();
             termin.Hinweis = model.Hinweis;
@@ -204,6 +206,7 @@ namespace Template_Angular7.Controllers
                                  ut.IdGruppe,
                                  ut.IdTeilnehmer,
                                  ut.IdAktivitaet,
+                                 ut.GanzerTag,
                                  ut.DatumBeginn,
                                  ut.DatumEnde,
                                  ut.Hinweis,
@@ -232,6 +235,7 @@ namespace Template_Angular7.Controllers
                         ut.IdGruppe,
                         ut.IdTeilnehmer,
                         ut.IdAktivitaet,
+                        ut.GanzerTag,
                         ut.DatumBeginn,
                         ut.DatumEnde,
                         ut.Hinweis,

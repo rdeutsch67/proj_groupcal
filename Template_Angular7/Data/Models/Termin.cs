@@ -27,6 +27,10 @@ namespace Template_Angular7.Data
         public int IdAktivitaet { get; set; }
         
         [Required]
+        [DefaultValue(0)]
+        public bool GanzerTag { get; set; }
+        
+        [Required]
         public DateTime DatumBeginn { get; set; }
         public DateTime DatumEnde { get; set; }
         
