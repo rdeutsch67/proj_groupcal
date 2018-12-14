@@ -61,7 +61,7 @@
 
     <div class="input-group row">
       <label for="ganzertag" class="col-sm-2">Ganztägig:</label>
-      <div class="input-group-prepend col-sm-3">
+      <div class="chkganztaegig">
         <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
       </div>
     </div>
@@ -80,6 +80,56 @@
         </div>
       </div>
     </div>
+
+    <!--<div class="input-group row">-->
+    <div class="form-group row">
+      <label for="wiederholungen" class="col-sm-2">Wiederholungen:</label>
+      <!--<div class="input-group-prepend col-sm-3">
+        <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
+      </div>-->
+      <div class="tabwiederholungen" id="wiederholungen">
+        <table>
+          <thead>
+            <tr>
+              <th class="td_size">Mo</th>
+              <th class="td_size">Di</th>
+              <th class="td_size">Mi</th>
+              <th class="td_size">Do</th>
+              <th class="td_size">Fr</th>
+              <th class="td_size">Sa</th>
+              <th class="td_size">So</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td_size"><input id="mo" type="checkbox" formControlName="MoWH"/></td>
+              <td class="td_size"><input id="di" type="checkbox" formControlName="DiWH"/></td>
+              <td class="td_size"><input id="mi" type="checkbox" formControlName="MiWH"/></td>
+              <td class="td_size"><input id="do" type="checkbox" formControlName="DoWH"/></td>
+              <td class="td_size"><input id="fr" type="checkbox" formControlName="FrWH"/></td>
+              <td class="td_size"><input id="sa" type="checkbox" formControlName="SaWH"/></td>
+              <td class="td_size"><input id="so" type="checkbox" formControlName="SoWH"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="selAnzWHLabel">
+        <label for="idWiederholungen">Endet nach:</label>
+      </div>
+      <div *ngIf="zzTerminAnzWiederholungen.length > 0" >
+        <div class="selAnzWH">
+          <select id="idWiederholungen" formControlName="AnzWiederholungen" required class="form-control">
+            <option *ngFor="let data of zzTerminAnzWiederholungen" [value]="data.Id"  >
+              {{data.Bezeichnung}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+
+    </div>
+
+
 
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>

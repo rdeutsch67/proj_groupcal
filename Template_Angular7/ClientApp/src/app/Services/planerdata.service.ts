@@ -124,6 +124,13 @@ export class PlanerdataService {
     );
   }
 
+  loadZzTerminAnzWiederholungen(num: number): Observable<ZzTerminAnzWiederholung[]> {
+    let myUrl: string;
+    myUrl = this.baseUrl + "api/zzterminanzwiederholungen/all/" + num;
+
+    return this.http.get<ZzTerminAnzWiederholung[]>(myUrl);
+  }
+
 }
 
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$USER_HOME$/Library/Caches/Rider2018.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_Template_Angular7.-12530040.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_Template_Angular7.-1169341687.00" t="ExcludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
@@ -207,6 +207,7 @@
                 <e p="gruppe.ts" t="Include" />
                 <e p="Teilnehmer.ts" t="Include" />
                 <e p="termin.ts" t="Include" />
+                <e p="zzterminanzwiederholung.ts" t="Include" />
               </e>
               <e p="nav-menu" t="Include">
                 <e p="nav-menu.component.css" t="Include" />
@@ -246,6 +247,7 @@
           <e p="GruppenController.cs" t="Include" />
           <e p="TeilnehmerController.cs" t="Include" />
           <e p="TermineController.cs" t="Include" />
+          <e p="ZzTerminAnzWiederholungenController.cs" t="Include" />
         </e>
         <e p="Data" t="Include">
           <e p="ApplicationDbContext.cs" t="Include" />
@@ -259,8 +261,8 @@
           </e>
         </e>
         <e p="Migrations" t="Include">
-          <e p="20181212175832_InitialMigration.cs" t="Include" />
-          <e p="20181212175832_InitialMigration.Designer.cs" t="Include" />
+          <e p="20181214100901_InitialMigration.cs" t="Include" />
+          <e p="20181214100901_InitialMigration.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -285,6 +287,7 @@
           <e p="QuizViewModel.cs" t="Include" />
           <e p="TeilnehmerViewModel.cs" t="Include" />
           <e p="TerminViewModel.cs" t="Include" />
+          <e p="ZzTerminAnzWiederholungen.cs" t="Include" />
         </e>
         <e p="wwwroot" t="Include">
           <e p="dist" t="Include">

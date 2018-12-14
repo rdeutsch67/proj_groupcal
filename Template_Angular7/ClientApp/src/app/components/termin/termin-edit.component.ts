@@ -36,6 +36,8 @@ export class TerminEditComponent implements OnInit {
   selTeilnehmer: Teilnehmer[];
   selAktivitaeten: Code_aktivitaet[];
 
+  zzTerminAnzWiederholungen: ZzTerminAnzWiederholung[];
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
@@ -55,6 +57,12 @@ export class TerminEditComponent implements OnInit {
     this.selGruppen = <Gruppe[]>{};
     this.selTeilnehmer = <Teilnehmer[]>{};
     this.selAktivitaeten = <Code_aktivitaet[]>{};
+    this.zzTerminAnzWiederholungen = <ZzTerminAnzWiederholung[]>{};
+
+    loadDataService.loadZzTerminAnzWiederholungen(15).subscribe( (data) => {
+        this.zzTerminAnzWiederholungen = data;
+      }
+    );
 
     // initialize the form
     this.createForm();
@@ -102,6 +110,7 @@ export class TerminEditComponent implements OnInit {
       this.title = "Erstelle neuen Termin";
       this.myTermin.DatumBeginn = new Date();
       this.myTermin.IdGruppe = id;
+      this.myTermin.GanzerTag = false;
 
       let url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
       this.http.get<Gruppe>(url).subscribe(res => {
@@ -182,6 +191,7 @@ export class TerminEditComponent implements OnInit {
           GanzerTag: newGanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
+          AnzWiederholungen: 0,
           IdGruppe: this.form.value.IdGruppe,
           IdTeilnehmer: this.form.value.IdTeilnehmer,
           IdAktivitaet: this.form.value.IdAktivitaet,
@@ -197,6 +207,7 @@ export class TerminEditComponent implements OnInit {
           GanzerTag: selAktivitaet[0].GanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
+          AnzWiederholungen: 0,
           IdGruppe: this.form.value.IdGruppe,
           IdTeilnehmer: this.form.value.IdTeilnehmer,
           IdAktivitaet: this.form.value.IdAktivitaet,
@@ -291,6 +302,7 @@ export class TerminEditComponent implements OnInit {
       GanzerTag: false,
       ZeitBeginn: '',
       ZeitEnde: '',
+      AnzWiederholungen: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -305,6 +317,7 @@ export class TerminEditComponent implements OnInit {
       GanzerTag: false,
       ZeitBeginn: '',
       ZeitEnde: '',
+      AnzWiederholungen: '',
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -323,6 +336,7 @@ export class TerminEditComponent implements OnInit {
           + ((this.aktTerminDatBeginn.getMinutes() < 10 ? '0' : '') + this.aktTerminDatBeginn.getMinutes()),
         ZeitEnde:   ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
           + ((this.aktTerminDatEnde.getMinutes() < 10 ? '0' : '') + this.aktTerminDatEnde.getMinutes()),
+        AnzWiederholungen: 0,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: this.myTermin.IdTeilnehmer,
         IdAktivitaet: this.myTermin.IdAktivitaet,
@@ -336,10 +350,7 @@ export class TerminEditComponent implements OnInit {
         GanzerTag: this.myTermin.GanzerTag,
         ZeitBeginn: "00:00",
         ZeitEnde: "23:59",
-        /*ZeitBeginn: ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
-          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),
-        ZeitEnde:   ((this.myTermin.DatumBeginn.getHours() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getHours()) + ':'
-          + ((this.myTermin.DatumBeginn.getMinutes() < 10 ? '0' : '') + this.myTermin.DatumBeginn.getMinutes()),*/
+        AnzWiederholungen: 0,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',
