@@ -256,6 +256,9 @@ export class TerminEditComponent implements OnInit {
     tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
     tempTermin.Hinweis = this.form.value.Hinweis;
 
+    let FlagWHMo: boolean; FlagWHMo = this.form.value.MoWH;
+    let FlagWHDi: boolean; FlagWHDi = this.form.value.DiWH;
+
     var url = this.baseUrl + "api/termine";
     if (this.editMode) {
       // don't forget to set the Id,
@@ -303,6 +306,7 @@ export class TerminEditComponent implements OnInit {
       ZeitBeginn: '',
       ZeitEnde: '',
       AnzWiederholungen: '',
+      MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -318,6 +322,7 @@ export class TerminEditComponent implements OnInit {
       ZeitBeginn: '',
       ZeitEnde: '',
       AnzWiederholungen: '',
+      MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
       IdGruppe: '',
       IdTeilnehmer: '',
       IdAktivitaet: '',
@@ -337,6 +342,7 @@ export class TerminEditComponent implements OnInit {
         ZeitEnde:   ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
           + ((this.aktTerminDatEnde.getMinutes() < 10 ? '0' : '') + this.aktTerminDatEnde.getMinutes()),
         AnzWiederholungen: 0,
+        MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: this.myTermin.IdTeilnehmer,
         IdAktivitaet: this.myTermin.IdAktivitaet,
@@ -351,6 +357,7 @@ export class TerminEditComponent implements OnInit {
         ZeitBeginn: "00:00",
         ZeitEnde: "23:59",
         AnzWiederholungen: 0,
+        MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
         IdGruppe: this.myTermin.IdGruppe,
         IdTeilnehmer: '',
         IdAktivitaet: '',
