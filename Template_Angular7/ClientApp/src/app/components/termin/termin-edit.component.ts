@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
 import {PlanerdataService} from "../../Services/planerdata.service";
-import {using} from "rxjs";
+import * as moment from 'moment';
 
 @Component({
   selector: "termin-edit.component",
@@ -229,7 +229,22 @@ export class TerminEditComponent implements OnInit {
     this.onChangeAktivitaet(this.form.value.IdAktivitaet, true, this.selGanzerTag);
   }
 
+
+
   onSubmit() {
+
+    function GetNextDay(myDate: Date, dayINeed: number): Date {
+      // if we haven't yet passed the day of the week that I need:
+      if (moment(myDate).isoWeekday() < dayINeed) {
+        // then just give me this week's instance of that day
+        return moment(myDate).isoWeekday(dayINeed).toDate();
+      } else {
+      // otherwise, give me next week's instance of that day
+      return moment().add(1, 'weeks').isoWeekday(dayINeed).toDate();
+      }
+    }
+
+
     // build a temporary termin object from form values
     var tempTermin = <Termin>{};
 
@@ -297,24 +312,35 @@ export class TerminEditComponent implements OnInit {
 
       if (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo ) {
         // Wiederholungen speichern
-        let i: number; let DatumBeginnWH, DatumEndeWH: Date;
+        let i: number; let d: number; let DatumBeginnWH, DatumEndeWH: Date;
+        let arrNxtWochentag: Date[] = [];
+        if (FlagWHMo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,1)) };
+        if (FlagWHDi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,2)) };
+        if (FlagWHMi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,3)) };
+        if (FlagWHDo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,4)) };
+        if (FlagWHFr == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,5)) };
+        if (FlagWHSa == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,6)) };
+        if (FlagWHSo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,7)) };
+
         let Anzahl: number = this.form.value.AnzWiederholungen;
         if (Anzahl > 0) {
-          for (i = 1; i <= Anzahl; i++) {
-            DatumBeginnWH = new Date(tempTermin.DatumBeginn);
-            DatumBeginnWH.setDate( DatumBeginnWH.getDate() + 7);
-            DatumEndeWH = new Date(tempTermin.DatumEnde);
-            DatumEndeWH.setDate( DatumEndeWH.getDate() + 7);
+          for (d = 0; d <= arrNxtWochentag.length-1; d++) {
+            for (i = 0; i <= Anzahl-1; i++) {
+              DatumBeginnWH = new Date(arrNxtWochentag[d]);
+              DatumBeginnWH.setDate( DatumBeginnWH.getDate() + (7 * i));
+              DatumEndeWH = new Date(arrNxtWochentag[d]);
+              DatumEndeWH.setDate( DatumEndeWH.getDate() + (7 * i));
 
-            tempTermin.DatumBeginn = DatumBeginnWH;
-            tempTermin.DatumEnde = DatumEndeWH;
-            this.http
-              .put<Termin>(url, tempTermin)
-              .subscribe(res => {
-                var q = res;
-                console.log("Termin " + q.Id + " erstellt.");
-                this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
-              }, error => console.log(error));
+              tempTermin.DatumBeginn = DatumBeginnWH;
+              tempTermin.DatumEnde = DatumEndeWH;
+              this.http
+                .put<Termin>(url, tempTermin)
+                .subscribe(res => {
+                  var q = res;
+                  console.log("Termin " + q.Id + " erstellt.");
+                  this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
+                }, error => console.log(error));
+            }
           }
         }
       }
@@ -403,6 +429,7 @@ export class TerminEditComponent implements OnInit {
   }
 
   onShowDataJson() {
+
     this.showDataJson = !this.showDataJson;
     if (this.showDataJson){
       this.showDataJsonTitle = 'JSON-Daten verbergen'
@@ -415,4 +442,6 @@ export class TerminEditComponent implements OnInit {
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
     }
   }
+
+
 }
