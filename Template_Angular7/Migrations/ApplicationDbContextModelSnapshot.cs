@@ -158,6 +158,8 @@ namespace Template_Angular7.Migrations
 
                     b.Property<int>("IdTeilnehmer");
 
+                    b.Property<int>("IdTermin");
+
                     b.Property<DateTime>("LastModifiedDate");
 
                     b.HasKey("Id");

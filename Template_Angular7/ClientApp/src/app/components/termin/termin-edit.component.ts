@@ -13,7 +13,7 @@ import {using} from "rxjs";
 })
 
 export class TerminEditComponent implements OnInit {
-  title: string;
+  title: string; master: string;
   editMode: boolean;
   newPlanerEvent: boolean;
   showDataJson: boolean = true;
@@ -88,6 +88,7 @@ export class TerminEditComponent implements OnInit {
       this.http.get<Termin>(url).subscribe(res => {
         this.myTermin = res;
         this.title = "Edit - "+id;
+        this.master = "("+this.myTermin.IdTermin+")";
         this.aktTerminDatBeginn = new Date(this.myTermin.DatumBeginn);
         this.aktTerminDatEnde = new Date(this.myTermin.DatumEnde);
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
@@ -108,6 +109,7 @@ export class TerminEditComponent implements OnInit {
     }
     else {
       this.title = "Erstelle neuen Termin";
+      this.master = "";
       this.myTermin.DatumBeginn = new Date();
       this.myTermin.IdGruppe = id;
       this.myTermin.GanzerTag = false;
@@ -191,7 +193,9 @@ export class TerminEditComponent implements OnInit {
           GanzerTag: newGanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
-          AnzWiederholungen: 0,
+          AnzWiederholungen: this.form.value.AnzWiederholungen,
+          MoWH: this.form.value.MoWH, DiWH: this.form.value.DiWH, MiWH: this.form.value.MiWH,
+          DoWH: this.form.value.DoWH, FrWH: this.form.value.FrWH, SaWH: this.form.value.SaWH, SoWH: this.form.value.SoWH,
           IdGruppe: this.form.value.IdGruppe,
           IdTeilnehmer: this.form.value.IdTeilnehmer,
           IdAktivitaet: this.form.value.IdAktivitaet,
@@ -207,7 +211,9 @@ export class TerminEditComponent implements OnInit {
           GanzerTag: selAktivitaet[0].GanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
-          AnzWiederholungen: 0,
+          AnzWiederholungen: this.form.value.AnzWiederholungen,
+          MoWH: this.form.value.MoWH, DiWH: this.form.value.DiWH, MiWH: this.form.value.MiWH,
+          DoWH: this.form.value.DoWH, FrWH: this.form.value.FrWH, SaWH: this.form.value.SaWH, SoWH: this.form.value.SoWH,
           IdGruppe: this.form.value.IdGruppe,
           IdTeilnehmer: this.form.value.IdTeilnehmer,
           IdAktivitaet: this.form.value.IdAktivitaet,
@@ -258,6 +264,14 @@ export class TerminEditComponent implements OnInit {
 
     let FlagWHMo: boolean; FlagWHMo = this.form.value.MoWH;
     let FlagWHDi: boolean; FlagWHDi = this.form.value.DiWH;
+    let FlagWHMi: boolean; FlagWHMi = this.form.value.MiWH;
+    let FlagWHDo: boolean; FlagWHDo = this.form.value.DoWH;
+    let FlagWHFr: boolean; FlagWHFr = this.form.value.FrWH;
+    let FlagWHSa: boolean; FlagWHSa = this.form.value.SaWH;
+    let FlagWHSo: boolean; FlagWHSo = this.form.value.SoWH;
+
+
+
 
     var url = this.baseUrl + "api/termine";
     if (this.editMode) {
@@ -273,8 +287,6 @@ export class TerminEditComponent implements OnInit {
         }, error => console.log(error));
     }
     else {  // neuen Termin erstellen
-
-
       this.http
         .put<Termin>(url, tempTermin)
         .subscribe(res => {
@@ -282,6 +294,30 @@ export class TerminEditComponent implements OnInit {
           console.log("Termin " + q.Id + " erstellt.");
           this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
         }, error => console.log(error));
+
+      if (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo ) {
+        // Wiederholungen speichern
+        let i: number; let DatumBeginnWH, DatumEndeWH: Date;
+        let Anzahl: number = this.form.value.AnzWiederholungen;
+        if (Anzahl > 0) {
+          for (i = 1; i <= Anzahl; i++) {
+            DatumBeginnWH = new Date(tempTermin.DatumBeginn);
+            DatumBeginnWH.setDate( DatumBeginnWH.getDate() + 7);
+            DatumEndeWH = new Date(tempTermin.DatumEnde);
+            DatumEndeWH.setDate( DatumEndeWH.getDate() + 7);
+
+            tempTermin.DatumBeginn = DatumBeginnWH;
+            tempTermin.DatumEnde = DatumEndeWH;
+            this.http
+              .put<Termin>(url, tempTermin)
+              .subscribe(res => {
+                var q = res;
+                console.log("Termin " + q.Id + " erstellt.");
+                this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
+              }, error => console.log(error));
+          }
+        }
+      }
     }
   }
 

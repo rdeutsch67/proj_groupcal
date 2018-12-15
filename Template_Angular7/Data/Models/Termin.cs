@@ -18,7 +18,9 @@ namespace Template_Angular7.Data
         [Key]
         [Required]
         public int Id { get; set; }
-        
+        [DefaultValue(0)]
+        public int IdTermin { get; set; }    // Verbindung auf den ursprünglichen Master-Termin (bei Wiederholungen)
+                                             // -> so können z.B. alle diese "gleichartigen" Termine auf einmal mutiert werden
         [Required]
         public int IdGruppe { get; set; }
         [Required]

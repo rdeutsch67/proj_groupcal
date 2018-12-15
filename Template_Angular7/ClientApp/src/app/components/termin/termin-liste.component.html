@@ -5,6 +5,7 @@
       <thead>
       <tr>
         <th>ID</th>
+        <th>IdTermin</th>
         <th>Beginn</th>
         <th>Ende</th>
         <th>Gruppe</th>
@@ -21,6 +22,7 @@
       <tbody>
       <tr *ngFor="let termin of termine">
         <td>{{termin.Id}}</td>
+        <td>{{termin.IdTermin}}</td>
         <td>{{termin.DatumBeginn | date: 'dd.MM.yy'}}</td>
         <td>{{termin.DatumEnde | date: 'dd.MM.yy'}}</td>
         <td>{{termin.GrpCode}}</td>
@@ -31,9 +33,6 @@
         <td *ngIf="termin.GanzerTag"></td>
         <td *ngIf="!termin.GanzerTag">{{termin.DatumBeginn | date: 'HH:mm'}}</td>
         <td *ngIf="!termin.GanzerTag">{{termin.DatumEnde | date: 'HH:mm'}}</td>
-
-        <!--<td>{{termin.DatumBeginn | date: 'HH:mm'}}</td>
-        <td>{{termin.DatumEnde | date: 'HH:mm'}}</td>-->
         <td>{{termin.Hinweis}}</td>
         <td>
           <button type="submit"

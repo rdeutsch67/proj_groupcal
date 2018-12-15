@@ -21,14 +21,23 @@ namespace Template_Angular7.Controllers
         public IActionResult All(int num = 10)
         {
             var zzDatenliste = new List<ZzTerminAnzWiederholungenViewModel>();
+            
+            zzDatenliste.Add(new ZzTerminAnzWiederholungenViewModel()
+            {
+                Id = 1,
+                Count = 0,
+                Bezeichnung = String.Format("nie"),
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
+            });
 
-            for (int i = 1; i <= num; i++)
+            for (int i = 2; i <= num; i++)
             {
                 zzDatenliste.Add(new ZzTerminAnzWiederholungenViewModel()
                 {
-                    Id = 1,
-                    Count = i,
-                    Bezeichnung = String.Format("nach {0} Mal", i),
+                    Id = i,
+                    Count = i-1,
+                    Bezeichnung = String.Format("nach {0} Mal", i-1),
                     CreatedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now
                 });

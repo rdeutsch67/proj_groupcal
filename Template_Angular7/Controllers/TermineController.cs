@@ -63,6 +63,7 @@ namespace Template_Angular7.Controllers
             var termin = new Termin();
             
             // properties taken from the request
+            termin.IdTermin = model.IdTermin;
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
@@ -112,6 +113,7 @@ namespace Template_Angular7.Controllers
             // handle the update (without object-mapping)
             // by manually assigning the properties
             // we want to accept from the request
+            termin.IdTermin = model.IdTermin;
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
@@ -203,6 +205,7 @@ namespace Template_Angular7.Controllers
                              select new
                              {
                                  ut.Id,
+                                 ut.IdTermin,
                                  ut.IdGruppe,
                                  ut.IdTeilnehmer,
                                  ut.IdAktivitaet,
@@ -218,7 +221,8 @@ namespace Template_Angular7.Controllers
                                  TnNachname = uu.Nachname,
                                  GrpCode = ug.Code,
                                  GrpBezeichnung = ug.Bezeichnung
-                             }).ToList();
+                             }).OrderBy(x => x.DatumBeginn)
+                               .ToList();
                 return new JsonResult(
                     query.Adapt<TerminViewModel[]>(),
                     JsonSettings);    
@@ -232,6 +236,7 @@ namespace Template_Angular7.Controllers
                     select new
                     {
                         ut.Id,
+                        ut.IdTermin,
                         ut.IdGruppe,
                         ut.IdTeilnehmer,
                         ut.IdAktivitaet,
@@ -247,7 +252,8 @@ namespace Template_Angular7.Controllers
                         TnNachname = uu.Nachname,
                         GrpCode = ug.Code,
                         GrpBezeichnung = ug.Bezeichnung
-                    }).ToList();
+                    }).OrderBy(x => x.DatumBeginn)
+                      .ToList();
                 return new JsonResult(
                     query.Adapt<TerminViewModel[]>(),
                     JsonSettings);

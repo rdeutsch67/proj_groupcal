@@ -1,5 +1,6 @@
 interface Termin {
   Id: number;
+  IdTermin: number;
   IdGruppe: number;
   IdTeilnehmer: number;
   IdAktivitaet: number;
