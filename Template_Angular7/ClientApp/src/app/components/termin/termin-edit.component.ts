@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
 import {PlanerdataService} from "../../Services/planerdata.service";
 import * as moment from 'moment';
+import {Observable} from "rxjs";
 
 @Component({
   selector: "termin-edit.component",
@@ -271,9 +272,15 @@ export class TerminEditComponent implements OnInit {
     this.onChangeAktivitaet(this.form.value.IdAktivitaet, true, this.selGanzerTag);
   }
 
-
-
   onSubmit() {
+
+    let FlagWHMo: boolean;
+    let FlagWHDi: boolean;
+    let FlagWHMi: boolean;
+    let FlagWHDo: boolean;
+    let FlagWHFr: boolean;
+    let FlagWHSa: boolean;
+    let FlagWHSo: boolean;
 
     function GetNextDay(myDate: Date, dayINeed: number): Date {
       // if we haven't yet passed the day of the week that I need:
@@ -281,85 +288,13 @@ export class TerminEditComponent implements OnInit {
         // then just give me this week's instance of that day
         return moment(myDate).isoWeekday(dayINeed).toDate();
       } else {
-      // otherwise, give me next week's instance of that day
-      return moment(myDate).add(1, 'weeks').isoWeekday(dayINeed).toDate();
+        // otherwise, give me next week's instance of that day
+        return moment(myDate).add(1, 'weeks').isoWeekday(dayINeed).toDate();
       }
     }
 
+    function HandleWiederholungen(myHttp: HttpClient) {
 
-    // build a temporary termin object from form values
-    var tempTermin = <Termin>{};
-
-    tempTermin.GanzerTag = this.form.value.GanzerTag;
-    let myIdMaster: number = 0;
-    let myBeginnDate: Date = new Date(this.form.value.DatumBeginn);
-    let myEndeDate: Date = new Date(this.form.value.DatumEnde);
-    if (tempTermin.GanzerTag == true) {
-      // Beginn
-      myBeginnDate.setHours(0,0,0,0);
-      // Ende
-      myEndeDate.setHours(23,59,59,999);
-    }
-    else {
-      // Beginn
-      var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
-      var myHour = parseInt(myZeit.substring(0,2),10);
-      var myMinutes = parseInt(myZeit.substring(3,5),10);
-      myBeginnDate.setHours(myHour,myMinutes,0,0);
-      // Ende
-      myZeit = this.form.value.ZeitEnde;
-      myHour = parseInt(myZeit.substring(0,2),10);
-      myMinutes = parseInt(myZeit.substring(3,5),10);
-      myEndeDate.setHours(myHour,myMinutes,0,0);
-    }
-    tempTermin.DatumBeginn = myBeginnDate;
-    tempTermin.DatumEnde = myEndeDate;
-    tempTermin.IdGruppe = this.form.value.IdGruppe;
-    tempTermin.IdTeilnehmer = this.form.value.IdTeilnehmer;
-    tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
-    tempTermin.Hinweis = this.form.value.Hinweis;
-
-    let FlagWHMo: boolean; FlagWHMo = this.form.value.MoWH;
-    let FlagWHDi: boolean; FlagWHDi = this.form.value.DiWH;
-    let FlagWHMi: boolean; FlagWHMi = this.form.value.MiWH;
-    let FlagWHDo: boolean; FlagWHDo = this.form.value.DoWH;
-    let FlagWHFr: boolean; FlagWHFr = this.form.value.FrWH;
-    let FlagWHSa: boolean; FlagWHSa = this.form.value.SaWH;
-    let FlagWHSo: boolean; FlagWHSo = this.form.value.SoWH;
-
-    let AnzahlWH: number = this.form.value.AnzWiederholungen;
-    let WiederholungenVorhanden: boolean = (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo) && (AnzahlWH > 0);
-
-
-    var url = this.baseUrl + "api/termine";
-    if (this.editMode) {
-      // don't forget to set the Id,
-      // otherwise the EDIT would fail!
-      tempTermin.Id = this.myTermin.Id;
-      this.http
-        .post<Termin>(url, tempTermin)
-        .subscribe(res => {
-          this.myTermin = res;
-          myIdMaster = this.myTermin.Id;
-          console.log("Termin " + this.myTermin.Id + " wurde mutiert.");
-          this.router.navigate(["gruppen/edit/"+this.myTermin.IdGruppe]);
-        }, error => console.log(error));
-    }
-    else {  // neuen Termin erstellen
-      this.http
-        .put<Termin>(url, tempTermin)
-        .subscribe(res => {
-          var q = res;
-          myIdMaster = q.Id;
-          console.log("Termin " + q.Id + " erstellt.");
-          if (!WiederholungenVorhanden) {
-            this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
-          }
-        }, error => console.log(error));
-    }
-
-    // Wiederholungen speichern
-    if (WiederholungenVorhanden)  {
       let arrNxtWochentag: Date[] = [];
       // die nächsten Tagesdaten der gewählten Wochentage ermitteln (z.B. welches Datum hat der nächste Montag vom gewählten Startdatum aus gesehen)
       if (FlagWHMo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,1)) };
@@ -393,18 +328,106 @@ export class TerminEditComponent implements OnInit {
               curDatumEnde.getHours(), curDatumEnde.getMinutes(), curDatumEnde.getSeconds(), curDatumEnde.getMilliseconds());
 
             tempTermin.IdTermin = myIdMaster;
-            this.http
+            myHttp
               .put<Termin>(url, tempTermin)
               .subscribe(res => {
-                var q = res;
+                let q = res;
                 console.log("Termin " + q.Id + " erstellt.");
-                if (!WiederholungenVorhanden) {
-                  this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
-                }
               }, error => console.log(error));
           }
         }
       }
+    }
+
+    FlagWHMo = this.form.value.MoWH;
+    FlagWHDi = this.form.value.DiWH;
+    FlagWHMi = this.form.value.MiWH;
+    FlagWHDo = this.form.value.DoWH;
+    FlagWHFr = this.form.value.FrWH;
+    FlagWHSa = this.form.value.SaWH;
+    FlagWHSo = this.form.value.SoWH;
+
+    let AnzahlWH: number = this.form.value.AnzWiederholungen;
+    let WiederholungenVorhanden: boolean = (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo) && (AnzahlWH > 0);
+
+    // build a temporary termin object from form values
+    let tempTermin = <Termin>{};
+
+    tempTermin.GanzerTag = this.form.value.GanzerTag;
+    let myIdMaster: number = 0;
+    let myBeginnDate: Date = new Date(this.form.value.DatumBeginn);
+    let myEndeDate: Date = new Date(this.form.value.DatumEnde);
+    if (tempTermin.GanzerTag == true) {
+      // Beginn
+      myBeginnDate.setHours(0,0,0,0);
+      // Ende
+      myEndeDate.setHours(23,59,59,999);
+    }
+    else {
+      // Beginn
+      var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
+      var myHour = parseInt(myZeit.substring(0,2),10);
+      var myMinutes = parseInt(myZeit.substring(3,5),10);
+      myBeginnDate.setHours(myHour,myMinutes,0,0);
+      // Ende
+      myZeit = this.form.value.ZeitEnde;
+      myHour = parseInt(myZeit.substring(0,2),10);
+      myMinutes = parseInt(myZeit.substring(3,5),10);
+      myEndeDate.setHours(myHour,myMinutes,0,0);
+    }
+
+    tempTermin.DatumBeginn = myBeginnDate;
+    tempTermin.DatumEnde = myEndeDate;
+    tempTermin.IdGruppe = this.form.value.IdGruppe;
+    tempTermin.IdTeilnehmer = this.form.value.IdTeilnehmer;
+    tempTermin.IdAktivitaet = this.form.value.IdAktivitaet;
+    tempTermin.Hinweis = this.form.value.Hinweis;
+
+    var url = this.baseUrl + "api/termine";
+    if (this.editMode) {
+      // don't forget to set the Id,
+      // otherwise the EDIT would fail!
+      tempTermin.Id = this.myTermin.Id;
+      if (WiederholungenVorhanden) { tempTermin.IdTermin = tempTermin.Id };
+      this.http
+        .post<Termin>(url, tempTermin)
+        .subscribe(res => {
+          this.myTermin = res;
+          console.log("Termin " + this.myTermin.Id + " wurde mutiert.");
+          myIdMaster = this.myTermin.Id;
+          if (WiederholungenVorhanden) {
+            let WKok = HandleWiederholungen(this.http);
+            console.log("Wiederholungstermine mit IdMaster = " + this.myTermin.Id + " erstellt.");
+          };
+
+          this.router.navigate(["gruppen/edit/"+this.myTermin.IdGruppe]);
+        }, error => console.log(error));
+    }
+    else {  // neuen Termin erstellen
+      this.http
+        .put<Termin>(url, tempTermin)
+        .subscribe(res => {
+          var q = res;
+          console.log("Termin " + q.Id + " erstellt.");
+          myIdMaster = q.Id;
+          if (WiederholungenVorhanden) {
+            let WKok = HandleWiederholungen(this.http);
+            console.log("Wiederholungstermine mit IdMaster = " + q.Id + " erstellt.");
+
+            // zum Schluss die IdTermin vom "Master"-Termin aktualisieren
+            q.IdTermin = q.Id;
+            this.http
+              .post<Termin>(url, q)
+              .subscribe(res => {
+                q = res;
+                console.log("Termin " + q.Id + " wurde mit IdTermin "+q.Id+" aktualisiert.");
+              }, error => console.log(error));
+          };
+          if (!WiederholungenVorhanden) {
+            this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
+          }
+        }, error => console.log(error));
+
     }
   }
 
@@ -412,46 +435,20 @@ export class TerminEditComponent implements OnInit {
     this.router.navigate(["gruppen/edit", this.myTermin.IdGruppe]);
   }
 
-  loadGruppen(id: number) {
+  /*loadGruppen(id: number) {
     let myUrl: string;
     myUrl = this.baseUrl + "api/gruppen/alle/0";  // alle holen
     this.http.get<Gruppe[]>(myUrl).subscribe(res => {
         this.selGruppen = res;
       },
       error => console.error(error));
-  }
+  }*/
 
   ngOnInit() {
     this.InitFormFields();
-    /*this.form = this.fb.group({
-      DatumBeginn: new Date(),
-      DatumEnde: '',
-      GanzerTag: false,
-      ZeitBeginn: "10:00",
-      ZeitEnde: "11:00",
-      AnzWiederholungen: '',
-      MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
-      IdGruppe: '',
-      IdTeilnehmer: '',
-      IdAktivitaet: '',
-      Hinweis: ''
-    });*/
   }
 
   createForm() {
-    /*this.form = this.fb.group({
-      DatumBeginn: new Date(),
-      DatumEnde: '',
-      GanzerTag: false,
-      ZeitBeginn: "10:00",
-      ZeitEnde: "11:00",
-      AnzWiederholungen: '',
-      MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
-      IdGruppe: '',
-      IdTeilnehmer: '',
-      IdAktivitaet: '',
-      Hinweis: ''
-    });*/
     this.InitFormFields();
     this.onShowDataJson();
   }

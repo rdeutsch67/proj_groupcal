@@ -65,6 +65,31 @@ export class TerminListeComponent implements OnChanges {
   }
 
   onDelete(termin: Termin) {
+    var myTermine: Termin[];
+    myTermine = <Termin[]>{};
+    myTermine =  this.termine.filter(x => ((x.IdTermin == termin.IdTermin) && (termin.IdTermin > 0)));
+    /*myTermine =  this.termine.filter(x => ((x.Id == termin.Id) ||
+                                                  ((x.IdTermin == termin.IdTermin) && (x.DatumBeginn >= termin.DatumBeginn)) ||
+                                                  ((x.Id == termin.Id) && (x.IdTermin == 0))));*/
+
+
+    if (myTermine.length > 1) {
+      if (confirm("Sollen dieser und alle nachfolgenden Termine von diesem Typ (IdTermin = "+termin.IdTermin+") gelöscht werden?")) {
+        for (let i: number = 0; i <= myTermine.length; i++) {
+          if ((myTermine[i].Id >= termin.Id) || (myTermine[i].DatumBeginn >= termin.DatumBeginn)) {
+            let url = this.baseUrl + "api/termine/" + myTermine[i].Id;
+            this.http
+              .delete(url)
+              .subscribe(res => {
+                console.log("Termin " + termin.Id + " wurde gelöscht.");
+                // refresh the question list
+                this.loadData(0);
+              }, error => console.log(error));
+          }
+        }
+      }
+    };
+
     if (confirm("Soll dieser Termin gelöscht werden?")) {
       let url = this.baseUrl + "api/termine/" + termin.Id;
       this.http
