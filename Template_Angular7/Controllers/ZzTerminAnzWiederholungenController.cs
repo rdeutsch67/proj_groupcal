@@ -37,7 +37,7 @@ namespace Template_Angular7.Controllers
                 {
                     Id = i,
                     Count = i-1,
-                    Bezeichnung = String.Format("nach {0} Mal", i-1),
+                    Bezeichnung = String.Format("{0} Mal", i-1),
                     CreatedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now
                 });

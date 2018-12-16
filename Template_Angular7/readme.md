@@ -43,4 +43,4 @@ z.B.
 Komponenten:
 
 Bootstrap 4
-NgxBootstrap                                 
+NgxBootstrap (bsDatepicker)                                

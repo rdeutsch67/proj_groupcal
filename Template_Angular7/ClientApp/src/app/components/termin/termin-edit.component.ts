@@ -110,7 +110,15 @@ export class TerminEditComponent implements OnInit {
     else {
       this.title = "Erstelle neuen Termin";
       this.master = "";
-      this.myTermin.DatumBeginn = new Date();
+
+      let myday: Date = this.activatedRoute.snapshot.params["myday"];
+
+      if (myday) {
+        this.myTermin.DatumBeginn = new Date(myday);
+      }
+      else {
+        this.myTermin.DatumBeginn = new Date();
+      }
       this.myTermin.IdGruppe = id;
       this.myTermin.GanzerTag = false;
 
@@ -130,6 +138,34 @@ export class TerminEditComponent implements OnInit {
       }, error => console.error(error));
       // update the form with the quiz value
       this.updateForm();
+    }
+  }
+
+  onChangeDatumBeginn(value: Date): void {
+    let dtBeginn: Date = new Date(value);
+    let dtEnde: Date = new Date(this.form.value.DatumEnde);
+    if (moment(dtEnde, "DD.MM.YYYY") < moment(dtBeginn, "DD.MM.YYYY")) {
+      this.form.setValue(
+        {
+          DatumBeginn: this.form.value.DatumBeginn,
+          DatumEnde: dtBeginn,
+          GanzerTag: this.form.value.GanzerTag,
+          ZeitBeginn: this.form.value.ZeitBeginn,
+          ZeitEnde: this.form.value.ZeitEnde,
+          AnzWiederholungen: this.form.value.AnzWiederholungen,
+          MoWH: this.form.value.MoWH,
+          DiWH: this.form.value.DiWH,
+          MiWH: this.form.value.MiWH,
+          DoWH: this.form.value.DoWH,
+          FrWH: this.form.value.FrWH,
+          SaWH: this.form.value.SaWH,
+          SoWH: this.form.value.SoWH,
+          IdGruppe: this.form.value.IdGruppe,
+          IdTeilnehmer: this.form.value.IdTeilnehmer,
+          IdAktivitaet: this.form.value.IdAktivitaet,
+          Hinweis: this.form.value.Hinweis,
+        }
+      );
     }
   }
 
@@ -240,7 +276,7 @@ export class TerminEditComponent implements OnInit {
         return moment(myDate).isoWeekday(dayINeed).toDate();
       } else {
       // otherwise, give me next week's instance of that day
-      return moment().add(1, 'weeks').isoWeekday(dayINeed).toDate();
+      return moment(myDate).add(1, 'weeks').isoWeekday(dayINeed).toDate();
       }
     }
 
@@ -309,38 +345,49 @@ export class TerminEditComponent implements OnInit {
           console.log("Termin " + q.Id + " erstellt.");
           this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
         }, error => console.log(error));
+    }
 
-      if (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo ) {
-        // Wiederholungen speichern
-        let i: number; let d: number; let DatumBeginnWH, DatumEndeWH: Date;
-        let arrNxtWochentag: Date[] = [];
-        if (FlagWHMo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,1)) };
-        if (FlagWHDi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,2)) };
-        if (FlagWHMi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,3)) };
-        if (FlagWHDo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,4)) };
-        if (FlagWHFr == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,5)) };
-        if (FlagWHSa == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,6)) };
-        if (FlagWHSo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,7)) };
+    if (FlagWHMo || FlagWHDi || FlagWHMi || FlagWHDo || FlagWHFr || FlagWHSa || FlagWHSo ) {
+      // Wiederholungen speichern
+      /*let i: number; let d: number;*/ /*let DatumBeginnWH, DatumEndeWH: Date;*/
+      let arrNxtWochentag: Date[] = [];
+      // die nächsten Tagesdaten der gewählten Wochentage ermitteln (z.B. welches Datum hat der nächste Montag vom gewählten Startdatum aus gesehen)
+      if (FlagWHMo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,1)) };
+      if (FlagWHDi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,2)) };
+      if (FlagWHMi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,3)) };
+      if (FlagWHDo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,4)) };
+      if (FlagWHFr == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,5)) };
+      if (FlagWHSa == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,6)) };
+      if (FlagWHSo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,7)) };
 
-        let Anzahl: number = this.form.value.AnzWiederholungen;
-        if (Anzahl > 0) {
-          for (d = 0; d <= arrNxtWochentag.length-1; d++) {
-            for (i = 0; i <= Anzahl-1; i++) {
-              DatumBeginnWH = new Date(arrNxtWochentag[d]);
-              DatumBeginnWH.setDate( DatumBeginnWH.getDate() + (7 * i));
-              DatumEndeWH = new Date(arrNxtWochentag[d]);
-              DatumEndeWH.setDate( DatumEndeWH.getDate() + (7 * i));
+      // Differenz vom Ende- zum Startdatum ermitteln
+      let startdate = moment(tempTermin.DatumBeginn, "DD.MM.YYYY");
+      let enddate = moment(tempTermin.DatumEnde, "DD.MM.YYYY");
+      let daydiff: number = enddate.diff(startdate, 'days');
 
-              tempTermin.DatumBeginn = DatumBeginnWH;
-              tempTermin.DatumEnde = DatumEndeWH;
-              this.http
-                .put<Termin>(url, tempTermin)
-                .subscribe(res => {
-                  var q = res;
-                  console.log("Termin " + q.Id + " erstellt.");
-                  this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
-                }, error => console.log(error));
-            }
+      // gemäss Anzahl Wiederholungen die Start- und Endedaten berechnen und in die Termine einfügen
+      let Anzahl: number = this.form.value.AnzWiederholungen;
+      if (Anzahl > 0) {
+        for (let d = 0; d <= arrNxtWochentag.length-1; d++) {
+          for (let i = 0; i <= Anzahl-1; i++) {
+            let DatumBeginnWH: Date = new Date(arrNxtWochentag[d]);
+            DatumBeginnWH.setDate( DatumBeginnWH.getDate() + (7 * i));
+            let curDatumBeginn: Date = new Date(tempTermin.DatumBeginn);
+            tempTermin.DatumBeginn = new Date(DatumBeginnWH.getFullYear(), DatumBeginnWH.getMonth(), DatumBeginnWH.getDate(),
+              curDatumBeginn.getHours(), curDatumBeginn.getMinutes(), curDatumBeginn.getSeconds(), curDatumBeginn.getMilliseconds());
+
+            let DatumEndeWH: Date = new Date(tempTermin.DatumBeginn);
+            DatumEndeWH.setDate(tempTermin.DatumBeginn.getDate() + daydiff);
+            let curDatumEnde: Date = new Date(tempTermin.DatumEnde);
+            tempTermin.DatumEnde = new Date(DatumEndeWH.getFullYear(), DatumEndeWH.getMonth(), DatumEndeWH.getDate(),
+              curDatumEnde.getHours(), curDatumEnde.getMinutes(), curDatumEnde.getSeconds(), curDatumEnde.getMilliseconds());
+            this.http
+              .put<Termin>(url, tempTermin)
+              .subscribe(res => {
+                var q = res;
+                console.log("Termin " + q.Id + " erstellt.");
+                this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
+              }, error => console.log(error));
           }
         }
       }

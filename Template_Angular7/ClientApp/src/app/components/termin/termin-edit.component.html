@@ -9,7 +9,8 @@
                formControlName="DatumBeginn"
                bsDatepicker [bsConfig]="datePickerConfig"
                [bsValue]="DatumBeginn"
-               [value]="DatumBeginn" />
+               [value]="DatumBeginn"
+               (bsValueChange)="onChangeDatumBeginn($event)" />
       </div>
       ...
       <div class="col-sm-3">
@@ -85,9 +86,6 @@
     <!--<div class="input-group row">-->
     <div class="form-group row">
       <label for="wiederholungen" class="col-sm-2">Wiederholungen:</label>
-      <!--<div class="input-group-prepend col-sm-3">
-        <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
-      </div>-->
       <div class="tabwiederholungen" id="wiederholungen">
         <table>
           <thead>
@@ -115,7 +113,7 @@
         </table>
       </div>
       <div class="selAnzWHLabel">
-        <label for="idWiederholungen">Endet nach:</label>
+        <label for="idWiederholungen">Termin </label>
       </div>
       <div *ngIf="zzTerminAnzWiederholungen.length > 0" >
         <div class="selAnzWH">
@@ -125,6 +123,9 @@
             </option>
           </select>
         </div>
+      </div>
+      <div class="selAnzWHLabel">
+        <label for="idWiederholungen">wiederholen</label>
       </div>
     </div>
 
