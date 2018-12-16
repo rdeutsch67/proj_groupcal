@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, OnChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import * as moment from "moment";
 
 @Component({
   selector: "code_aktivitaeten-edit.component",
@@ -108,14 +109,16 @@ export class Code_aktivitaetenEditComponent {
   }
 
   createForm() {
+    let aDate = new Date();
+    aDate = moment(aDate).add(1, 'hours').toDate();  // zur aktuellen Uhrzeit ein Stunde dazu rechnen
     this.form = this.fb.group({
       Code: ['', Validators.required],
       Bezeichnung: '',
       Farbe: '',
       Summieren: false,
       GanzerTag: false,
-      ZeitBeginn: [new Date().getHours() + ':00', Validators.required],
-      ZeitEnde: [new Date().getHours() + ':00', Validators.required]
+      ZeitBeginn: [new Date().getHours() + ':00'],
+      ZeitEnde: [aDate.getHours().toString(10) + ':00']
     });
   }
 

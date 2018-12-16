@@ -152,7 +152,6 @@ export class KalenderComponent {
   }
 
   onCreateTermin() {
-    //this.router.navigate(["termine/create", this.currentIdGruppe]);
     this.router.navigate(['termine/new_event', { id: this.currentIdGruppe, myday: this.clickedDate }]);
   }
 

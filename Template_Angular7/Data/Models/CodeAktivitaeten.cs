@@ -33,9 +33,7 @@ namespace Template_Angular7.Data
         [DefaultValue(0)]
         public bool GanzerTag { get; set; }
             
-        [Required]
         public DateTime ZeitBeginn { get; set; }
-        [Required]
         public DateTime ZeitEnde { get; set; }
         
         [Required]
