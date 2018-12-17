@@ -29,9 +29,10 @@ namespace Template_Angular7.Data
         [DefaultValue(0)]
         public bool Summieren { get; set; }
         
-        [Required]
         [DefaultValue(0)]
         public bool GanzerTag { get; set; }
+        [DefaultValue(0)]
+        public bool ZeitUnbestimmt { get; set; }
             
         public DateTime ZeitBeginn { get; set; }
         public DateTime ZeitEnde { get; set; }

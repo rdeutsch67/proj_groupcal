@@ -6,6 +6,7 @@ interface Code_aktivitaet {
   Summieren: boolean;
   Farbe: string;
   GanzerTag: boolean;
+  ZeitUnbestimmt: boolean;
   ZeitBeginn: Date;
   ZeitEnde: Date;
 }
@@ -18,6 +19,7 @@ interface VCode_aktivitaet {
   Summieren: boolean;
   Farbe: string;
   GanzerTag: boolean;
+  ZeitUnbestimmt: boolean;
   ZeitBeginn: Date;
   ZeitEnde: Date;
 
@@ -25,5 +27,7 @@ interface VCode_aktivitaet {
   GruppeBezeichnung: string;
   GruppeUserId: string;
   GruppeAktiv: boolean;
+
+  ShowZeiten: boolean;
 }
 

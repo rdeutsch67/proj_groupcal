@@ -66,6 +66,7 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Summieren = model.Summieren;
             codeAktivitaet.Farbe = model.Farbe;
             codeAktivitaet.GanzerTag = model.GanzerTag;
+            codeAktivitaet.ZeitUnbestimmt = model.ZeitUnbestimmt;
             codeAktivitaet.ZeitBeginn = model.ZeitBeginn;
             codeAktivitaet.ZeitEnde = model.ZeitEnde;
             // properties set from server-side
@@ -115,6 +116,7 @@ namespace Template_Angular7.Controllers
             codeAktivitaet.Summieren = model.Summieren;
             codeAktivitaet.Farbe = model.Farbe;
             codeAktivitaet.GanzerTag = model.GanzerTag;
+            codeAktivitaet.ZeitUnbestimmt = model.ZeitUnbestimmt;
             codeAktivitaet.ZeitBeginn = model.ZeitBeginn;
             codeAktivitaet.ZeitEnde = model.ZeitEnde;
             // properties set from server-side
@@ -204,8 +206,10 @@ namespace Template_Angular7.Controllers
                         ut.Summieren,
                         ut.Farbe,
                         ut.GanzerTag,
+                        ut.ZeitUnbestimmt,
                         ut.ZeitBeginn,
                         ut.ZeitEnde,
+                        ShowZeiten = !(ut.GanzerTag || ut.ZeitUnbestimmt), 
                         GruppeCode = ug.Code,
                         GruppeBezeichnung = ug.Bezeichnung,
                         GruppeUserId = ug.UserId,
@@ -228,8 +232,10 @@ namespace Template_Angular7.Controllers
                         ut.Summieren,
                         ut.Farbe,
                         ut.GanzerTag,
+                        ut.ZeitUnbestimmt,
                         ut.ZeitBeginn,
                         ut.ZeitEnde,
+                        ShowZeiten = !(ut.GanzerTag || ut.ZeitUnbestimmt),
                         GruppeCode = ug.Code,
                         GruppeBezeichnung = ug.Bezeichnung,
                         GruppeUserId = ug.UserId,

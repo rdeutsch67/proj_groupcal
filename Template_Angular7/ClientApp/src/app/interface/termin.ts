@@ -19,4 +19,7 @@ interface Termin {
 
   GrpCode: string;
   GrpBezeichnung: string;
+
+  CreatedDate: Date;
+  LastModifiedDate: Date;
 }

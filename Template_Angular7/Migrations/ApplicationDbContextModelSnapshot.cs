@@ -76,6 +76,8 @@ namespace Template_Angular7.Migrations
 
                     b.Property<DateTime>("ZeitEnde");
 
+                    b.Property<bool>("ZeitUnbestimmt");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GruppenId");

@@ -12,6 +12,7 @@
         <th>Teilnehmer</th>
         <th>Akt Code</th>
         <th>GanzerTag</th>
+        <th>Dauer unbestimmt</th>
         <th>Akt Beginn</th>
         <th>Akt Ende</th>
         <th>Hinweis</th>
@@ -29,6 +30,7 @@
         <td>{{termin.TnVorname}} {{termin.TnNachname}}</td>
         <td style="text-align:center;"> {{termin.AktCode}}</td>
         <td style="text-align:center;"><input type="checkbox"  [checked]="termin.GanzerTag" onclick="return false;"/></td>
+        <td style="text-align:center;"><input type="checkbox"  [checked]="termin.ZeitUnbestimmt" onclick="return false;"/></td>
         <td *ngIf="termin.GanzerTag"></td>
         <td *ngIf="termin.GanzerTag"></td>
         <td *ngIf="!termin.GanzerTag">{{termin.DatumBeginn | date: 'HH:mm'}}</td>

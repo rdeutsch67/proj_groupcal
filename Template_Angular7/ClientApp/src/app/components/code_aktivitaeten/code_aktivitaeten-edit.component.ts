@@ -16,7 +16,6 @@ export class Code_aktivitaetenEditComponent {
   editMode: boolean;
   form: FormGroup;
 
-  selGanzerTag: boolean;
   aktZeitBeginn = new Date();
   aktZeitEnde = new Date();
 
@@ -28,8 +27,6 @@ export class Code_aktivitaetenEditComponent {
 
     // leeres Aktivität-Objekt erstellen
     this.code_aktivitaet = <Code_aktivitaet>{};
-
-    //this.ZeitBeginnFormat = new Date();
 
     // initialize the form
     this.createForm();
@@ -57,14 +54,60 @@ export class Code_aktivitaetenEditComponent {
     }
   }
 
-  // to catch the event
-  changeDate(event: any) {
-    console.log(event);
+  onChangeGanzerTag(event) {
+    console.log(event.target.checked);
+    let bGanzerTag: boolean = event.target.checked;
+    let myZeitBeginn$: string = "";
+    let myZeitEnde$: string = "";
+    let aDate = new Date();
+
+    aDate = moment(aDate).add(1, 'hours').toDate();  // zur aktuellen Uhrzeit ein Stunde dazu rechnen
+
+    if (bGanzerTag) {
+      myZeitBeginn$ = "00:00";
+      myZeitEnde$ = "23:59";
+    }
+    else {
+      myZeitBeginn$ = new Date().getHours().toString(10) + ':00';
+      myZeitEnde$ = aDate.getHours().toString(10) + ':00';
+    }
+
+    this.form.setValue({
+      Code: this.form.value.Code,
+      Bezeichnung: this.form.value.Bezeichnung || '',
+      Farbe: this.form.value.Farbe,
+      Summieren: this.form.value.Summieren,
+      GanzerTag: this.form.value.GanzerTag,
+      ZeitUnbestimmt: false,
+      ZeitBeginn: myZeitBeginn$,
+      ZeitEnde: myZeitEnde$
+    });
   }
 
-  onChangeGanzerTag(newValue) {
-    console.log(newValue);
-    this.selGanzerTag = newValue;
+  onChangeZeitUnbestimmt(event) {
+    console.log(event.target.checked);
+    let bZeitUnbestmmt: boolean = event.target.checked;
+    let myZeitBeginn$: string = "";
+    let myZeitEnde$: string = "";
+    let aDate = new Date();
+
+    aDate = moment(aDate).add(1, 'hours').toDate();  // zur aktuellen Uhrzeit ein Stunde dazu rechnen
+
+    if (bZeitUnbestmmt == false) {
+      myZeitBeginn$ = new Date().getHours().toString(10) + ':00';
+      myZeitEnde$ = aDate.getHours().toString(10) + ':00';
+    };
+
+    this.form.setValue({
+      Code: this.form.value.Code,
+      Bezeichnung: this.form.value.Bezeichnung || '',
+      Farbe: this.form.value.Farbe,
+      Summieren: this.form.value.Summieren,
+      GanzerTag: false,
+      ZeitUnbestimmt: this.form.value.ZeitUnbestimmt,
+      ZeitBeginn: myZeitBeginn$,
+      ZeitEnde: myZeitEnde$
+    });
   }
 
   onSubmit() {
@@ -76,8 +119,13 @@ export class Code_aktivitaetenEditComponent {
     tempAkt.Farbe = this.form.value.Farbe;
     tempAkt.Summieren = this.form.value.Summieren;
     tempAkt.GanzerTag = this.form.value.GanzerTag;
-    tempAkt.ZeitBeginn = this.form.value.ZeitBeginn;
-    tempAkt.ZeitEnde = this.form.value.ZeitEnde;
+    tempAkt.ZeitUnbestimmt = this.form.value.ZeitUnbestimmt;
+    if (this.form.value.ZeitBeginn != "") {
+      tempAkt.ZeitBeginn = this.form.value.ZeitBeginn;
+    }
+    if (this.form.value.ZeitEnde != "") {
+      tempAkt.ZeitEnde = this.form.value.ZeitEnde;
+    }
 
 
     let url = this.baseUrl + "api/codesaktivitaeten";
@@ -117,25 +165,32 @@ export class Code_aktivitaetenEditComponent {
       Farbe: '',
       Summieren: false,
       GanzerTag: false,
+      ZeitUnbestimmt: false,
       ZeitBeginn: [new Date().getHours() + ':00'],
       ZeitEnde: [aDate.getHours().toString(10) + ':00']
     });
   }
 
   updateForm() {
+    let myZeitBeginn$: string = "";
+    let myZeitEnde$: string = "";
+    if (this.code_aktivitaet.ZeitUnbestimmt != true) {
+      // hier bei den Zeiten führende Null zufügen, ansonsten wird die Uhrzeit nicht dargestellt
+      myZeitBeginn$ = ((this.aktZeitBeginn.getHours() < 10 ? '0' : '') + this.aktZeitBeginn.getHours()) + ':'
+      + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes());
+        myZeitEnde$ = ((this.aktZeitEnde.getHours() < 10 ? '0' : '') + this.aktZeitEnde.getHours()) + ':'
+      + ((this.aktZeitEnde.getMinutes() < 10 ? '0' : '') + this.aktZeitEnde.getMinutes())
+    };
+
     this.form.setValue({
       Code: this.code_aktivitaet.Code,
       Bezeichnung: this.code_aktivitaet.Bezeichnung || '',
       Farbe: this.code_aktivitaet.Farbe,
       Summieren: this.code_aktivitaet.Summieren,
-      /*ZeitBeginn: this.aktZeitBeginn.getHours() + ':' + this.aktZeitBeginn.getMinutes(),
-      ZeitEnde: this.aktZeitEnde.getHours() + ':' + this.aktZeitEnde.getMinutes()*/
       GanzerTag: this.code_aktivitaet.GanzerTag,
-      // hier bei den Zeiten führende Null zufügen, ansonsten wird die Uhrzeit nicht dargestellt
-      ZeitBeginn: ((this.aktZeitBeginn.getHours() < 10 ? '0' : '') + this.aktZeitBeginn.getHours()) + ':'
-                + ((this.aktZeitBeginn.getMinutes() < 10 ? '0' : '') + this.aktZeitBeginn.getMinutes()),
-      ZeitEnde:   ((this.aktZeitEnde.getHours() < 10 ? '0' : '') + this.aktZeitEnde.getHours()) + ':'
-                + ((this.aktZeitEnde.getMinutes() < 10 ? '0' : '') + this.aktZeitEnde.getMinutes())
+      ZeitUnbestimmt: this.code_aktivitaet.ZeitUnbestimmt,
+      ZeitBeginn: myZeitBeginn$,
+      ZeitEnde: myZeitEnde$
     });
   }
 }

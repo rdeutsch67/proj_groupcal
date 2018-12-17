@@ -31,26 +31,35 @@
       <div class="input-group-prepend col-sm-3">
         <div class="input-group-text">
           <input id="ganzertag" type="checkbox" formControlName="GanzerTag"
-                 (change)="onChangeGanzerTag($event.currentTarget.value)">
+                 (change)="onChangeGanzerTag($event)">
         </div>
       </div>
     </div>
-    <!--<div *ngIf="selGanzerTag = true" >-->
-      <div class="form-group row">
-        <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
-        <div class="col-sm-3">
-           <input class="form-control" type="time" value="ZeitBeginn" id="zeitBeginn"
-                  formControlName="ZeitBeginn"/>
+    <div class="input-group row">
+      <label for="zeitUnbestimmt" class="col-sm-2 col-form-label">Dauer unbestimmt:</label>
+      <div class="input-group-prepend col-sm-3">
+        <div class="input-group-text">
+          <input class="formcontrol" id="zeitUnbestimmt" type="checkbox" formControlName="ZeitUnbestimmt"
+                 [value]="ZeitUnbestimmt" (change)="onChangeZeitUnbestimmt($event)">
         </div>
       </div>
-      <div class="form-group row">
-        <label for="zeitEnde" class="col-sm-2 col-form-label">Ende:</label>
-        <div class="col-sm-3">
-          <input class="form-control" type="time" value="ZeitEnde" id="zeitEnde"
-                 formControlName="ZeitEnde"/>
-        </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
+      <div class="col-sm-3">
+         <input class="form-control" type="time" value="ZeitBeginn" id="zeitBeginn"
+                formControlName="ZeitBeginn"/>
       </div>
-    <!--</div>-->
+    </div>
+    <div class="form-group row">
+      <label for="zeitEnde" class="col-sm-2 col-form-label">Ende:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="time" value="ZeitEnde" id="zeitEnde"
+               formControlName="ZeitEnde"/>
+      </div>
+    </div>
+
     <div class="input-group row">
       <label for="summieren" class="col-sm-2 col-form-label">Summieren:</label>
       <div class="input-group-prepend col-sm-3">

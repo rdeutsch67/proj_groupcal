@@ -435,15 +435,6 @@ export class TerminEditComponent implements OnInit {
     this.router.navigate(["gruppen/edit", this.myTermin.IdGruppe]);
   }
 
-  /*loadGruppen(id: number) {
-    let myUrl: string;
-    myUrl = this.baseUrl + "api/gruppen/alle/0";  // alle holen
-    this.http.get<Gruppe[]>(myUrl).subscribe(res => {
-        this.selGruppen = res;
-      },
-      error => console.error(error));
-  }*/
-
   ngOnInit() {
     this.InitFormFields();
   }
