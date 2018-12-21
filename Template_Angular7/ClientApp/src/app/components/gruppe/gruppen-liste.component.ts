@@ -27,18 +27,6 @@ export class GruppenListeComponent {
       count = 0;
     }
     this.loadData(count);
-    /*if (count) {
-      console.log(count);
-      let url = this.baseUrl + "api/gruppen/alle/" + count;
-
-      this.http.get<Gruppe[]>(url).subscribe(result => {
-        this.gruppen = result;
-      }, error => console.error(error));
-    }
-    else {
-      console.log("Invalid count: routing back to home...");
-      this.router.navigate(["home"]);
-    }*/
   }
 
   loadData(myCount: number) {

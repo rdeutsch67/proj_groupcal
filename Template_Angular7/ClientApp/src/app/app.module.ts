@@ -15,7 +15,7 @@ import localeDECH from '@angular/common/locales/de-CH';
 
 
 import {GruppenListeComponent} from "./components/gruppe/gruppen-liste.component";
-import {GruppeComponent} from "./components/gruppe/gruppe.component";
+//import {GruppeComponent} from "./components/gruppe/gruppe.component";
 import {AboutComponent} from "./components/about/about.component";
 import {PageNotFoundComponent} from "./components/pagenotfound.component/pagenotfound.component";
 import {GruppeEditComponent} from "./components/gruppe/gruppe-edit.component";
@@ -40,7 +40,7 @@ registerLocaleData(localeDECH);
     NavMenuComponent,
     HomeComponent,
     GruppenListeComponent,
-    GruppeComponent,
+    //GruppeComponent,
     GruppeEditComponent,
     Code_aktivitaetenEditComponent,
     Code_aktivitaetenListeComponent,
@@ -72,7 +72,7 @@ registerLocaleData(localeDECH);
       { path: 'gruppen/alle/:count', component: GruppenListeComponent },
       { path: 'gruppen/create', component: GruppeEditComponent},
       { path: 'gruppen/edit/:id', component: GruppeEditComponent},
-      { path: 'gruppen/:id', component: GruppeComponent},
+      //{ path: 'gruppen/:id', component: GruppeComponent},
       { path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
       { path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
       { path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},

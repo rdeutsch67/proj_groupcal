@@ -45,21 +45,6 @@ export class TeilnehmerListeComponent implements OnChanges {
     }
   }
 
-  /*loadData(id: number) {
-    let myUrl: string;
-    if (id > 0 ) {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
-    }
-    else {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/0";  // alle holen
-    }
-
-    this.http.get<Teilnehmer[]>(myUrl).subscribe(res => {
-      this.myTeilnehmer = res;
-    },
-        error => console.error(error));
-  }*/
-
   loadVTeilnehmer(id: number) {
 
     this.dataService.loadVTeilnehmer(id).subscribe( res => {

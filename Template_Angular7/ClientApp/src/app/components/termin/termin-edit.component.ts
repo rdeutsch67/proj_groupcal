@@ -152,25 +152,9 @@ export class TerminEditComponent implements OnInit {
     let dtBeginn: Date = new Date(value);
     let dtEnde: Date = new Date(this.form.value.DatumEnde);
     if (moment(dtEnde, "DD.MM.YYYY") < moment(dtBeginn, "DD.MM.YYYY")) {
-      this.form.setValue(
+      this.form.patchValue(
         {
-          DatumBeginn: this.form.value.DatumBeginn,
-          DatumEnde: dtBeginn,
-          GanzerTag: this.form.value.GanzerTag,
-          ZeitBeginn: this.form.value.ZeitBeginn,
-          ZeitEnde: this.form.value.ZeitEnde,
-          AnzWiederholungen: this.form.value.AnzWiederholungen,
-          MoWH: this.form.value.MoWH,
-          DiWH: this.form.value.DiWH,
-          MiWH: this.form.value.MiWH,
-          DoWH: this.form.value.DoWH,
-          FrWH: this.form.value.FrWH,
-          SaWH: this.form.value.SaWH,
-          SoWH: this.form.value.SoWH,
-          IdGruppe: this.form.value.IdGruppe,
-          IdTeilnehmer: this.form.value.IdTeilnehmer,
-          IdAktivitaet: this.form.value.IdAktivitaet,
-          Hinweis: this.form.value.Hinweis,
+          DatumEnde: dtBeginn
         }
       );
     }
@@ -189,7 +173,7 @@ export class TerminEditComponent implements OnInit {
     );
   }
 
-  onChangeAktivitaet(newValue, orGanzerTag?: boolean, newGanzerTag?: boolean) {
+  onChangeAktivitaet(newValue, callOverride?: boolean, newGanzerTag?: boolean) {
     console.log(newValue);
     this.selectedAktivitaet = newValue;
 
@@ -197,28 +181,13 @@ export class TerminEditComponent implements OnInit {
     selAktivitaet = <Code_aktivitaet[]>{};
     selAktivitaet =  this.selAktivitaeten.filter(x => x.Id == this.selectedAktivitaet);
 
-    if (!orGanzerTag) {
-      if (selAktivitaet[0].GanzerTag == true) {
-        myZeitBeginn$ = "00:00";
-        myZeitEnde$ = "23:59";
-      }
-      else {
-        // Zeiten gemäss Codedefinition anzeigen
-        var myZeitBeginn: Date = new Date(selAktivitaet[0].ZeitBeginn);
-        var myZeitBeginn$ = ((myZeitBeginn.getHours() < 10 ? '0' : '') + myZeitBeginn.getHours()) + ':'
-          + ((myZeitBeginn.getMinutes() < 10 ? '0' : '') + myZeitBeginn.getMinutes());
-        var myZeitEnde: Date = new Date(selAktivitaet[0].ZeitEnde);
-        var myZeitEnde$ = ((myZeitEnde.getHours() < 10 ? '0' : '') + myZeitEnde.getHours()) + ':'
-          + ((myZeitEnde.getMinutes() < 10 ? '0' : '') + myZeitEnde.getMinutes());
-      }
+    if ((selAktivitaet[0].GanzerTag == true) || (newGanzerTag == true)) {
+      myZeitBeginn$ = "00:00";
+      myZeitEnde$ = "23:59";
     }
     else {
-      if (newGanzerTag == true) {
-        myZeitBeginn$ = "00:00";
-        myZeitEnde$ = "23:59";
-      }
-      else {
-        // Zeiten gemäss Codedefinition anzeigen
+      // Zeiten gemäss Codedefinition anzeigen
+      if (!selAktivitaet[0].ZeitUnbestimmt) {
         var myZeitBeginn: Date = new Date(selAktivitaet[0].ZeitBeginn);
         var myZeitBeginn$ = ((myZeitBeginn.getHours() < 10 ? '0' : '') + myZeitBeginn.getHours()) + ':'
           + ((myZeitBeginn.getMinutes() < 10 ? '0' : '') + myZeitBeginn.getMinutes());
@@ -226,45 +195,33 @@ export class TerminEditComponent implements OnInit {
         var myZeitEnde$ = ((myZeitEnde.getHours() < 10 ? '0' : '') + myZeitEnde.getHours()) + ':'
           + ((myZeitEnde.getMinutes() < 10 ? '0' : '') + myZeitEnde.getMinutes());
       }
+      else {
+        let aDate = new Date();
+        aDate = moment(aDate).add(1, 'hours').toDate();  // zur aktuellen Uhrzeit ein Stunde dazu rechnen
+        myZeitBeginn$ = new Date().getHours().toString(10) + ':00';
+        myZeitEnde$   = new Date(aDate).getHours().toString(10) + ':00';
+      }
+
     }
 
-    if (orGanzerTag) {
-      this.form.setValue(
+    if (callOverride) {
+      this.form.patchValue(
         {
-          DatumBeginn: this.form.value.DatumBeginn,
-          DatumEnde: this.form.value.DatumEnde,
           GanzerTag: newGanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
-          AnzWiederholungen: this.form.value.AnzWiederholungen,
-          MoWH: this.form.value.MoWH, DiWH: this.form.value.DiWH, MiWH: this.form.value.MiWH,
-          DoWH: this.form.value.DoWH, FrWH: this.form.value.FrWH, SaWH: this.form.value.SaWH, SoWH: this.form.value.SoWH,
-          IdGruppe: this.form.value.IdGruppe,
-          IdTeilnehmer: this.form.value.IdTeilnehmer,
-          IdAktivitaet: this.form.value.IdAktivitaet,
-          Hinweis: this.form.value.Hinweis,
         }
       );
     }
     else {
-      this.form.setValue(
+      this.form.patchValue(
         {
-          DatumBeginn: this.form.value.DatumBeginn,
-          DatumEnde: this.form.value.DatumEnde,
           GanzerTag: selAktivitaet[0].GanzerTag,
           ZeitBeginn: myZeitBeginn$,
           ZeitEnde: myZeitEnde$,
-          AnzWiederholungen: this.form.value.AnzWiederholungen,
-          MoWH: this.form.value.MoWH, DiWH: this.form.value.DiWH, MiWH: this.form.value.MiWH,
-          DoWH: this.form.value.DoWH, FrWH: this.form.value.FrWH, SaWH: this.form.value.SaWH, SoWH: this.form.value.SoWH,
-          IdGruppe: this.form.value.IdGruppe,
-          IdTeilnehmer: this.form.value.IdTeilnehmer,
-          IdAktivitaet: this.form.value.IdAktivitaet,
-          Hinweis: this.form.value.Hinweis,
         }
       );
     }
-
   }
 
   onClickGanzerTag(e) {
