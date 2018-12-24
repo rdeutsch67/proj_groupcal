@@ -31,6 +31,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgxJsonViewerModule} from "ngx-json-viewer";
 
 registerLocaleData(localeDECH);
 
@@ -59,6 +60,7 @@ registerLocaleData(localeDECH);
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxJsonViewerModule,
     BsDatepickerModule.forRoot(),
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({

@@ -19,7 +19,7 @@ export class TerminEditComponent implements OnInit {
   newPlanerEvent: boolean;
   showDataJson: boolean = true;
   showDataJsonTitle: string;
-  showDataJsonBtnClass: string;
+  showDebugInfoBtnClass: string;
   showDataJsonBtnIcon: string;
   myTermin: Termin;
 
@@ -443,12 +443,12 @@ export class TerminEditComponent implements OnInit {
     this.showDataJson = !this.showDataJson;
     if (this.showDataJson){
       this.showDataJsonTitle = 'JSON-Daten verbergen'
-      this.showDataJsonBtnClass = 'btn btn-sm btn-warning';
+      this.showDebugInfoBtnClass = 'btn btn-sm btn-warning';
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';
     }
     else {
       this.showDataJsonTitle = 'JSON-Daten anzeigen'
-      this.showDataJsonBtnClass = 'btn btn-sm btn-primary';
+      this.showDebugInfoBtnClass = 'btn btn-sm btn-primary';
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
     }
   }

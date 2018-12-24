@@ -3,10 +3,8 @@
   border-top: 5px solid #8ec4e5; }
 
 .chkganztaegig {
-  margin-bottom: 8px;
-  margin-left: 20px;
-  padding-bottom: 5px;
-  padding-left: 5px; }
+  padding-left: 20px;
+  margin-top: 10px; }
 
 .tabwiederholungen {
   color: #5bc0de;
@@ -34,5 +32,15 @@
   margin-left: 10px;
   padding-top: 20px;
   padding-left: 15px; }
+
+.mytextbox {
+  margin-left: 30px;
+  width: 110px; }
+
+.help-block {
+  display: block;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  color: #1626f0; }
 
 /*# sourceMappingURL=termin-edit.component.css.map */

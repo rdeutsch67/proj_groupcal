@@ -1,5 +1,5 @@
-<div class="termine-edit">
-  <h2>Termin: {{title}}</h2>
+<div class="termine-edit edit_form">
+  <div class="title">Termin: {{title}}</div>
   <div *ngIf="master > 0"><h5>Termin: {{master}}</h5></div>
   <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
     <div class="form-group row">
@@ -12,7 +12,7 @@
                [value]="DatumBeginn"
                (bsValueChange)="onChangeDatumBeginn($event)" />
       </div>
-      ...
+      <label class="col-form-label">bis</label>
       <div class="col-sm-3">
         <input type="text" class="form-control"
                formControlName="DatumEnde"
@@ -61,9 +61,9 @@
       </div>
     </div>
 
-    <div class="input-group row">
-      <label for="ganzertag" class="col-sm-2">Ganztägig:</label>
-      <div class="chkganztaegig">
+    <div class="form-group row">
+      <label for="ganzertag" class="col-sm-2 col-form-label">Ganztägig:</label>
+      <div class="col-sm-3 chkganztaegig">
         <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
       </div>
     </div>
@@ -75,7 +75,7 @@
           <input class="form-control" type="time" [value]="ZeitBeginn" id="zeitBeginn"
                  formControlName="ZeitBeginn"/>
         </div>
-        ...
+        <label class="col-form-label">bis</label>
         <div class="col-sm-3">
           <input class="form-control" type="time" [value]="ZeitEnde" id="zeitEnde"
                  formControlName="ZeitEnde"/>
@@ -85,7 +85,7 @@
 
     <!--<div class="input-group row">-->
     <div class="form-group row">
-      <label for="wiederholungen" class="col-sm-2">Wiederholungen:</label>
+      <label for="wiederholungen" class="col-sm-2 col-form-label">Wiederholungen:</label>
       <div class="tabwiederholungen" id="wiederholungen">
         <table>
           <thead>
@@ -112,9 +112,10 @@
           </tbody>
         </table>
       </div>
-      <div class="selAnzWHLabel">
+      <!--<div class="selAnzWHLabel">
         <label for="idWiederholungen">Termin </label>
-      </div>
+      </div>-->
+      <label class="col-form-label">Termin</label>
       <div *ngIf="zzTerminAnzWiederholungen.length > 0" >
         <div class="selAnzWH">
           <select id="idWiederholungen" formControlName="AnzWiederholungen" required class="form-control">
@@ -124,9 +125,10 @@
           </select>
         </div>
       </div>
-      <div class="selAnzWHLabel">
+      <!--<label class="col-form-label">wiederholen</label>-->
+      <!--<div class="selAnzWHLabel">
         <label for="idWiederholungen">wiederholen</label>
-      </div>
+      </div>-->
     </div>
 
     <div class="form-group row">
@@ -139,68 +141,77 @@
       </div>
     </div>
 
-    <div class="form-group commands">
-      <button *ngIf="editMode" type="submit"
-              [disabled]="form.invalid"
-              class="btn btn-sm btn-success">
-        <i class="fas fa-save"></i>
-        Speichern
-      </button>
-      <button *ngIf="!editMode" type="submit"
-              [disabled]="form.invalid"
-              class="btn btn-sm btn-success">
-        <i class="fas fa-plus-circle"></i>
-        Termin erstellen
-      </button>
 
-      <button type="submit"
-              (click)="onBack()"
-              class="btn btn-sm btn-secondary">
-        <i class="fas fa-arrow-alt-circle-left"></i>
-        Zurück
-      </button>
+
+
+    <div class="navbar">
+      <!--<div class="form-group commands">-->
+        <button *ngIf="editMode" type="submit"
+                [disabled]="form.invalid"
+                class="btn btn-sm btn-success">
+          <i class="fas fa-save"></i>
+          Speichern
+        </button>
+        <button *ngIf="!editMode" type="submit"
+                [disabled]="form.invalid"
+                class="btn btn-sm btn-success">
+          <i class="fas fa-plus-circle"></i>
+          Termin erstellen
+        </button>
+
+
+        <button id="btnShowDataJson " type="button" (click)="onShowDataJson()"
+                class={{showDebugInfoBtnClass}} >
+          <i class={{showDataJsonBtnIcon}}></i>
+          {{showDataJsonTitle}}
+        </button>
+
+        <button type="submit"
+                (click)="onBack()"
+                class="btn btn-sm btn-secondary">
+          <i class="fas fa-arrow-alt-circle-left"></i>
+          Zurück
+        </button>
+      <!--</div>-->
     </div>
 
-
-    <div class="form-group commands">
-      <button id="btnShowDataJson " type="button" (click)="onShowDataJson()"
-              class={{showDataJsonBtnClass}} >
-        <i class={{showDataJsonBtnIcon}}></i>
-        {{showDataJsonTitle}}
-      </button>
-    </div>
   </form>
 </div>
-<div *ngIf="showDataJson" class="row">
-  <div class="col-xs-12 col-md-12">
-    <a>Form-Feldinhalte</a>
-    <pre class="code-preview">{{form.value | json}}</pre>
-    <a>Auswahl: Gruppen</a>
-    <pre class="code-preview">{{selGruppen | json}}</pre>
-    <a>Auswahl: Teilnehmer</a>
-    <pre class="code-preview">{{selTeilnehmer | json}}</pre>
-    <a>Auswahl: Aktivitäten</a>
-    <pre class="code-preview">{{selAktivitaeten | json}}</pre>
-  </div>
+<!--<div *ngIf="showDataJson" class="row">-->
+<div *ngIf="!showDataJson">
+<div class="form-debug-info">
+  <!--<div class="panel panel-info"
+       style="margin: 20px 20px 20px 20px;">-->
+    <div class="title">Debug Info</div>
+
+    <div class="panel-body">
+      <p><strong>Form value:</strong></p>
+      <div class="help-block">
+        {{ form.value | json }}
+      </div>
+      <p><strong>Form status:</strong></p>
+      <div class="help-block">
+        {{ form.status | json }}
+      </div>
+      <div *ngIf="activityLog">
+        <p><strong>Form activity log:</strong></p>
+        <div class="help-block">
+              <span *ngIf="activityLog"
+                    [innerHTML]="activityLog"></span>
+        </div>
+      </div>
+
+      <a><strong>Auswahl: Gruppen</strong></a>
+      <ngx-json-viewer [json]=selGruppen [expanded]="false"></ngx-json-viewer>
+      <br>
+      <a><strong>Auswahl: Teilnehmer</strong></a>
+      <ngx-json-viewer [json]=selTeilnehmer [expanded]="false"></ngx-json-viewer>
+      <br>
+      <a><strong>Auswahl: Aktivitäten</strong></a>
+      <ngx-json-viewer [json]=selAktivitaeten [expanded]="false"></ngx-json-viewer>
+    </div>
+  <!--</div>-->
+</div>
 </div>
 
-<div class="panel panel-info"
-     style="margin-top: 20px;">
-  <div class="panel-heading">Form debug info</div>
-  <div class="panel-body">
-    <p><strong>Form value:</strong></p>
-    <div class="help-block">
-      {{ form.value | json }}
-    </div>
-    <p><strong>Form status:</strong></p>
-    <div class="help-block">
-      {{ form.status | json }}
-    </div>
-    <p><strong>Form activity log:</strong></p>
-    <div class="help-block">
-            <span *ngIf="activityLog"
-                  [innerHTML]="activityLog"></span>
-    </div>
-  </div>
-</div>
 
