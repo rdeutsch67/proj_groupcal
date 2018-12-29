@@ -1,46 +1,142 @@
-.table thead tr th {
-  border-bottom: 2px solid #8ec4e5;
-  border-top: 5px solid #8ec4e5; }
+@charset "UTF-8";
+/*#startDate, #endeDate {
+  width: 50%;
+  float: left;
+}*/
+#tbwiederholungen {
+  padding-left: 20px; }
+
+.mobil_se {
+  /* je nach Auflösung die HTML-Zeile aktiv setzen */
+  visibility: hidden; }
+
+.dp-label {
+  /* datepicker label */
+  width: 80px;
+  margin-right: 50px; }
+
+.dp-label2 {
+  /* datepicker label */
+  margin-right: 100px; }
+
+#mydatumbeginn, #mydatumende {
+  width: 100px; }
+
+.dp-picker {
+  width: 50px;
+  /*margin-left: 40px;
+  margin-right: 90px;*/ }
+
+.no-space {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+
+#idGruppe {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px; }
 
 .chkganztaegig {
   padding-left: 20px;
-  margin-top: 10px; }
+  margin-top: 9px; }
 
-.tabwiederholungen {
-  color: #5bc0de;
-  margin-bottom: 5px;
+#section-wiederholungen {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-top: 1px solid rgba(70, 89, 240, 0.99);
+  border-bottom: 1px solid rgba(70, 89, 240, 0.99); }
+  #section-wiederholungen table {
+    width: 90%;
+    table-layout: fixed;
+    color: rgba(70, 89, 240, 0.99);
+    border-collapse: collapse;
+    border-color: rgba(70, 89, 240, 0.99);
+    margin-left: 20px; }
+    #section-wiederholungen table thead {
+      border-bottom: hidden; }
+    #section-wiederholungen table td, #section-wiederholungen table th {
+      text-align: center; }
+
+/*  margin-bottom: 5px;
   margin-left: 5px;
   padding-bottom: 5px;
-  padding-left: 12px; }
-
-.td_size {
-  width: 35px;
-  height: 20px;
-  text-align: center; }
-
-.selAnzWHLabel {
-  margin-top: 0px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  padding-top: 27px;
-  padding-left: 15px; }
-
-.selAnzWH {
-  width: 90px;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  padding-top: 20px;
-  padding-left: 15px; }
-
-.mytextbox {
-  margin-left: 30px;
-  width: 110px; }
-
-.help-block {
+  padding-left: 12px;
+}*/
+.mytoptoolbar {
   display: block;
-  margin-top: -15px;
+  border-width: 5px;
+  background-color: rgba(70, 89, 240, 0.74);
   margin-bottom: 10px;
-  color: #1626f0; }
+  margin-top: 10px; }
+
+.mybottomtoolbar {
+  display: none; }
+
+/* Auflösung > 576px */
+@media (min-width: 576px) {
+  .mobil_se {
+    /* je nach Auflösung die HTML-Zeile aktiv setzen */
+    visibility: visible; }
+
+  .dp-picker {
+    width: 10ch;
+    float: left;
+    margin-right: 60px; }
+
+  .dp-label {
+    /* datepicker label */
+    width: 90px;
+    margin-right: 0px; }
+
+  .dp-label2 {
+    /* datepicker label */ }
+
+  .mytoptoolbar {
+    display: none; }
+
+  .mybottomtoolbar {
+    display: block; }
+
+  .table thead tr th {
+    border-bottom: 2px solid #8ec4e5;
+    border-top: 5px solid #8ec4e5; }
+
+  .datepicker-width {
+    width: 105px;
+    padding: 0px; }
+
+  .chkganztaegig {
+    padding-left: 20px;
+    margin-top: 10px; }
+
+  .tabwiederholungen {
+    color: #5bc0de;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px; }
+
+  .td_size {
+    width: 35px;
+    height: 20px;
+    text-align: center; }
+
+  .selAnzWHLabel {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    padding-top: 27px;
+    padding-left: 15px; }
+
+  .selAnzWH {
+    width: 120px;
+    padding-left: 15px; }
+
+  .mytextbox {
+    margin-left: 30px;
+    width: 110px; } }
 
 /*# sourceMappingURL=termin-edit.component.css.map */

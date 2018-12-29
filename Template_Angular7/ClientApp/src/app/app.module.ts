@@ -90,7 +90,8 @@ registerLocaleData(localeDECH);
       { path: 'kalender/:id', component: KalenderComponent },
       { path: 'about', component: AboutComponent },
       { path: '**', component: PageNotFoundComponent }
-    ])
+    ],
+      {anchorScrolling: 'enabled'})
   ],
   providers: [PlanerdataService,
     { provide: LOCALE_ID, useValue: 'de-ch' }],

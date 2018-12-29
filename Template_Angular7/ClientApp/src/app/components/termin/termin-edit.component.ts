@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
 import {PlanerdataService} from "../../Services/planerdata.service";
 import * as moment from 'moment';
-import {Observable} from "rxjs";
+//import {$, element} from "protractor";
 
 @Component({
   selector: "termin-edit.component",
@@ -398,7 +398,7 @@ export class TerminEditComponent implements OnInit {
 
   createForm() {
     this.InitFormFields();
-    this.onShowDataJson();
+    this.onShowDataJson('');
   }
 
   updateForm() {
@@ -438,18 +438,36 @@ export class TerminEditComponent implements OnInit {
     }
   }
 
-  onShowDataJson() {
+ onShowDataJson($element) {
 
-    this.showDataJson = !this.showDataJson;
+    function gotoAnchor() {
+      setTimeout(function() {
+        let element = document.getElementById($element);
+        element.scrollIntoView({behavior: "smooth", block: "nearest"})},0)
+    }
+
+   function gobackToTop() {
+     setTimeout(function() {
+       let element = document.getElementById($element);
+       element.scrollIntoView({behavior: "smooth", block: "start"})},0)
+   }
+
+   this.showDataJson = !this.showDataJson;
     if (this.showDataJson){
-      this.showDataJsonTitle = 'JSON-Daten verbergen'
+      this.showDataJsonTitle = 'Debug-Info';
       this.showDebugInfoBtnClass = 'btn btn-sm btn-warning';
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';
+      if ($element != "") {
+        gotoAnchor();
+      }
     }
     else {
-      this.showDataJsonTitle = 'JSON-Daten anzeigen'
+      this.showDataJsonTitle = 'Debug-Info';
       this.showDebugInfoBtnClass = 'btn btn-sm btn-primary';
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
+      if ($element != "") {
+        gobackToTop();
+      }
     }
   }
 

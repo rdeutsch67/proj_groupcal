@@ -82,6 +82,7 @@
             <e p="karma-jasmine-html-reporter" t="IncludeRecursive" />
             <e p="moment" t="IncludeRecursive" />
             <e p="ngx-bootstrap" t="IncludeRecursive" />
+            <e p="ngx-json-viewer" t="IncludeRecursive" />
             <e p="node-sass" t="IncludeRecursive" />
             <e p="protractor" t="IncludeRecursive" />
             <e p="rxjs" t="IncludeRecursive" />

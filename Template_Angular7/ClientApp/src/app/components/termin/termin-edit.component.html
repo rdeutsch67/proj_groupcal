@@ -1,135 +1,203 @@
-<div class="termine-edit edit_form">
+<div class="termine-edit edit_form" id="page-top">
+
+  <div class="mytoptoolbar btn-toolbar justify-content-between" role="toolbar" aria-label="Termin-Edit Toolbar">
+    <div class="btn-group btn-group-sm mr-2" role="group">
+      <button *ngIf="editMode" type="submit"
+              [disabled]="form.invalid"
+              class="btn btn-sm btn-success">
+        <i class="fas fa-save"></i>
+        Speichern
+      </button>
+      <button *ngIf="!editMode" type="submit"
+              [disabled]="form.invalid"
+              class="btn btn-sm btn-success">
+        <i class="fas fa-plus-circle"></i>
+        Termin erstellen
+      </button>
+      <div class="btn-group btn-group-sm" role="group">
+        <button type="submit"
+                (click)="onBack()"
+                class="btn btn-sm btn-secondary col-sm-12">
+          <i class="fas fa-arrow-alt-circle-left"></i>
+          Zurück
+        </button>
+      </div>
+    </div>
+    <div class="btn-group btn-group-sm float-right" role="group">
+      <button id="btnShowDataJson " type="button" (click)="onShowDataJson('debug-info-page')"
+              class={{showDebugInfoBtnClass}}>
+        <i class={{showDataJsonBtnIcon}}></i>
+        {{showDataJsonTitle}}
+      </button>
+    </div>
+  </div>
+
+
   <div class="title">Termin: {{title}}</div>
   <div *ngIf="master > 0"><h5>Termin: {{master}}</h5></div>
+
   <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
-    <div class="form-group row">
-      <label for="mydatum" class="col-sm-2 col-form-label">Datum:</label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" id="mydatum"
+
+    <div class="form-group row no-space">
+      <!-- Date Picker -->
+      <div class="input-group date col-sm-6" id="igdatumbeginn">
+        <label for="mydatumbeginn" class="col-form-label dp-label">Datum von</label>
+        <input type="text"
+               class="form-control form-control-sm" id="mydatumbeginn"
                formControlName="DatumBeginn"
                bsDatepicker [bsConfig]="datePickerConfig"
                [bsValue]="DatumBeginn"
                [value]="DatumBeginn"
-               (bsValueChange)="onChangeDatumBeginn($event)" />
+               (bsValueChange)="onChangeDatumBeginn($event)"/>
+        <input class="form-control form-control-sm dp-picker" id="zeitBeginn"
+               type="time"
+               [value]="ZeitBeginn"
+               formControlName="ZeitBeginn"/>
       </div>
-      <label class="col-form-label">bis</label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control"
+
+      <div class="input-group date col-sm-6" id="igdatumende">
+        <label for="mydatumende" class="col-form-label dp-label">Datum bis</label>
+        <input type="text"
+               class="form-control form-control-sm" id="mydatumende"
                formControlName="DatumEnde"
                bsDatepicker [bsConfig]="datePickerConfig"
                [bsValue]="DatumEnde"
-               [value]="DatumEnde" />
+               [value]="DatumEnde"/>
+        <input class="form-control form-control-sm dp-picker" id="zeitEnde"
+               type="time"
+               [value]="ZeitEnde"
+               formControlName="ZeitEnde"/>
       </div>
     </div>
 
-    <div *ngIf="selGruppen.length > 0" >
-      <div class="form-group row">
-        <label for="idGruppe" class="col-sm-2 col-form-label">Gruppe:</label>
-        <div class="col-sm-3">
-          <select id="idGruppe" formControlName="IdGruppe" required class="form-control"
+    <div *ngIf="selGruppen.length > 0">
+      <div class="form-group row no-space">
+        <!--<div class="input-group col-sm-12">-->
+        <label for="idGruppe" class="col-sm-2 col-form-label no-space">Gruppe:</label>
+        <div class="col-sm-9">
+          <select id="idGruppe"
+                  formControlName="IdGruppe" required
+                  class="form-control form-control-sm"
                   (change)="onChangeGruppe($event.currentTarget.value)">
-            <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id"  >
-              {{gruppe.Id}}  {{gruppe.Code}} {{gruppe.Bezeichnung}}
+            <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id">
+              {{gruppe.Id}} {{gruppe.Code}} {{gruppe.Bezeichnung}}
+            </option>
+          </select>
+        </div>
+        <!--</div>-->
+      </div>
+    </div>
+
+    <div *ngIf="selTeilnehmer.length > 0">
+      <div class="form-group row no-space">
+        <label for="idTeilnehmer" class="col-sm-2 col-form-label no-space">Teilnehmer:</label>
+        <div class="col-sm-9">
+          <select id="idTeilnehmer"
+                  formControlName="IdTeilnehmer" required
+                  class="form-control form-control-sm">
+            <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id">
+              {{teilnehmer.Id}} {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
             </option>
           </select>
         </div>
       </div>
     </div>
-    <div *ngIf="selTeilnehmer.length > 0" >
-      <div class="form-group row">
-        <label for="idTeilnehmer" class="col-sm-2 col-form-label">Teilnehmer:</label>
-        <div class="col-sm-3">
-          <select id="idTeilnehmer" formControlName="IdTeilnehmer" required class="form-control">
-            <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id"  >
-              {{teilnehmer.Id}}  {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="selAktivitaeten.length > 0" >
-      <div class="form-group row">
-        <label for="idAktivitaet" class="col-sm-2 col-form-label">Aktivität:</label>
-        <div class="col-sm-3">
-          <select id="idAktivitaet" formControlName="IdAktivitaet" required class="form-control"
+
+    <div *ngIf="selAktivitaeten.length > 0">
+      <div class="form-group row no-space">
+        <label for="idAktivitaet" class="col-sm-2 col-form-label no-space">Aktivität:</label>
+        <div class="col-sm-9">
+          <select id="idAktivitaet"
+                  formControlName="IdAktivitaet" required
+                  class="form-control form-control-sm"
                   (change)="onChangeAktivitaet($event.currentTarget.value)">
-            <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id"  >
-              {{akt.Id}}  {{akt.Code}} {{akt.Bezeichnung}}
+            <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id">
+              {{akt.Id}} {{akt.Code}} {{akt.Bezeichnung}}
             </option>
           </select>
         </div>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="ganzertag" class="col-sm-2 col-form-label">Ganztägig:</label>
-      <div class="col-sm-3 chkganztaegig">
-        <input id="ganzertag" type="checkbox" formControlName="GanzerTag" (change)="onClickGanzerTag($event)" />
+    <div class="form-group row no-space">
+      <div class="input-group col-sm-6">
+        <label for="ganzertag" class="col-form-label float-left">Ganztägig:</label>
+        <div class="chkganztaegig">
+          <input type="checkbox" id="ganzertag"
+                 formControlName="GanzerTag"
+                 (change)="onClickGanzerTag($event)"/>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="!GanzerTag == true" >
-      <div class="form-group row">
-        <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
-        <div class="col-sm-3">
-          <input class="form-control" type="time" [value]="ZeitBeginn" id="zeitBeginn"
+    <!--<div *ngIf="!GanzerTag == true">
+      <div class="form-group row no-space">
+        <div class="input-group date col-sm-6" id="igzeitbeginn">
+          <label for="zeitBeginn" class="col-form-label dp-label">Beginn:</label>
+          <input class="form-control form-control-sm dp-picker" id="zeitBeginn"
+                 type="time"
+                 [value]="ZeitBeginn"
                  formControlName="ZeitBeginn"/>
         </div>
-        <label class="col-form-label">bis</label>
-        <div class="col-sm-3">
-          <input class="form-control" type="time" [value]="ZeitEnde" id="zeitEnde"
+
+        <div class="input-group date col-sm-6" id="igzeitende">
+          <label for="zeitEnde" class="col-form-label dp-label">bis</label>
+          <input class="form-control form-control-sm dp-picker" id="zeitEnde"
+                 type="time"
+                 [value]="ZeitEnde"
                  formControlName="ZeitEnde"/>
         </div>
       </div>
     </div>
+-->
 
     <!--<div class="input-group row">-->
-    <div class="form-group row">
-      <label for="wiederholungen" class="col-sm-2 col-form-label">Wiederholungen:</label>
-      <div class="tabwiederholungen" id="wiederholungen">
-        <table>
+    <div class="form-group row" id="section-wiederholungen">
+      <label for="id_tbwiederholungen"
+             class="col-sm-2 col-form-label">Wiederholungen:</label>
+      <div class="table-sm">
+        <table id="id_tbwiederholungen">
           <thead>
-            <tr>
-              <th class="td_size">Mo</th>
-              <th class="td_size">Di</th>
-              <th class="td_size">Mi</th>
-              <th class="td_size">Do</th>
-              <th class="td_size">Fr</th>
-              <th class="td_size">Sa</th>
-              <th class="td_size">So</th>
-            </tr>
+          <tr>
+            <th>Mo</th>
+            <th>Di</th>
+            <th>Mi</th>
+            <th>Do</th>
+            <th>Fr</th>
+            <th>Sa</th>
+            <th>So</th>
+          </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="td_size"><input id="mo" type="checkbox" formControlName="MoWH"/></td>
-              <td class="td_size"><input id="di" type="checkbox" formControlName="DiWH"/></td>
-              <td class="td_size"><input id="mi" type="checkbox" formControlName="MiWH"/></td>
-              <td class="td_size"><input id="do" type="checkbox" formControlName="DoWH"/></td>
-              <td class="td_size"><input id="fr" type="checkbox" formControlName="FrWH"/></td>
-              <td class="td_size"><input id="sa" type="checkbox" formControlName="SaWH"/></td>
-              <td class="td_size"><input id="so" type="checkbox" formControlName="SoWH"/></td>
-            </tr>
+          <tr>
+            <td><input id="mo" type="checkbox" formControlName="MoWH"/></td>
+            <td><input id="di" type="checkbox" formControlName="DiWH"/></td>
+            <td><input id="mi" type="checkbox" formControlName="MiWH"/></td>
+            <td><input id="do" type="checkbox" formControlName="DoWH"/></td>
+            <td><input id="fr" type="checkbox" formControlName="FrWH"/></td>
+            <td><input id="sa" type="checkbox" formControlName="SaWH"/></td>
+            <td><input id="so" type="checkbox" formControlName="SoWH"/></td>
+          </tr>
           </tbody>
         </table>
       </div>
-      <!--<div class="selAnzWHLabel">
-        <label for="idWiederholungen">Termin </label>
-      </div>-->
-      <label class="col-form-label">Termin</label>
-      <div *ngIf="zzTerminAnzWiederholungen.length > 0" >
-        <div class="selAnzWH">
-          <select id="idWiederholungen" formControlName="AnzWiederholungen" required class="form-control">
-            <option *ngFor="let data of zzTerminAnzWiederholungen" [value]="data.Count"  >
+    </div>
+
+    <div class="form-group row no-space">
+      <label class="col-sm-2 col-form-label no-space">Termin</label>
+      <div *ngIf="zzTerminAnzWiederholungen.length > 0">
+        <div class="col-sm-9 selAnzWH">
+          <select id="idWiederholungen"
+                  formControlName="AnzWiederholungen" required
+                  class="form-control form-control-sm">
+            <option *ngFor="let data of zzTerminAnzWiederholungen" [value]="data.Count">
               {{data.Bezeichnung}}
             </option>
           </select>
         </div>
       </div>
-      <!--<label class="col-form-label">wiederholen</label>-->
-      <!--<div class="selAnzWHLabel">
-        <label for="idWiederholungen">wiederholen</label>
-      </div>-->
     </div>
+
 
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>
@@ -137,15 +205,12 @@
         <input type="text" id="hinweis"
                formControlName="Hinweis"
                placeholder="Hinweis eingeben..."
-               class="form-control" />
+               class="form-control"/>
       </div>
     </div>
 
-
-
-
-    <div class="navbar">
-      <!--<div class="form-group commands">-->
+    <div class="mybottomtoolbar btn-toolbar justify-content-between" role="toolbar" aria-label="Termin-Edit Toolbar">
+      <div class="btn-group btn-group-sm mr-2" role="group">
         <button *ngIf="editMode" type="submit"
                 [disabled]="form.invalid"
                 class="btn btn-sm btn-success">
@@ -158,60 +223,62 @@
           <i class="fas fa-plus-circle"></i>
           Termin erstellen
         </button>
-
-
-        <button id="btnShowDataJson " type="button" (click)="onShowDataJson()"
-                class={{showDebugInfoBtnClass}} >
+        <div class="btn-group btn-group-sm" role="group">
+          <button type="submit"
+                  (click)="onBack()"
+                  class="btn btn-sm btn-secondary col-sm-12">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Zurück
+          </button>
+        </div>
+      </div>
+      <div class="btn-group btn-group-sm float-right" role="group">
+        <button id="btnShowDataJson" type="button" (click)="onShowDataJson()"
+                class={{showDebugInfoBtnClass}}>
           <i class={{showDataJsonBtnIcon}}></i>
           {{showDataJsonTitle}}
         </button>
-
-        <button type="submit"
-                (click)="onBack()"
-                class="btn btn-sm btn-secondary">
-          <i class="fas fa-arrow-alt-circle-left"></i>
-          Zurück
-        </button>
-      <!--</div>-->
+      </div>
     </div>
-
   </form>
 </div>
-<!--<div *ngIf="showDataJson" class="row">-->
-<div *ngIf="!showDataJson">
-<div class="form-debug-info">
-  <!--<div class="panel panel-info"
-       style="margin: 20px 20px 20px 20px;">-->
-    <div class="title">Debug Info</div>
 
-    <div class="panel-body">
-      <p><strong>Form value:</strong></p>
-      <div class="help-block">
-        {{ form.value | json }}
+<div id="debug-info-page">
+  <div *ngIf="showDataJson">
+    <div class="form-debug-info">
+      <div class="row">
+        <button type="button" (click)="onShowDataJson('page-top')"
+                class="btn btn-sm btn-warning btn-block">
+          <i class={{showDataJsonBtnIcon}}></i>
+          Debug-Info schliessen
+        </button>
       </div>
-      <p><strong>Form status:</strong></p>
-      <div class="help-block">
-        {{ form.status | json }}
-      </div>
-      <div *ngIf="activityLog">
-        <p><strong>Form activity log:</strong></p>
+      <div class="innerbody">
+        <p><strong>Form value:</strong></p>
         <div class="help-block">
-              <span *ngIf="activityLog"
-                    [innerHTML]="activityLog"></span>
+          {{ form.value | json }}
         </div>
+        <p><strong>Form status:</strong></p>
+        <div class="help-block">
+          {{ form.status | json }}
+        </div>
+        <div *ngIf="activityLog">
+          <p><strong>Form activity log:</strong></p>
+          <div class="help-block">
+                <span *ngIf="activityLog"
+                      [innerHTML]="activityLog"></span>
+          </div>
+        </div>
+
+        <a><strong>Auswahl: Gruppen</strong></a>
+        <ngx-json-viewer [json]=selGruppen [expanded]="false"></ngx-json-viewer>
+        <br>
+        <a><strong>Auswahl: Teilnehmer</strong></a>
+        <ngx-json-viewer [json]=selTeilnehmer [expanded]="false"></ngx-json-viewer>
+        <br>
+        <a><strong>Auswahl: Aktivitäten</strong></a>
+        <ngx-json-viewer [json]=selAktivitaeten [expanded]="false"></ngx-json-viewer>
       </div>
-
-      <a><strong>Auswahl: Gruppen</strong></a>
-      <ngx-json-viewer [json]=selGruppen [expanded]="false"></ngx-json-viewer>
-      <br>
-      <a><strong>Auswahl: Teilnehmer</strong></a>
-      <ngx-json-viewer [json]=selTeilnehmer [expanded]="false"></ngx-json-viewer>
-      <br>
-      <a><strong>Auswahl: Aktivitäten</strong></a>
-      <ngx-json-viewer [json]=selAktivitaeten [expanded]="false"></ngx-json-viewer>
     </div>
-  <!--</div>-->
+  </div>
 </div>
-</div>
-
-
