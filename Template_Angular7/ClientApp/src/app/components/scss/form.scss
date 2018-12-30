@@ -1,14 +1,17 @@
 $radius: 5px;
 $color-label: rgba(70, 89, 240, 0.99);
 
-
 * {
-  Abox-sizing: border-box;
+  box-sizing: border-box;
 }
 
 [class*="col-"] {
   float: left;
 }
+
+/*.main-nav {
+  display: none;
+}*/
 
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -25,12 +28,11 @@ $color-label: rgba(70, 89, 240, 0.99);
 
 .edit_form {
   position: relative;
+  padding-top: 5px;
   font-family: Tahoma, Geneva, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: bold;
-  //color: rgba(82,174,240,0.99);
-  //text-decoration: none;
 
   .form-control {
     font-size: 14px;
@@ -40,26 +42,12 @@ $color-label: rgba(70, 89, 240, 0.99);
     color: $color-label;
     text-align: center;
     font-family: Tahoma, Geneva, sans-serif;
-    //font-size: 20px;
-    //padding: 10px;
-
-    //border-width: 5px;
-    //border-color: rgba(82,174,240,0.99);
-    //border-top-right-radius: $radius;
-    //border-top-left-radius: $radius;
     background-color: rgba(82, 174, 240, 0.43);
     margin-bottom: 15px;
   }
 
   .debug-info-button-full-width {
-    //display: block;
     width: 100%;
-    //border: none;
-    //background-color: #4CAF50;
-    //padding: 14px 28px;
-    //font-size: 16px;
-    //cursor: pointer;
-    //text-align: center;
   }
 
   label {
@@ -72,13 +60,13 @@ $color-label: rgba(70, 89, 240, 0.99);
   }
 }
 
-.main-nav {
+/*.main-nav {
   display: none;
-}
+}*/
 
-.navbar {
+/*.navbar {
   //display: none;
-  /*overflow: hidden;
+  !*overflow: hidden;
   background-color: rgba(29, 61, 84, 0.1);
 
   bottom: 0;
@@ -86,8 +74,8 @@ $color-label: rgba(70, 89, 240, 0.99);
   height: 38px;
 
   border-bottom-left-radius: $radius;
-  border-bottom-right-radius: $radius;*/
-}
+  border-bottom-right-radius: $radius;*!
+}*/
 
 .form-debug-info {
   background-color: rgba(240, 225, 4, 0.13);

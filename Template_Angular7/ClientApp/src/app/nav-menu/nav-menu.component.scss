@@ -1,3 +1,7 @@
+.main-nav {
+  height: 70px;
+}
+
 .navbar-image {
   position: relative;
   top: 0;
@@ -7,22 +11,13 @@
   margin: 15px 10px 15px 0px;
 }
 
-//.navbar {
-//  border-radius: 5px 5px 5px 5px;
-//  border-width: 5px;
-//  height: 70px;
-//
-//}
-
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .main-nav {
     top: 0px;
     width: 100%;
     min-width: 180px;
 
     .navbar {
-      border-radius: 5px 5px 5px 5px;
-      border-width: 5px;
       height: 50px;
 
       ul {
@@ -39,10 +34,12 @@
         }
       }
     }
+
     .navbar-header {
       float: left;
       display: none;
     }
+
     .navbar-collapse {
       padding: 0px;
     }

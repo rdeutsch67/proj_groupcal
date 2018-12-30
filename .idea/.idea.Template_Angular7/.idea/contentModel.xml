@@ -166,11 +166,6 @@
                   <e p="gruppe-edit.component.html" t="Include" />
                   <e p="gruppe-edit.component.scss" t="Include" />
                   <e p="gruppe-edit.component.ts" t="Include" />
-                  <e p="gruppe.component.css" t="Include" />
-                  <e p="gruppe.component.css.map" t="Include" />
-                  <e p="gruppe.component.html" t="Include" />
-                  <e p="gruppe.component.scss" t="Include" />
-                  <e p="gruppe.component.ts" t="Include" />
                   <e p="gruppen-liste.component.css" t="Include" />
                   <e p="gruppen-liste.component.css.map" t="Include" />
                   <e p="gruppen-liste.component.html" t="Include" />
@@ -239,7 +234,15 @@
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
               <e p="Services" t="Include">
+                <e p="navbar.service.ts" t="Include" />
                 <e p="planerdata.service.ts" t="Include" />
+              </e>
+              <e p="tokill" t="Include">
+                <e p="gruppe.component.css" t="Include" />
+                <e p="gruppe.component.css.map" t="Include" />
+                <e p="gruppe.component.html" t="Include" />
+                <e p="gruppe.component.scss" t="Include" />
+                <e p="gruppe.component.ts" t="Include" />
               </e>
             </e>
             <e p="assets" t="Include">

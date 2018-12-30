@@ -11,7 +11,7 @@ import {
   CalendarView, DateFormatterParams,
   DAYS_OF_WEEK
 } from 'angular-calendar';
-import {PlanerdataService} from "../../Services/planerdata.service";
+import {PlanerdataService} from "../../services/planerdata.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {formatDate} from "@angular/common";
 

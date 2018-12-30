@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { BsDatepickerConfig} from "ngx-bootstrap";
-import {PlanerdataService} from "../../Services/planerdata.service";
+import {PlanerdataService} from "../../services/planerdata.service";
 import * as moment from 'moment';
-//import {$, element} from "protractor";
+import {NavbarService} from "../../services/navbar.service";
 
 @Component({
   selector: "termin-edit.component",
@@ -44,6 +44,7 @@ export class TerminEditComponent implements OnInit {
               private http: HttpClient,
               private fb: FormBuilder,
               private loadDataService: PlanerdataService,
+              public nav: NavbarService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.datePickerConfig = Object.assign({}, {containerClass: 'theme-dark-blue',
@@ -394,6 +395,7 @@ export class TerminEditComponent implements OnInit {
 
   ngOnInit() {
     this.InitFormFields();
+    this.nav.hide();
   }
 
   createForm() {

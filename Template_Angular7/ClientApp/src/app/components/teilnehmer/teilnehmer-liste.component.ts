@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import {PlanerdataService} from "../../Services/planerdata.service";
+import {PlanerdataService} from "../../services/planerdata.service";
 import {Observable} from "rxjs";
 
 @Component({

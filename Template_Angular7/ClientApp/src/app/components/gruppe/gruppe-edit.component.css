@@ -1,5 +1,7 @@
 .gruppe-edit {
   width: 100%; }
+  .gruppe-edit .main-nav {
+    display: block; }
   @media (max-width: 767px) {
     .gruppe-edit {
       width: 100%; } }

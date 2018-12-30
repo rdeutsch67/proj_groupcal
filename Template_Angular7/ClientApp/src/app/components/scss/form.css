@@ -1,9 +1,12 @@
 * {
-  Abox-sizing: border-box; }
+  box-sizing: border-box; }
 
 [class*="col-"] {
   float: left; }
 
+/*.main-nav {
+  display: none;
+}*/
 .col-1 {
   width: 8.33%; }
 
@@ -42,6 +45,7 @@
 
 .edit_form {
   position: relative;
+  padding-top: 5px;
   font-family: Tahoma, Geneva, sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -64,11 +68,12 @@
     font-style: normal;
     float: left; }
 
-.main-nav {
-  display: none; }
-
-.navbar {
-  /*overflow: hidden;
+/*.main-nav {
+  display: none;
+}*/
+/*.navbar {
+  //display: none;
+  !*overflow: hidden;
   background-color: rgba(29, 61, 84, 0.1);
 
   bottom: 0;
@@ -76,8 +81,8 @@
   height: 38px;
 
   border-bottom-left-radius: $radius;
-  border-bottom-right-radius: $radius;*/ }
-
+  border-bottom-right-radius: $radius;*!
+}*/
 .form-debug-info {
   background-color: rgba(240, 225, 4, 0.13);
   margin-top: 10px;

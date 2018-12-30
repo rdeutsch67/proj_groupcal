@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {NavbarService} from "../services/navbar.service";
+
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +9,8 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isCollapsed = true;
+
+  constructor( public nav: NavbarService ) {}
 
   collapse() {
     this.isCollapsed = true;

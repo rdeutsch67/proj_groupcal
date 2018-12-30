@@ -1,16 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BsDatepickerModule} from "ngx-bootstrap";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {AppComponent} from './app.component';
+import {NavMenuComponent} from './nav-menu/nav-menu.component';
+import {HomeComponent} from './home/home.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BsDatepickerModule} from "ngx-bootstrap";
 
 import {LOCALE_ID} from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeDECH from '@angular/common/locales/de-CH';
 
 
@@ -25,13 +25,14 @@ import {TeilnehmerListeComponent} from "./components/teilnehmer/teilnehmer-liste
 import {TeilnehmerEditComponent} from "./components/teilnehmer/teilnehmer-edit.component";
 import {TerminEditComponent} from "./components/termin/termin-edit.component";
 import {TerminListeComponent} from "./components/termin/termin-liste.component";
-import {PlanerdataService} from "./Services/planerdata.service";
+import {PlanerdataService} from "./services/planerdata.service";
 import {KalenderComponent} from "./components/kalender/kalender.component";
-import { FlatpickrModule } from 'angularx-flatpickr';
+import {FlatpickrModule} from 'angularx-flatpickr';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxJsonViewerModule} from "ngx-json-viewer";
+import {NavbarService} from "./services/navbar.service";
 
 registerLocaleData(localeDECH);
 
@@ -54,7 +55,7 @@ registerLocaleData(localeDECH);
     PageNotFoundComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     NgbModule,
     FormsModule,
@@ -69,33 +70,36 @@ registerLocaleData(localeDECH);
       }
     ),
     RouterModule.forRoot([
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: GruppenListeComponent },
-      { path: 'gruppen/alle/:count', component: GruppenListeComponent },
-      { path: 'gruppen/create', component: GruppeEditComponent},
-      { path: 'gruppen/edit/:id', component: GruppeEditComponent},
-      //{ path: 'gruppen/:id', component: GruppeComponent},
-      { path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent }, // alle Codes zur Gruppe
-      { path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
-      { path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},
-      { path: 'codesaktivitaeten/vaktivitaeten/0', component: Code_aktivitaetenListeComponent }, // alle Codes anzeigen
-      { path: 'teilnehmer/alle/:id', component: TeilnehmerListeComponent },
-      { path: 'teilnehmer/vteilnehmer/:id', component: TeilnehmerListeComponent },
-      { path: 'teilnehmer/create/:id', component: TeilnehmerEditComponent },
-      { path: 'teilnehmer/edit/:id', component: TeilnehmerEditComponent },
-      { path: 'termine/vtermine/:id', component: TerminListeComponent },
-      { path: 'termine/create/:id', component: TerminEditComponent },
-      { path: 'termine/new_event', component: TerminEditComponent, data: { id: 0, myday: new Date() } },
-      { path: 'termine/edit/:id', component: TerminEditComponent },
-      { path: 'kalender/:id', component: KalenderComponent },
-      { path: 'about', component: AboutComponent },
-      { path: '**', component: PageNotFoundComponent }
-    ],
+        {path: '', redirectTo: 'home', pathMatch: 'full'},
+        {path: 'home', component: GruppenListeComponent},
+        {path: 'gruppen/alle/:count', component: GruppenListeComponent},
+        {path: 'gruppen/create', component: GruppeEditComponent},
+        {path: 'gruppen/edit/:id', component: GruppeEditComponent},
+        //{ path: 'gruppen/:id', component: GruppeComponent},
+        {path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent}, // alle Codes zur Gruppe
+        {path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
+        {path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},
+        {path: 'codesaktivitaeten/vaktivitaeten/0', component: Code_aktivitaetenListeComponent}, // alle Codes anzeigen
+        {path: 'teilnehmer/alle/:id', component: TeilnehmerListeComponent},
+        {path: 'teilnehmer/vteilnehmer/:id', component: TeilnehmerListeComponent},
+        {path: 'teilnehmer/create/:id', component: TeilnehmerEditComponent},
+        {path: 'teilnehmer/edit/:id', component: TeilnehmerEditComponent},
+        {path: 'termine/vtermine/:id', component: TerminListeComponent},
+        {path: 'termine/create/:id', component: TerminEditComponent},
+        {path: 'termine/new_event', component: TerminEditComponent, data: {id: 0, myday: new Date()}},
+        {path: 'termine/edit/:id', component: TerminEditComponent},
+        {path: 'kalender/:id', component: KalenderComponent},
+        {path: 'about', component: AboutComponent},
+        {path: '**', component: PageNotFoundComponent}
+      ],
       {anchorScrolling: 'enabled'})
   ],
-  providers: [PlanerdataService,
-    { provide: LOCALE_ID, useValue: 'de-ch' }],
+  providers: [
+    PlanerdataService,
+    NavbarService,
+    {provide: LOCALE_ID, useValue: 'de-ch'}],
   bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {
+}
