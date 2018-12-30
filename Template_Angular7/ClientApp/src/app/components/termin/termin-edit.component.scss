@@ -1,9 +1,8 @@
-/*#startDate, #endeDate {
-  width: 50%;
-  float: left;
-}*/
-
 $color-label: rgba(70, 89, 240, 0.99);
+
+.lbl-pad-right {
+  padding-right: 5px;
+}
 
 #tbwiederholungen {
   padding-left: 20px;
@@ -28,8 +27,6 @@ $color-label: rgba(70, 89, 240, 0.99);
 
 .dp-picker {
   width: 50px;
-  /*margin-left: 40px;
-  margin-right: 90px;*/
 }
 
 .no-space {
@@ -79,28 +76,17 @@ $color-label: rgba(70, 89, 240, 0.99);
     td, th {
       text-align: center;
     }
-  #id_tbwiederholungen {
+    #id_tbwiederholungen {
 
-
-
+    }
   }
-
-
-
-
-  }
-
-
-
 }
-
 
 /*  margin-bottom: 5px;
   margin-left: 5px;
   padding-bottom: 5px;
   padding-left: 12px;
 }*/
-
 
 .mytoptoolbar {
   display: block;
@@ -182,11 +168,11 @@ $color-label: rgba(70, 89, 240, 0.99);
     padding-left: 15px;
   }
 
-  .selAnzWH {
+  /*.selAnzWH {
     width: 120px;
     padding-left: 15px;
   }
-
+*/
   .mytextbox {
     margin-left: 30px;
     width: 110px;

@@ -1,8 +1,7 @@
 @charset "UTF-8";
-/*#startDate, #endeDate {
-  width: 50%;
-  float: left;
-}*/
+.lbl-pad-right {
+  padding-right: 5px; }
+
 #tbwiederholungen {
   padding-left: 20px; }
 
@@ -23,9 +22,7 @@
   width: 100px; }
 
 .dp-picker {
-  width: 50px;
-  /*margin-left: 40px;
-  margin-right: 90px;*/ }
+  width: 50px; }
 
 .no-space {
   margin-bottom: 0px;
@@ -131,10 +128,11 @@
     padding-top: 27px;
     padding-left: 15px; }
 
-  .selAnzWH {
+  /*.selAnzWH {
     width: 120px;
-    padding-left: 15px; }
-
+    padding-left: 15px;
+  }
+*/
   .mytextbox {
     margin-left: 30px;
     width: 110px; } }

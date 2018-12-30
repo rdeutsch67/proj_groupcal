@@ -1,4 +1,5 @@
 $radius: 5px;
+$color-label: rgba(70, 89, 240, 0.99);
 
 
 * {
@@ -36,7 +37,7 @@ $radius: 5px;
   }
 
   .title {
-    color: rgba(240, 80, 19, 0.99);
+    color: $color-label;
     text-align: center;
     font-family: Tahoma, Geneva, sans-serif;
     //font-size: 20px;

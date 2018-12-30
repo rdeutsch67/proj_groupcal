@@ -151,10 +151,66 @@
     </div>
 -->
 
-    <!--<div class="input-group row">-->
-    <div class="form-group row" id="section-wiederholungen">
-      <label for="id_tbwiederholungen"
-             class="col-sm-2 col-form-label">Wiederholungen:</label>
+    <!---->
+
+  <!--  <div class="float-right float-sm-left">Float right</div>
+    <br>
+    <div class="row">
+      <div class="col">left</div>
+      <div class="col">
+        <div class="float-right">element needs to be right aligned</div>
+      </div>
+    </div>-->
+
+    <!--<div class="form-group no-space">-->
+      <div class="input-group no-space">
+        <label class="col-form-label">Wiederholungen:</label>
+        <div class="col">
+          <div class="float-right float-left-sm">
+            <div *ngIf="zzTerminAnzWiederholungen.length > 0" class="row">
+              <label class="col-form-label lbl-pad-right">Anzahl:</label>
+              <div>
+                <select id="idWiederholungen"
+                        formControlName="AnzWiederholungen" required
+                        class="form-control form-control-sm  mx-sm-3">
+                  <option *ngFor="let data of zzTerminAnzWiederholungen" [value]="data.Count">
+                    {{data.Bezeichnung}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--</div>-->
+
+    <!--<div class="form-group no-space">
+      <div class="input-group">
+        &lt;!&ndash;<div class="col-sm-3">
+          <label class="col-form-label float-left">Wiederholungen:</label>
+        </div>&ndash;&gt;
+        <div class="col-sm-12 row">
+          <label class="col-form-label">Wiederholungen:</label>
+          <div *ngIf="zzTerminAnzWiederholungen.length > 0" class="row float-right float-sm-left">
+            <label class="col-form-label">Anzahl:</label>
+
+          &lt;!&ndash;<div *ngIf="zzTerminAnzWiederholungen.length > 0">&ndash;&gt;
+            &lt;!&ndash;<div class="selAnzWH">&ndash;&gt;
+            <div class="selAnzWH">
+              <select id="idWiederholungen"
+                      formControlName="AnzWiederholungen" required
+                      class="form-control form-control-sm">
+                <option *ngFor="let data of zzTerminAnzWiederholungen" [value]="data.Count">
+                  {{data.Bezeichnung}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="form-group" id="section-wiederholungen">
       <div class="table-sm">
         <table id="id_tbwiederholungen">
           <thead>
@@ -183,7 +239,7 @@
       </div>
     </div>
 
-    <div class="form-group row no-space">
+    <!--<div class="form-group row no-space">
       <label class="col-sm-2 col-form-label no-space">Termin</label>
       <div *ngIf="zzTerminAnzWiederholungen.length > 0">
         <div class="col-sm-9 selAnzWH">
@@ -197,7 +253,7 @@
         </div>
       </div>
     </div>
-
+-->
 
     <div class="form-group row">
       <label for="hinweis" class="col-sm-2 col-form-label">Hinweis:</label>
