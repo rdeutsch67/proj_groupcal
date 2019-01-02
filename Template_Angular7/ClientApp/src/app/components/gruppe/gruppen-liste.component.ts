@@ -1,6 +1,7 @@
-import { Component, Inject } from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import {NavbarService} from "../../services/navbar.service";
 
 @Component({
   selector: "gruppen-liste",
@@ -8,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./gruppen-liste.component.css']
 })
 
-export class GruppenListeComponent {
+export class GruppenListeComponent implements OnInit{
   title: string;
   selectedGruppe: Gruppe;
   gruppen: Gruppe[];
@@ -17,6 +18,7 @@ export class GruppenListeComponent {
   constructor(private http: HttpClient,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              public nav: NavbarService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Verfügbare Gruppen";
@@ -27,6 +29,10 @@ export class GruppenListeComponent {
       count = 0;
     }
     this.loadData(count);
+  }
+
+  ngOnInit() {
+    this.nav.show();
   }
 
   loadData(myCount: number) {

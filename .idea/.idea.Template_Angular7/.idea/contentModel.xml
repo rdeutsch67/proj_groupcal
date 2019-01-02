@@ -21,6 +21,7 @@
               <e p="codeStyleConfig.xml" t="Include" />
               <e p="Project.xml" t="Include" />
             </e>
+            <e p="encodings.xml" t="Include" />
             <e p="inspectionProfiles" t="Include">
               <e p="Project_Default.xml" t="Include" />
             </e>
@@ -39,6 +40,7 @@
           <e p="karma.conf.js" t="Include" />
           <e p="node_modules" t="ExcludeRecursive">
             <e p="@angular/animations" t="IncludeRecursive" />
+            <e p="@angular/cdk" t="IncludeRecursive" />
             <e p="@angular/cli" t="IncludeRecursive" />
             <e p="@angular/common" t="IncludeRecursive" />
             <e p="@angular/compiler" t="IncludeRecursive" />
@@ -71,6 +73,7 @@
             <e p="bootstrap" t="IncludeRecursive" />
             <e p="codelyzer" t="IncludeRecursive" />
             <e p="core-js" t="IncludeRecursive" />
+            <e p="css-element-queries" t="IncludeRecursive" />
             <e p="date-fns" t="IncludeRecursive" />
             <e p="flatpickr" t="IncludeRecursive" />
             <e p="jasmine-core" t="IncludeRecursive" />
@@ -215,6 +218,7 @@
                   <e p="termin-liste.component.ts" t="Include" />
                 </e>
               </e>
+              <e p="globals.ts" t="Include" />
               <e p="home" t="Include">
                 <e p="home.component.html" t="Include" />
                 <e p="home.component.ts" t="Include" />
@@ -236,13 +240,13 @@
               <e p="Services" t="Include">
                 <e p="navbar.service.ts" t="Include" />
                 <e p="planerdata.service.ts" t="Include" />
+                <e p="resize.service.ts" t="Include" />
               </e>
               <e p="tokill" t="Include">
-                <e p="gruppe.component.css" t="Include" />
-                <e p="gruppe.component.css.map" t="Include" />
-                <e p="gruppe.component.html" t="Include" />
-                <e p="gruppe.component.scss" t="Include" />
-                <e p="gruppe.component.ts" t="Include" />
+                <e p="additionals" t="Include">
+                  <e p="resized-event.ts" t="Include" />
+                  <e p="resized.directive.ts" t="Include" />
+                </e>
               </e>
             </e>
             <e p="assets" t="Include">

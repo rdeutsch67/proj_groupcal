@@ -9,10 +9,6 @@ $color-label: rgba(70, 89, 240, 0.99);
   float: left;
 }
 
-/*.main-nav {
-  display: none;
-}*/
-
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -60,22 +56,6 @@ $color-label: rgba(70, 89, 240, 0.99);
   }
 }
 
-/*.main-nav {
-  display: none;
-}*/
-
-/*.navbar {
-  //display: none;
-  !*overflow: hidden;
-  background-color: rgba(29, 61, 84, 0.1);
-
-  bottom: 0;
-  width: 100%;
-  height: 38px;
-
-  border-bottom-left-radius: $radius;
-  border-bottom-right-radius: $radius;*!
-}*/
 
 .form-debug-info {
   background-color: rgba(240, 225, 4, 0.13);
@@ -129,10 +109,10 @@ $color-label: rgba(70, 89, 240, 0.99);
   }
 }
 
-
+/* Auflösung > 576px */
 @media (min-width: 576px) {
 
-  $radius: 5px;
+  $radius: 15px;
 
   * {
     box-sizing: border-box;
@@ -155,9 +135,21 @@ $color-label: rgba(70, 89, 240, 0.99);
   .col-11 {width: 91.66%;}
   .col-12 {width: 100%;}
 
-  .main-nav {
+  /*.main-nav {
     display: block;
   }
+
+  .navbar {
+    overflow: hidden;
+    background-color: rgba(5, 162, 15, 0.53);
+
+    bottom: 0;
+    width: 100%;
+    height: 81px;
+
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }*/
 
   .edit_form {
     background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
@@ -199,18 +191,6 @@ $color-label: rgba(70, 89, 240, 0.99);
       font-family: Arial, serif;
       font-style: normal;
     }
-  }
-
-  .navbar {
-    overflow: hidden;
-    background-color: rgba(29, 61, 84, 0.1);
-
-    bottom: 0;
-    width: 100%;
-    height: 38px;
-
-    border-bottom-left-radius: $radius;
-    border-bottom-right-radius: $radius;
   }
 
   .form-debug-info {

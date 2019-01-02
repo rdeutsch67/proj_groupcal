@@ -1,11 +1,13 @@
-import {Component, Inject, OnChanges, OnInit} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
+import {Component, Inject, NgZone, OnChanges, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { BsDatepickerConfig} from "ngx-bootstrap";
+import {BsDatepickerConfig} from "ngx-bootstrap";
 import {PlanerdataService} from "../../services/planerdata.service";
 import * as moment from 'moment';
 import {NavbarService} from "../../services/navbar.service";
+import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: "termin-edit.component",
@@ -13,8 +15,9 @@ import {NavbarService} from "../../services/navbar.service";
   styleUrls: ['./termin-edit.component.css']
 })
 
-export class TerminEditComponent implements OnInit {
-  title: string; master: string;
+export class TerminEditComponent implements OnInit, OnDestroy {
+  title: string;
+  master: string;
   editMode: boolean;
   newPlanerEvent: boolean;
   showDataJson: boolean = true;
@@ -39,18 +42,24 @@ export class TerminEditComponent implements OnInit {
 
   zzTerminAnzWiederholungen: ZzTerminAnzWiederholung[];
 
+  deviceObserver: Observable<BreakpointState> = this.breakpointObserver.observe([Breakpoints.XSmall]);
+  breakpointObserverSubscription: Subscription;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private fb: FormBuilder,
               private loadDataService: PlanerdataService,
               public nav: NavbarService,
+              private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 
-    this.datePickerConfig = Object.assign({}, {containerClass: 'theme-dark-blue',
-                                                           //value: new Date(2018,10,10),
-                                                           dateInputFormat: 'DD.MM.YYYY',
-                                                           showWeekNumbers: false});
+    this.datePickerConfig = Object.assign({}, {
+      containerClass: 'theme-dark-blue',
+      //value: new Date(2018,10,10),
+      dateInputFormat: 'DD.MM.YYYY',
+      showWeekNumbers: false
+    });
 
     // create an empty object from the Gruppe interface
     this.myTermin = <Termin>{};
@@ -61,7 +70,7 @@ export class TerminEditComponent implements OnInit {
     this.selAktivitaeten = <Code_aktivitaet[]>{};
     this.zzTerminAnzWiederholungen = <ZzTerminAnzWiederholung[]>{};
 
-    loadDataService.loadZzTerminAnzWiederholungen(15).subscribe( (data) => {
+    loadDataService.loadZzTerminAnzWiederholungen(15).subscribe((data) => {
         this.zzTerminAnzWiederholungen = data;
       }
     );
@@ -76,20 +85,20 @@ export class TerminEditComponent implements OnInit {
 
     if (this.editMode) {
       // Termin holen
-      var url = this.baseUrl + "api/termine/" + id;
+      let url = this.baseUrl + "api/termine/" + id;
       this.http.get<Termin>(url).subscribe(res => {
         this.myTermin = res;
-        this.title = "Edit - "+id;
-        this.master = "("+this.myTermin.IdTermin+")";
+        this.title = "Edit - " + id;
+        this.master = "(" + this.myTermin.IdTermin + ")";
         this.aktTerminDatBeginn = new Date(this.myTermin.DatumBeginn);
         this.aktTerminDatEnde = new Date(this.myTermin.DatumEnde);
         var url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
         this.http.get<Gruppe>(url).subscribe(res => {
           this.selGruppen = Array.of(res);
-          loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe( data => {
-            this.selTeilnehmer = data;
-            loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe( (data) => {
-              this.selAktivitaeten = data;
+          loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe(data => {
+              this.selTeilnehmer = data;
+              loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe((data) => {
+                  this.selAktivitaeten = data;
                 }
               )
             }
@@ -117,10 +126,10 @@ export class TerminEditComponent implements OnInit {
       let url = this.baseUrl + "api/gruppen/" + this.myTermin.IdGruppe;
       this.http.get<Gruppe>(url).subscribe(res => {
         this.selGruppen = Array.of(res);
-        loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe( (data) => {
-          this.selTeilnehmer = data;
-          loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe( (data) => {
-            this.selAktivitaeten = data;
+        loadDataService.loadTeilnehmer(this.myTermin.IdGruppe).subscribe((data) => {
+            this.selTeilnehmer = data;
+            loadDataService.loadAktiviaeten(this.myTermin.IdGruppe).subscribe((data) => {
+                this.selAktivitaeten = data;
               }
             )
           }
@@ -131,6 +140,25 @@ export class TerminEditComponent implements OnInit {
       // update the form with the quiz value
       this.updateForm();
     }
+  }
+
+  ngOnInit() {
+    this.InitFormFields();
+
+    this.breakpointObserverSubscription = this.deviceObserver
+      .subscribe(state => {
+        if (state.matches) {
+          console.log('Viewport is 500px or over!');
+          this.nav.hide();
+        } else {
+          console.log('Viewport is getting smaller!');
+          this.nav.show();
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.breakpointObserverSubscription.unsubscribe();
   }
 
   InitFormFields() {
@@ -164,9 +192,9 @@ export class TerminEditComponent implements OnInit {
   onChangeGruppe(newValue) {
     console.log(newValue);
     this.selectedGruppe = newValue;
-    this.loadDataService.loadTeilnehmer(newValue).subscribe( (data) => {
+    this.loadDataService.loadTeilnehmer(newValue).subscribe((data) => {
         this.selTeilnehmer = data;
-        this.loadDataService.loadAktiviaeten(newValue).subscribe( (data) => {
+        this.loadDataService.loadAktiviaeten(newValue).subscribe((data) => {
             this.selAktivitaeten = data;
           }
         )
@@ -180,7 +208,7 @@ export class TerminEditComponent implements OnInit {
 
     var selAktivitaet: Code_aktivitaet[];
     selAktivitaet = <Code_aktivitaet[]>{};
-    selAktivitaet =  this.selAktivitaeten.filter(x => x.Id == this.selectedAktivitaet);
+    selAktivitaet = this.selAktivitaeten.filter(x => x.Id == this.selectedAktivitaet);
 
     if ((selAktivitaet[0].GanzerTag == true) || (newGanzerTag == true)) {
       myZeitBeginn$ = "00:00";
@@ -200,7 +228,7 @@ export class TerminEditComponent implements OnInit {
         let aDate = new Date();
         aDate = moment(aDate).add(1, 'hours').toDate();  // zur aktuellen Uhrzeit ein Stunde dazu rechnen
         myZeitBeginn$ = new Date().getHours().toString(10) + ':00';
-        myZeitEnde$   = new Date(aDate).getHours().toString(10) + ':00';
+        myZeitEnde$ = new Date(aDate).getHours().toString(10) + ':00';
       }
 
     }
@@ -255,13 +283,34 @@ export class TerminEditComponent implements OnInit {
 
       let arrNxtWochentag: Date[] = [];
       // die nächsten Tagesdaten der gewählten Wochentage ermitteln (z.B. welches Datum hat der nächste Montag vom gewählten Startdatum aus gesehen)
-      if (FlagWHMo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,1)) };
-      if (FlagWHDi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,2)) };
-      if (FlagWHMi == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,3)) };
-      if (FlagWHDo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,4)) };
-      if (FlagWHFr == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,5)) };
-      if (FlagWHSa == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,6)) };
-      if (FlagWHSo == true) { arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn,7)) };
+      if (FlagWHMo == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 1))
+      }
+      ;
+      if (FlagWHDi == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 2))
+      }
+      ;
+      if (FlagWHMi == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 3))
+      }
+      ;
+      if (FlagWHDo == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 4))
+      }
+      ;
+      if (FlagWHFr == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 5))
+      }
+      ;
+      if (FlagWHSa == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 6))
+      }
+      ;
+      if (FlagWHSo == true) {
+        arrNxtWochentag.push(GetNextDay(tempTermin.DatumBeginn, 7))
+      }
+      ;
 
       // Differenz vom Ende- zum Startdatum ermitteln
       let startdate = moment(tempTermin.DatumBeginn, "DD.MM.YYYY");
@@ -270,11 +319,11 @@ export class TerminEditComponent implements OnInit {
 
       // gemäss Anzahl Wiederholungen die Start- und Endedaten berechnen und in die Termine einfügen
       if (AnzahlWH > 0) {
-        for (let d = 0; d <= arrNxtWochentag.length-1; d++) {
-          for (let i = 0; i <= AnzahlWH-1; i++) {
+        for (let d = 0; d <= arrNxtWochentag.length - 1; d++) {
+          for (let i = 0; i <= AnzahlWH - 1; i++) {
             // DatumBeginn
             let DatumBeginnWH: Date = new Date(arrNxtWochentag[d]);
-            DatumBeginnWH.setDate( DatumBeginnWH.getDate() + (7 * i));
+            DatumBeginnWH.setDate(DatumBeginnWH.getDate() + (7 * i));
             let curDatumBeginn: Date = new Date(tempTermin.DatumBeginn);
             tempTermin.DatumBeginn = new Date(DatumBeginnWH.getFullYear(), DatumBeginnWH.getMonth(), DatumBeginnWH.getDate(),
               curDatumBeginn.getHours(), curDatumBeginn.getMinutes(), curDatumBeginn.getSeconds(), curDatumBeginn.getMilliseconds());
@@ -317,21 +366,21 @@ export class TerminEditComponent implements OnInit {
     let myEndeDate: Date = new Date(this.form.value.DatumEnde);
     if (tempTermin.GanzerTag == true) {
       // Beginn
-      myBeginnDate.setHours(0,0,0,0);
+      myBeginnDate.setHours(0, 0, 0, 0);
       // Ende
-      myEndeDate.setHours(23,59,59,999);
+      myEndeDate.setHours(23, 59, 59, 999);
     }
     else {
       // Beginn
       var myZeit: string = this.form.value.ZeitBeginn;           // hier ein Zeitstring z.B. "21:15" zurückgegeben
-      var myHour = parseInt(myZeit.substring(0,2),10);
-      var myMinutes = parseInt(myZeit.substring(3,5),10);
-      myBeginnDate.setHours(myHour,myMinutes,0,0);
+      var myHour = parseInt(myZeit.substring(0, 2), 10);
+      var myMinutes = parseInt(myZeit.substring(3, 5), 10);
+      myBeginnDate.setHours(myHour, myMinutes, 0, 0);
       // Ende
       myZeit = this.form.value.ZeitEnde;
-      myHour = parseInt(myZeit.substring(0,2),10);
-      myMinutes = parseInt(myZeit.substring(3,5),10);
-      myEndeDate.setHours(myHour,myMinutes,0,0);
+      myHour = parseInt(myZeit.substring(0, 2), 10);
+      myMinutes = parseInt(myZeit.substring(3, 5), 10);
+      myEndeDate.setHours(myHour, myMinutes, 0, 0);
     }
 
     tempTermin.DatumBeginn = myBeginnDate;
@@ -346,7 +395,10 @@ export class TerminEditComponent implements OnInit {
       // don't forget to set the Id,
       // otherwise the EDIT would fail!
       tempTermin.Id = this.myTermin.Id;
-      if (WiederholungenVorhanden) { tempTermin.IdTermin = tempTermin.Id };
+      if (WiederholungenVorhanden) {
+        tempTermin.IdTermin = tempTermin.Id
+      }
+      ;
       this.http
         .post<Termin>(url, tempTermin)
         .subscribe(res => {
@@ -356,9 +408,10 @@ export class TerminEditComponent implements OnInit {
           if (WiederholungenVorhanden) {
             let WKok = HandleWiederholungen(this.http);
             console.log("Wiederholungstermine mit IdMaster = " + this.myTermin.Id + " erstellt.");
-          };
+          }
+          ;
 
-          this.router.navigate(["gruppen/edit/"+this.myTermin.IdGruppe]);
+          this.router.navigate(["gruppen/edit/" + this.myTermin.IdGruppe]);
         }, error => console.log(error));
     }
     else {  // neuen Termin erstellen
@@ -378,11 +431,12 @@ export class TerminEditComponent implements OnInit {
               .post<Termin>(url, q)
               .subscribe(res => {
                 q = res;
-                console.log("Termin " + q.Id + " wurde mit IdTermin "+q.Id+" aktualisiert.");
+                console.log("Termin " + q.Id + " wurde mit IdTermin " + q.Id + " aktualisiert.");
               }, error => console.log(error));
-          };
+          }
+          ;
           if (!WiederholungenVorhanden) {
-            this.router.navigate(["gruppen/edit/"+q.IdGruppe]);
+            this.router.navigate(["gruppen/edit/" + q.IdGruppe]);
           }
         }, error => console.log(error));
 
@@ -391,11 +445,6 @@ export class TerminEditComponent implements OnInit {
 
   onBack() {
     this.router.navigate(["gruppen/edit", this.myTermin.IdGruppe]);
-  }
-
-  ngOnInit() {
-    this.InitFormFields();
-    this.nav.hide();
   }
 
   createForm() {
@@ -411,7 +460,7 @@ export class TerminEditComponent implements OnInit {
         GanzerTag: this.myTermin.GanzerTag,
         ZeitBeginn: ((this.aktTerminDatBeginn.getHours() < 10 ? '0' : '') + this.aktTerminDatBeginn.getHours()) + ':'
           + ((this.aktTerminDatBeginn.getMinutes() < 10 ? '0' : '') + this.aktTerminDatBeginn.getMinutes()),
-        ZeitEnde:   ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
+        ZeitEnde: ((this.aktTerminDatEnde.getHours() < 10 ? '0' : '') + this.aktTerminDatEnde.getHours()) + ':'
           + ((this.aktTerminDatEnde.getMinutes() < 10 ? '0' : '') + this.aktTerminDatEnde.getMinutes()),
         AnzWiederholungen: 0,
         MoWH: false, DiWH: false, MiWH: false, DoWH: false, FrWH: false, SaWH: false, SoWH: false,
@@ -440,22 +489,24 @@ export class TerminEditComponent implements OnInit {
     }
   }
 
- onShowDataJson($element) {
+  onShowDataJson($element) {
 
     function gotoAnchor() {
-      setTimeout(function() {
+      setTimeout(function () {
         let element = document.getElementById($element);
-        element.scrollIntoView({behavior: "smooth", block: "nearest"})},0)
+        element.scrollIntoView({behavior: "smooth", block: "nearest"})
+      }, 0)
     }
 
-   function gobackToTop() {
-     setTimeout(function() {
-       let element = document.getElementById($element);
-       element.scrollIntoView({behavior: "smooth", block: "start"})},0)
-   }
+    function gobackToTop() {
+      setTimeout(function () {
+        let element = document.getElementById($element);
+        element.scrollIntoView({behavior: "smooth", block: "start"})
+      }, 0)
+    }
 
-   this.showDataJson = !this.showDataJson;
-    if (this.showDataJson){
+    this.showDataJson = !this.showDataJson;
+    if (this.showDataJson) {
       this.showDataJsonTitle = 'Debug-Info';
       this.showDebugInfoBtnClass = 'btn btn-sm btn-warning';
       this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';

@@ -1,34 +1,119 @@
+@charset "UTF-8";
 .main-nav {
-  height: 70px; }
+  height: 50px;
+  display: block;
+  margin-bottom: 10px; }
 
 .navbar-image {
   position: relative;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
-  margin: 15px 10px 15px 0px; }
+  z-index: 1; }
 
+.navbar {
+  overflow: hidden;
+  bottom: 0;
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 0px;
+  background-color: #3387fd;
+  /*ul {
+    float: left;
+  }
+
+  li {
+    float: left;
+    margin: 2px;
+    width: 100%;
+
+
+    a {
+      padding: 10px 16px 5px 0px;
+      border-radius: 4px;
+
+      i {
+        padding-left: 0px;
+        margin-right: 10px;
+      }
+
+    }
+  }*/ }
+
+/* Auflösung > 576px */
 @media (min-width: 576px) {
+  .main-nav {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+    display: block; }
+
+  .navbar-image {
+    padding-right: 15px; }
+
+  .navbar {
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 0px;
+    background-color: #3387fd;
+    /*ul {
+      float: left;
+    }
+
+    li {
+      float: left;
+      margin: 2px;
+      width: 100%;
+
+
+      a {
+        padding: 10px 16px 5px 0px;
+
+
+        i {
+          padding: 10px 16px 5px 0px;
+          margin: 10px 16px 5px 0px;
+        }
+
+      }
+    }*/ }
+    .navbar ul {
+      float: none; } }
+/*@media (min-width: 576px) {
   .main-nav {
     top: 0px;
     width: 100%;
-    min-width: 180px; }
-    .main-nav .navbar {
-      height: 50px; }
-      .main-nav .navbar ul {
-        float: left; }
-      .main-nav .navbar li {
+    min-width: 180px;
+
+    .navbar {
+      height: 50px;
+
+      ul {
+        float: left;
+      }
+
+      li {
         float: left;
         font-size: 16px;
-        margin: 6px; }
-        .main-nav .navbar li a {
+        margin: 6px;
+        a {
           padding: 10px 16px;
-          border-radius: 4px; }
-    .main-nav .navbar-header {
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .navbar-header {
       float: left;
-      display: none; }
-    .main-nav .navbar-collapse {
-      padding: 0px; } }
+      display: none;
+    }
+
+    .navbar-collapse {
+      padding: 0px;
+    }
+  }
+}*/
 
 /*# sourceMappingURL=nav-menu.component.css.map */

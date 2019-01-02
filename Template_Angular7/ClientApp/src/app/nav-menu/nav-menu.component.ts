@@ -7,7 +7,9 @@ import {NavbarService} from "../services/navbar.service";
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent {
+
   isCollapsed = true;
 
   constructor( public nav: NavbarService ) {}

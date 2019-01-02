@@ -10,7 +10,7 @@ import {NavbarService} from "../../services/navbar.service";
   styleUrls: ['./teilnehmer-edit.component.css']
 })
 
-export class TeilnehmerEditComponent implements OnInit {
+export class TeilnehmerEditComponent {
   title: string;
   myTeilnehmer: Teilnehmer;
   editMode: boolean;
@@ -48,10 +48,6 @@ export class TeilnehmerEditComponent implements OnInit {
       this.myTeilnehmer.GruppenId = id;
       this.title = "Erstelle neuen Teilnehmer";
     }
-  }
-
-  ngOnInit() {
-    this.nav.hide();
   }
 
   onSubmit() {

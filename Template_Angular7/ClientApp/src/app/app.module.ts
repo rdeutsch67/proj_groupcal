@@ -33,6 +33,9 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxJsonViewerModule} from "ngx-json-viewer";
 import {NavbarService} from "./services/navbar.service";
+import { LayoutModule } from '@angular/cdk/layout';
+//import {ResizeService} from "./services/resize.service";
+
 
 registerLocaleData(localeDECH);
 
@@ -42,7 +45,6 @@ registerLocaleData(localeDECH);
     NavMenuComponent,
     HomeComponent,
     GruppenListeComponent,
-    //GruppeComponent,
     GruppeEditComponent,
     Code_aktivitaetenEditComponent,
     Code_aktivitaetenListeComponent,
@@ -56,6 +58,7 @@ registerLocaleData(localeDECH);
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    LayoutModule,
     HttpClientModule,
     NgbModule,
     FormsModule,
@@ -75,7 +78,6 @@ registerLocaleData(localeDECH);
         {path: 'gruppen/alle/:count', component: GruppenListeComponent},
         {path: 'gruppen/create', component: GruppeEditComponent},
         {path: 'gruppen/edit/:id', component: GruppeEditComponent},
-        //{ path: 'gruppen/:id', component: GruppeComponent},
         {path: 'codesaktivitaeten/vaktivitaeten/:id', component: Code_aktivitaetenListeComponent}, // alle Codes zur Gruppe
         {path: 'codesaktivitaeten/create/:id', component: Code_aktivitaetenEditComponent},
         {path: 'codesaktivitaeten/edit/:id', component: Code_aktivitaetenEditComponent},
@@ -97,6 +99,7 @@ registerLocaleData(localeDECH);
   providers: [
     PlanerdataService,
     NavbarService,
+    //ResizeService,
     {provide: LOCALE_ID, useValue: 'de-ch'}],
   bootstrap: [AppComponent]
 })
