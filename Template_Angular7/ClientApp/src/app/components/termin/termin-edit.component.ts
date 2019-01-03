@@ -42,7 +42,7 @@ export class TerminEditComponent implements OnInit, OnDestroy {
 
   zzTerminAnzWiederholungen: ZzTerminAnzWiederholung[];
 
-  deviceObserver: Observable<BreakpointState> = this.breakpointObserver.observe([Breakpoints.XSmall]);
+  deviceObserver: Observable<BreakpointState> = this.breakpointObserver.observe([Breakpoints.HandsetPortrait]);
   breakpointObserverSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,

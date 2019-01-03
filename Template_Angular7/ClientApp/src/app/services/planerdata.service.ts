@@ -44,8 +44,6 @@ export class PlanerdataService {
     return this.http.get<VTeilnehmer[]>(myUrl);
   }
 
-
-
   loadAktiviaeten(id: number): Observable<Code_aktivitaet[]> {
     let myUrl: string;
     if (id > 0 ) {
@@ -56,11 +54,6 @@ export class PlanerdataService {
     }
 
     return this.http.get<Code_aktivitaet[]>(myUrl);
-
-    /*this.http.get<Code_aktivitaet[]>(myUrl).subscribe(res => {
-        this.selAktivitaeten = res;
-      },
-      error => console.error(error));*/
   }
 
   loadTermine(myID: number): Observable<Termin[]> {

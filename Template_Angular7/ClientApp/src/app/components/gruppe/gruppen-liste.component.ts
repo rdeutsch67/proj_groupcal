@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {NavbarService} from "../../services/navbar.service";
+import {fromEvent, Observable, Subscription} from "rxjs";
 
 @Component({
   selector: "gruppen-liste",
@@ -9,10 +10,13 @@ import {NavbarService} from "../../services/navbar.service";
   styleUrls: ['./gruppen-liste.component.css']
 })
 
-export class GruppenListeComponent implements OnInit{
+export class GruppenListeComponent implements OnInit {
   title: string;
   selectedGruppe: Gruppe;
   gruppen: Gruppe[];
+
+  /*resizeObservable$: Observable<Event>;
+  resizeSubscription$: Subscription;*/
   //count: number;
 
   constructor(private http: HttpClient,
@@ -33,7 +37,15 @@ export class GruppenListeComponent implements OnInit{
 
   ngOnInit() {
     this.nav.show();
+    /*this.resizeObservable$ = fromEvent(window, 'resize');
+    this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
+      console.log('event: ', evt)
+    });*/
   }
+
+  /*ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe()
+  }*/
 
   loadData(myCount: number) {
     console.log(myCount);

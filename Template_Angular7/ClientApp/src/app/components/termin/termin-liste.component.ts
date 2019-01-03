@@ -1,8 +1,9 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {Component, Inject, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import * as moment from 'moment';
 import {filter} from "rxjs/operators";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
   selector: "termin-liste",
@@ -10,15 +11,21 @@ import {filter} from "rxjs/operators";
   styleUrls: ['./termin-liste.component.css']
 })
 
-export class TerminListeComponent implements OnChanges {
+export class TerminListeComponent implements OnInit, OnChanges {
   @Input() myGruppe: Gruppe;
   termine: Termin[];
   title: string;
   showAllData: boolean;
+  isSmScreen: boolean;
+  isSmScrPrt: boolean;
+  isMidScreen: boolean;
+  isWideScreen: boolean;
+
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
+              private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Alle Termine zur Gruppe";
@@ -29,6 +36,15 @@ export class TerminListeComponent implements OnChanges {
     if (id <= 0) {
       this.loadData(id);
     }
+  }
+
+  ngOnInit() {
+    //this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 576px)');
+    /*this.isMidScreen = this.breakpointObserver.isMatched('(min-width: 576px)');*/
+    this.isSmScreen = this.breakpointObserver.isMatched(Breakpoints.Handset);
+    this.isSmScrPrt = this.breakpointObserver.isMatched(Breakpoints.HandsetPortrait);
+    this.isMidScreen = this.breakpointObserver.isMatched(Breakpoints.Tablet);
+    this.isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);
   }
 
   ngOnChanges(changes: SimpleChanges) {
