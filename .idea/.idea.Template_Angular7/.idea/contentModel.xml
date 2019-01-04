@@ -218,7 +218,7 @@
                   <e p="termin-liste.component.ts" t="Include" />
                 </e>
               </e>
-              <e p="globals.ts" t="Include" />
+              <e p="global.variables.ts" t="Include" />
               <e p="home" t="Include">
                 <e p="home.component.html" t="Include" />
                 <e p="home.component.ts" t="Include" />

@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import * as moment from 'moment';
 import {filter} from "rxjs/operators";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "termin-liste",
@@ -16,7 +17,7 @@ export class TerminListeComponent implements OnInit, OnChanges {
   termine: Termin[];
   title: string;
   showAllData: boolean;
-  isSmScreen: boolean;
+
   isSmScrPrt: boolean;
   isMidScreen: boolean;
   isWideScreen: boolean;
@@ -25,7 +26,8 @@ export class TerminListeComponent implements OnInit, OnChanges {
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
-              private breakpointObserver: BreakpointObserver,
+              private globals: GlobalVariables,
+              //private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Alle Termine zur Gruppe";
@@ -39,12 +41,12 @@ export class TerminListeComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    //this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 576px)');
-    /*this.isMidScreen = this.breakpointObserver.isMatched('(min-width: 576px)');*/
-    this.isSmScreen = this.breakpointObserver.isMatched(Breakpoints.Handset);
+    /*//this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 576px)');
+    /!*this.isMidScreen = this.breakpointObserver.isMatched('(min-width: 576px)');*!/
+    //this.isSmScreen = this.breakpointObserver.isMatched(Breakpoints.Handset);
     this.isSmScrPrt = this.breakpointObserver.isMatched(Breakpoints.HandsetPortrait);
     this.isMidScreen = this.breakpointObserver.isMatched(Breakpoints.Tablet);
-    this.isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);
+    this.isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);*/
   }
 
   ngOnChanges(changes: SimpleChanges) {
