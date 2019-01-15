@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "code_aktivitaeten-liste",
@@ -22,6 +23,7 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
+              private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Aktivitäten";

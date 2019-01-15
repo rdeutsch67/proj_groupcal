@@ -35,6 +35,7 @@ import {NgxJsonViewerModule} from "ngx-json-viewer";
 import {NavbarService} from "./services/navbar.service";
 import { LayoutModule } from '@angular/cdk/layout';
 import {GlobalVariables} from "./global.variables";
+import {ResizeService} from "./services/resize.service";
 //import {ResizeService} from "./services/resize.service";
 
 
@@ -100,7 +101,7 @@ registerLocaleData(localeDECH);
   providers: [
     PlanerdataService,
     NavbarService,
-    //ResizeService,
+    ResizeService,
     GlobalVariables, // als Singleton benutzer, dh. bei keiner anderen Komponente zusätzlich als Provider eintragen! (Grund: diese Variablen werden u.U. von anderen Komponenten verändert)
     {provide: LOCALE_ID, useValue: 'de-ch'}],
   bootstrap: [AppComponent]

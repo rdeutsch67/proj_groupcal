@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import {NavbarService} from "../../services/navbar.service";
 import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
 import {Observable, Subscription} from "rxjs";
+import {GlobalVariables} from "../../global.variables";
+import {ResizeService} from "../../services/resize.service";
 
 @Component({
   selector: "termin-edit.component",
@@ -42,8 +44,9 @@ export class TerminEditComponent implements OnInit, OnDestroy {
 
   zzTerminAnzWiederholungen: ZzTerminAnzWiederholung[];
 
-  deviceObserver: Observable<BreakpointState> = this.breakpointObserver.observe([Breakpoints.HandsetPortrait]);
-  breakpointObserverSubscription: Subscription;
+  /*deviceObserver: Observable<BreakpointState> = this.breakpointObserver.observe([Breakpoints.HandsetPortrait]);
+  breakpointObserverSubscription: Subscription;*/
+  resizeSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -51,7 +54,9 @@ export class TerminEditComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private loadDataService: PlanerdataService,
               public nav: NavbarService,
-              private breakpointObserver: BreakpointObserver,
+              /*private breakpointObserver: BreakpointObserver,*/
+              private globals: GlobalVariables,
+              private resizeService: ResizeService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.datePickerConfig = Object.assign({}, {
@@ -142,23 +147,25 @@ export class TerminEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  handleNavbar() {
+    if (this.globals.bp_isSmScrPrt) {
+      this.nav.hide()
+    } else {
+      this.nav.show()
+    }
+  }
+
   ngOnInit() {
     this.InitFormFields();
-
-    this.breakpointObserverSubscription = this.deviceObserver
-      .subscribe(state => {
-        if (state.matches) {
-          console.log('Viewport is 500px or over!');
-          this.nav.hide();
-        } else {
-          console.log('Viewport is getting smaller!');
-          this.nav.show();
-        }
+    this.handleNavbar();
+    this.resizeSubscription = this.resizeService.onResize$ // Subscription auf Windows-Resize-Event z.B. Drehen des Bildschirms oder
+      .subscribe(result => {                          // veränderen Browserfenster-Size
+        this.handleNavbar();
       });
   }
 
   ngOnDestroy() {
-    this.breakpointObserverSubscription.unsubscribe();
+    this.resizeSubscription.unsubscribe();
   }
 
   InitFormFields() {

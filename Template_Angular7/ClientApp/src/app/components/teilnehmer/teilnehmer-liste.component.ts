@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {PlanerdataService} from "../../services/planerdata.service";
 import {Observable} from "rxjs";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "teilnehmer-liste",
@@ -20,6 +21,7 @@ export class TeilnehmerListeComponent implements OnChanges {
               private http: HttpClient,
               private router: Router,
               private dataService: PlanerdataService,
+              private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Teilnehmer";

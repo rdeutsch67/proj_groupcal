@@ -7,14 +7,14 @@
       <tr>
         <th>Code</th>
         <th>Bezeichnung</th>
-        <th>Gruppe</th>
-        <th>GanzerTag</th>
-        <th>Dauer unbestimmt</th>
-        <th>ShowZeiten</th>
-        <th>Beginn</th>
-        <th>Ende</th>
-        <th></th>
-        <th>Summieren</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Gruppe</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">GanzerTag</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Dauer unbestimmt</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">ShowZeiten</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Beginn</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Ende</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen"></th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Summieren</th>
         <th></th>
         <th></th>
         <th></th>
@@ -24,24 +24,26 @@
       <tr *ngFor="let aktivitaet of code_aktivitaeten">
         <td>{{aktivitaet.Code}}</td>
         <td>{{aktivitaet.Bezeichnung}}</td>
-        <td>{{aktivitaet.GruppeCode}}</td>
-        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.GanzerTag" onclick="return false;"/></td>
-        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.ZeitUnbestimmt" onclick="return false;"/></td>
-        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.ShowZeiten" onclick="return false;"/></td>
-        <td *ngIf="aktivitaet.ShowZeiten">{{aktivitaet.ZeitBeginn | date: 'HH:mm'}}</td>
-        <td *ngIf="aktivitaet.ShowZeiten">{{aktivitaet.ZeitEnde | date: 'HH:mm'}}</td>
-        <td *ngIf="!aktivitaet.ShowZeiten"></td>
-        <td *ngIf="!aktivitaet.ShowZeiten"></td>
-        <td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">{{aktivitaet.GruppeCode}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.GanzerTag" onclick="return false;"/></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.ZeitUnbestimmt" onclick="return false;"/></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.ShowZeiten" onclick="return false;"/></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen && aktivitaet.ShowZeiten">{{aktivitaet.ZeitBeginn | date: 'HH:mm'}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen && aktivitaet.ShowZeiten">{{aktivitaet.ZeitEnde | date: 'HH:mm'}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen && !aktivitaet.ShowZeiten"></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen && !aktivitaet.ShowZeiten"></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">
           <p class="square" [style.background-color]=[aktivitaet.Farbe]></p>
         </td>
-        <td style="text-align:center;"><input type="checkbox"  [checked]="aktivitaet.Summieren" onclick="return false;"/></td>
+        <td *ngIf="globals.bp_isMidOrWideScreen" style="text-align:center;">
+          <input type="checkbox"  [checked]="aktivitaet.Summieren" onclick="return false;"/>
+        </td>
         <td>
           <button type="submit"
                   (click)="onEdit(aktivitaet)"
                   class="btn btn-sm btn-success">
             <i class="fas fa-edit"></i>
-            Edit
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Ändern</a>
           </button>
         </td>
         <td>
@@ -49,7 +51,7 @@
                   (click)="onDelete(aktivitaet)"
                   class="btn btn-sm btn-danger">
             <i class="fas fa-trash-alt"></i>
-            Löschen
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Löschen</a>
           </button>
         </td>
       </tr>
@@ -73,6 +75,7 @@
           class={{showDataJsonBtnClass}} >
     <i class={{showDataJsonBtnIcon}}></i>
     {{showDataJsonTitle}}
+    adsf
   </button>
 </div>
 

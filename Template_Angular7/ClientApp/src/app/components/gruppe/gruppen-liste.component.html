@@ -5,9 +5,9 @@
       <thead>
       <tr>
         <th></th>
-        <th>Id</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Id</th>
         <th>Code</th>
-        <th>Bezeichnung</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Bezeichnung</th>
         <th>Aktiv</th>
         <th></th>
         <th></th>
@@ -22,19 +22,19 @@
                   (click)="onShowPlaner(gruppe)"
                   class="btn btn-sm btn-primary">
             <i class="fas fa-calendar-alt"></i>
-            Zeige Planer
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Zeige Planer</a>
           </button>
         </td>
-        <td>{{gruppe.Id}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">{{gruppe.Id}}</td>
         <td>{{gruppe.Code}}</td>
-        <td>{{gruppe.Bezeichnung}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">{{gruppe.Bezeichnung}}</td>
         <td style="text-align:center;"></td>
         <td>
           <button type="submit"
                   (click)="onEdit(gruppe)"
                   class="btn btn-sm btn-success">
             <i class="fas fa-edit"></i>
-            Edit
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Ändern</a>
           </button>
         </td>
         <td>
@@ -42,7 +42,7 @@
                   (click)="onDelete(gruppe)"
                   class="btn btn-sm btn-danger">
             <i class="fas fa-trash-alt"></i>
-            Löschen
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Löschen</a>
           </button>
         </td>
       </tr>

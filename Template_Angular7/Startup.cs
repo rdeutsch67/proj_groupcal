@@ -92,6 +92,7 @@ namespace Template_Angular7
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "mobil");
                 }
             });
             

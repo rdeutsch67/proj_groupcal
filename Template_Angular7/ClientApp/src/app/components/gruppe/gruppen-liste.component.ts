@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {NavbarService} from "../../services/navbar.service";
-import {fromEvent, Observable, Subscription} from "rxjs";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "gruppen-liste",
@@ -23,6 +23,7 @@ export class GruppenListeComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               public nav: NavbarService,
+              private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Verfügbare Gruppen";

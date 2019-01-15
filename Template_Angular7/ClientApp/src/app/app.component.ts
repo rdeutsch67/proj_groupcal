@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.globals.bp_isSmScrPrt = this.breakpointObserver.isMatched(Breakpoints.HandsetPortrait);
     this.globals.bp_isMidScreen = this.breakpointObserver.isMatched(Breakpoints.Tablet);
     this.globals.bp_isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);
+    this.globals.bp_isMidOrWideScreen = (this.globals.bp_isMidScreen || this.globals.bp_isWideScreen);
 
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.globals.bp_isSmScrPrt = this.breakpointObserver.isMatched(Breakpoints.HandsetPortrait);
       this.globals.bp_isMidScreen = this.breakpointObserver.isMatched(Breakpoints.Tablet);
       this.globals.bp_isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);
+      this.globals.bp_isMidOrWideScreen = (this.globals.bp_isMidScreen || this.globals.bp_isWideScreen);
     });
   }
 

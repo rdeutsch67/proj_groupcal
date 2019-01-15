@@ -242,12 +242,6 @@
                 <e p="planerdata.service.ts" t="Include" />
                 <e p="resize.service.ts" t="Include" />
               </e>
-              <e p="tokill" t="Include">
-                <e p="additionals" t="Include">
-                  <e p="resized-event.ts" t="Include" />
-                  <e p="resized.directive.ts" t="Include" />
-                </e>
-              </e>
             </e>
             <e p="assets" t="Include">
               <e p=".gitkeep" t="Include" />
@@ -319,6 +313,22 @@
           <e p="ZzTerminAnzWiederholungen.cs" t="Include" />
         </e>
         <e p="wwwroot" t="Include">
+          <e p="calendar-icon-216136" t="Include">
+            <e p="calendar-icon-114-216136.png" t="Include" />
+            <e p="calendar-icon-120-216136.png" t="Include" />
+            <e p="calendar-icon-144-216136.png" t="Include" />
+            <e p="calendar-icon-152-216136.png" t="Include" />
+            <e p="calendar-icon-16-216136.png" t="Include" />
+            <e p="calendar-icon-24-216136.png" t="Include" />
+            <e p="calendar-icon-32-216136.png" t="Include" />
+            <e p="calendar-icon-48-216136.png" t="Include" />
+            <e p="calendar-icon-57-216136.png" t="Include" />
+            <e p="calendar-icon-64-216136.png" t="Include" />
+            <e p="calendar-icon-72-216136.png" t="Include" />
+            <e p="favicon.ico" t="Include" />
+            <e p="readme.txt" t="Include" />
+          </e>
+          <e p="calendar-icon-216136.zip" t="Include" />
           <e p="dist" t="Include">
             <e p="logo.png" t="Include" />
           </e>

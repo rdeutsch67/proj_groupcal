@@ -1,4 +1,5 @@
 <div class="gruppe-edit container-fluid">
+
   <h3>{{title}}</h3>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group row">
@@ -71,4 +72,3 @@
   <br><br>
   <div><code_aktivitaeten-liste *ngIf="editMode" [myGruppe]="gruppe" ></code_aktivitaeten-liste></div>
 </div>
-

@@ -6,8 +6,8 @@
       <thead>
       <tr>
         <th>Name</th>
-        <th>Gruppe</th>
-        <th>Rechte</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Gruppe</th>
+        <th *ngIf="globals.bp_isMidOrWideScreen">Rechte</th>
         <th></th>
         <th></th>
       </tr>
@@ -15,14 +15,14 @@
       <tbody>
       <tr *ngFor="let gruppenteilnehmer of myTeilnehmer">
         <td>{{gruppenteilnehmer.Vorname}} {{gruppenteilnehmer.Nachname}}</td>
-        <td>{{gruppenteilnehmer.GruppeCode}}</td>
-        <td>{{gruppenteilnehmer.Berechtigungen}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">{{gruppenteilnehmer.GruppeCode}}</td>
+        <td *ngIf="globals.bp_isMidOrWideScreen">{{gruppenteilnehmer.Berechtigungen}}</td>
         <td>
           <button type="submit"
                   (click)="onEdit(gruppenteilnehmer)"
                   class="btn btn-sm btn-success">
             <i class="fas fa-edit"></i>
-            Edit
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Ändern</a>
           </button>
         </td>
         <td>
@@ -30,7 +30,7 @@
                   (click)="onDelete(gruppenteilnehmer)"
                   class="btn btn-sm btn-danger">
             <i class="fas fa-trash-alt"></i>
-            Löschen
+            <a *ngIf="globals.bp_isMidOrWideScreen"> Löschen</a>
           </button>
         </td>
       </tr>
