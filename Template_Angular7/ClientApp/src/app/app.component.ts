@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {fromEvent, Observable, Subscription} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {GlobalVariables} from "./global.variables";
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,16 @@ export class AppComponent implements OnInit, OnDestroy {
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
-  constructor(private breakpointObserver: BreakpointObserver,
-              private globals: GlobalVariables) {}
+  constructor(private meta: Meta,
+              private breakpointObserver: BreakpointObserver,
+              private globals: GlobalVariables) {
+
+    //<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    this.meta.addTags([
+      {name: 'viewport', content: 'initial-scale=1.0, user-scalable=no'}
+
+    ]);
+  }
 
   ngOnInit() {
     this.globals.bp_isSmScreen = this.breakpointObserver.isMatched(Breakpoints.Handset);

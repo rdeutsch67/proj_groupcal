@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,uBAAwB;EACtB,KAAK,EAAE,IAAI;EACX,yBAA0B;IAF5B,uBAAwB;MAGpB,KAAK,EAAE,IAAI;EAEb,gCAAS;IACP,UAAU,EAAE,KAAK;EAEnB,8BAAO;IACL,SAAS,EAAE,KAAK;EAElB,iCAAU;IACR,UAAU,EAAE,IAAI;;AAIpB,iBAAiB;EACf,WAAW,EAAE,GAAG",
+"mappings": "AAAA;;;;;;;;;;;;;;;;;;;;EAoBE",
 "sources": ["code_aktivitaeten-edit.component.scss"],
 "names": [],
 "file": "code_aktivitaeten-edit.component.css"

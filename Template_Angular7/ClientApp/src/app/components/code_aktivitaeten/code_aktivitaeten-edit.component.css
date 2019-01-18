@@ -1,16 +1,23 @@
+/*
 .code_aktivitaeten-edit {
-  width: 100%; }
+  width: 100%;
   @media (max-width: 767px) {
-    .code_aktivitaeten-edit {
-      width: 100%; } }
-  .code_aktivitaeten-edit textarea {
-    min-height: 100px; }
-  .code_aktivitaeten-edit select {
-    max-width: 200px; }
-  .code_aktivitaeten-edit .commands {
-    margin-top: 20px; }
+    width: 100%;
+  }
+  textarea {
+    min-height: 100px;
+  }
+  select {
+    max-width: 200px;
+  }
+  .commands {
+    margin-top: 20px;
+  }
+}
 
-.input-group-text {
-  margin-left: 7px; }
+.input-group-text{
+  margin-left: 7px;
+}
+*/
 
 /*# sourceMappingURL=code_aktivitaeten-edit.component.css.map */
