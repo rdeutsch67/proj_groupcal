@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2adf97e9-f422-4140-bc5b-0f0fafb047e3" name="FTP vServer2" url="http://host.rdeweb2015.de">
+        <fileTransfer host="host.rdeweb2015.de" port="22" rootFolder="/var/www/vhosts/gruppenplaner" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -23,7 +23,8 @@
       <label for="aktcolor" class="col-sm-2 col-form-label">Farbe:</label>
       <div class="col-sm-3">
         <input type="color" id="aktcolor" formControlName="Farbe"
-               class="form-control" [value]="Farbe" />
+               class="form-control" />
+
       </div>
     </div>
     <div class="input-group row">
@@ -40,7 +41,7 @@
       <div class="input-group-prepend col-sm-3">
         <div class="input-group-text">
           <input class="formcontrol" id="zeitUnbestimmt" type="checkbox" formControlName="ZeitUnbestimmt"
-                 [value]="ZeitUnbestimmt" (change)="onChangeZeitUnbestimmt($event)">
+                 (change)="onChangeZeitUnbestimmt($event)">
         </div>
       </div>
     </div>

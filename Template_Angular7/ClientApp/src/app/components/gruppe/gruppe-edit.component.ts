@@ -11,6 +11,7 @@ import {NavbarService} from "../../services/navbar.service";
 })
 
 export class GruppeEditComponent implements OnInit {
+  title: string;
   code: string;
   gruppe: Gruppe;
   form: FormGroup;
