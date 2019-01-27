@@ -2,6 +2,7 @@ using System;
 //using cloudscribe.Web.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -32,8 +33,13 @@ namespace Template_Angular7
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(opt =>
-                opt.UseNpgsql(Configuration.GetConnectionString("MyWebApiConnection")));
+            
+            /*services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(opt =>
+                opt.UseNpgsql(Configuration.GetConnectionString("MyWebApiConnection")));*/
+            
+            /* temporär für produktiven Einsatz */
+           services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(opt =>
+            opt.UseNpgsql("User ID = ekoradmin;Password=roke_4390;Server=localhost;Port=5432;Database=gruppenverwaltungapi;Integrated Security=true; Pooling=true;"));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -48,6 +54,8 @@ namespace Template_Angular7
                 // This changes how the timezone is converted - RoundtripKind keeps the timezone that was provided and doesn't convert it
                 config.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind;
             });
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,11 +69,19 @@ namespace Template_Angular7
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+                
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+                
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc(routes =>
             {

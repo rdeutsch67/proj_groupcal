@@ -36,11 +36,6 @@ namespace Template_Angular7.Data
         public DateTime DatumBeginn { get; set; }
         public DateTime DatumEnde { get; set; }
         
-        /*Required]
-        public DateTime ZeitBeginn { get; set; }
-        [Required]
-        public DateTime ZeitEnde { get; set; }*/
-        
         public string Hinweis { get; set; }
         
         [Required]

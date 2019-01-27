@@ -19,6 +19,7 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   showDebugInfoTitle: string;
   showDebugInfoBtnClass: string;
   showDebugInfoBtnIcon: string;
+  showDataJsonBtnIcon: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,

@@ -4,9 +4,10 @@ interface Termin {
   IdGruppe: number;
   IdTeilnehmer: number;
   IdAktivitaet: number;
+  GanzerTag: boolean;
   DatumBeginn: Date;
   DatumEnde: Date;
-  GanzerTag: boolean;
+
   Hinweis: string;
 
   AktFarbe: string;

@@ -18,15 +18,19 @@ export class TerminListeComponent implements OnInit, OnChanges {
   title: string;
   showAllData: boolean;
 
+
+
   isSmScrPrt: boolean;
   isMidScreen: boolean;
   isWideScreen: boolean;
 
 
+
+
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
-              private globals: GlobalVariables,
+              public myGlobals: GlobalVariables,
               //private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 

@@ -35,7 +35,9 @@
 
 
   <div class="title">Termin: {{title}}</div>
-  <div *ngIf="master > 0"><h5>Termin: {{master}}</h5></div>
+  <div *ngIf="master">
+    <h5>Termin: {{master}}</h5>
+  </div>
 
   <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
 
@@ -44,14 +46,13 @@
       <div class="input-group date col-sm-6" id="igdatumbeginn">
         <label class="col-form-label dp-label" for="mydatumbeginn">Datum von</label>
         <input (bsValueChange)="onChangeDatumBeginn($event)"
-               [bsConfig]="datePickerConfig" [bsValue]="DatumBeginn"
-               [value]="DatumBeginn"
+               [bsConfig]="datePickerConfig"
                bsDatepicker class="form-control form-control-sm"
                formControlName="DatumBeginn"
                id="mydatumbeginn"
                readonly
                type="text"/>
-        <input [value]="ZeitBeginn" class="form-control form-control-sm dp-picker"
+        <input class="form-control form-control-sm dp-picker"
                formControlName="ZeitBeginn"
                id="zeitBeginn"
                type="time"/>
@@ -60,13 +61,12 @@
       <div class="input-group date col-sm-6" id="igdatumende">
         <label class="col-form-label dp-label" for="mydatumende">Datum bis</label>
         <input [bsConfig]="datePickerConfig"
-               [bsValue]="DatumEnde" [value]="DatumEnde"
                bsDatepicker
                class="form-control form-control-sm" formControlName="DatumEnde"
                id="mydatumende"
                readonly
                type="text"/>
-        <input [value]="ZeitEnde" class="form-control form-control-sm dp-picker"
+        <input class="form-control form-control-sm dp-picker"
                formControlName="ZeitEnde"
                id="zeitEnde"
                type="time"
@@ -79,9 +79,12 @@
     <div *ngIf="selGruppen.length > 0">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gruppe</label>
+          <label class="input-group-text" for="idGruppe">Gruppe</label>
         </div>
-        <select class="custom-select input-sm" id="inputGroupSelect01">
+        <select class="custom-select input-sm" id="idGruppe"
+                (change)="onChangeGruppe($event.currentTarget.value)"
+                formControlName="IdGruppe"
+                required>
           <option selected>Auswählen...</option>
           <option *ngFor="let gruppe of selGruppen" [value]="gruppe.Id">
             {{gruppe.Code}}
@@ -116,7 +119,9 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="idTeilnehmer">Teilnehmer</label>
         </div>
-        <select class="custom-select input-sm" id="idTeilnehmer">
+        <select class="custom-select input-sm" id="idTeilnehmer"
+                formControlName="IdTeilnehmer"
+                required>
           <option selected>Auswählen...</option>
           <option *ngFor="let teilnehmer of selTeilnehmer" [value]="teilnehmer.Id">
             {{teilnehmer.Vorname}} {{teilnehmer.Nachname}}
@@ -145,10 +150,13 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="idAktivitaet">Aktivität</label>
         </div>
-        <select class="custom-select input-sm" id="idAktivitaet">
+        <select class="custom-select input-sm" id="idAktivitaet"
+                (change)="onChangeAktivitaet($event.currentTarget.value)"
+                formControlName="IdAktivitaet"
+                required>
           <option selected>Auswählen...</option>
           <option *ngFor="let akt of selAktivitaeten" [value]="akt.Id">
-            {{akt.Code}}
+             {{akt.Bezeichnung}}
           </option>
         </select>
       </div>
@@ -174,9 +182,11 @@
       <div class="input-group col-sm-6">
         <label class="col-form-label float-left" for="ganzertag">Ganztägig:</label>
         <div class="chkganztaegig">
-          <input (change)="onClickGanzerTag($event)" formControlName="GanzerTag"
+          <input (change)="onClickGanzerTag($event)"
+                 formControlName="GanzerTag"
                  id="ganzertag"
-                 type="checkbox"/>
+                 type="checkbox"
+                 />
         </div>
       </div>
     </div>
@@ -265,7 +275,7 @@
         </div>
       </div>
       <div class="btn-group btn-group-sm float-right" role="group">
-        <button (click)="onShowDataJson()" class={{showDebugInfoBtnClass}} id="btnShowDataJson"
+        <button (click)="onShowDataJson('debug-info-page')" class={{showDebugInfoBtnClass}} id="btnShowDataJson"
                 type="button">
           <i class={{showDataJsonBtnIcon}}></i>
           {{showDataJsonTitle}}

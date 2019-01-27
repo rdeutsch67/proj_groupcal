@@ -1,24 +1,26 @@
 <h3>Termine</h3>
-<a *ngIf="globals.bp_isSmScreen">SmScreen</a>
-<a *ngIf="globals.bp_isSmScrPrt">SmScrPrt</a>
-<a *ngIf="globals.bp_isMidScreen">MidScreen</a>
-<a *ngIf="globals.bp_isWideScreen">WideScreen</a>
+<div>
+<a *ngIf="myGlobals.bp_isSmScreen">SmScreen</a>
+<a *ngIf="myGlobals.bp_isSmScrPrt">SmScrPrt</a>
+<a *ngIf="myGlobals.bp_isMidScreen">MidScreen</a>
+<a *ngIf="myGlobals.bp_isWideScreen">WideScreen</a>
+</div>
 <div *ngIf="termine.length > 0">
   <div class="table-responsive">
     <table class="table table-hover questions">
       <thead>
       <tr>
-        <th *ngIf="globals.bp_isWideScreen">ID</th>
-        <th *ngIf="globals.bp_isWideScreen">IdTermin</th>
+        <th *ngIf="myGlobals.bp_isWideScreen">ID</th>
+        <th *ngIf="myGlobals.bp_isWideScreen">IdTermin</th>
         <th>Beginn</th>
-        <th *ngIf="!globals.bp_isSmScrPrt">Ende</th>
-        <th *ngIf="globals.bp_isWideScreen">Gruppe</th>
+        <th *ngIf="!myGlobals.bp_isSmScrPrt">Ende</th>
+        <th *ngIf="myGlobals.bp_isWideScreen">Gruppe</th>
         <th>Teilnehmer</th>
-        <th *ngIf="globals.bp_isWideScreen">Akt Code</th>
-        <th *ngIf="globals.bp_isMidScreen || globals.bp_isWideScreen">GanzerTag</th>
-        <th *ngIf="globals.bp_isWideScreen">Dauer unbestimmt</th>
-        <th *ngIf="!globals.bp_isSmScrPrt">Akt Beginn</th>
-        <th *ngIf="!globals.bp_isSmScrPrt">Akt Ende</th>
+        <th *ngIf="myGlobals.bp_isWideScreen">Akt Code</th>
+        <th *ngIf="myGlobals.bp_isMidScreen || myGlobals.bp_isWideScreen">GanzerTag</th>
+        <th *ngIf="myGlobals.bp_isWideScreen">Dauer unbestimmt</th>
+        <th *ngIf="!myGlobals.bp_isSmScrPrt">Akt Beginn</th>
+        <th *ngIf="!myGlobals.bp_isSmScrPrt">Akt Ende</th>
         <!--<th *ngIf="isWideScreen">Hinweis</th>-->
         <th></th>
         <th></th>
@@ -26,24 +28,24 @@
       </thead>
       <tbody>
       <tr *ngFor="let termin of termine">
-        <td *ngIf="globals.bp_isWideScreen">{{termin.Id}}</td>
-        <td *ngIf="globals.bp_isWideScreen">{{termin.IdTermin}}</td>
+        <td *ngIf="myGlobals.bp_isWideScreen">{{termin.Id}}</td>
+        <td *ngIf="myGlobals.bp_isWideScreen">{{termin.IdTermin}}</td>
         <td>{{termin.DatumBeginn | date: 'dd.MM.yy'}}</td>
-        <td *ngIf="!globals.bp_isSmScrPrt">{{termin.DatumEnde | date: 'dd.MM.yy'}}</td>
-        <td *ngIf="globals.bp_isWideScreen">{{termin.GrpCode}}</td>
+        <td *ngIf="!myGlobals.bp_isSmScrPrt">{{termin.DatumEnde | date: 'dd.MM.yy'}}</td>
+        <td *ngIf="myGlobals.bp_isWideScreen">{{termin.GrpCode}}</td>
         <td>{{termin.TnVorname}} {{termin.TnNachname}}</td>
-        <td  *ngIf="globals.bp_isWideScreen" style="text-align:center;"> {{termin.AktCode}}</td>
-        <td  *ngIf="globals.bp_isMidScreen || bp_isWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="termin.GanzerTag" onclick="return false;"/></td>
-        <td  *ngIf="globals.bp_isWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="termin.ZeitUnbestimmt" onclick="return false;"/></td>
-        <td *ngIf="!termin.GanzerTag && !globals.bp_isSmScrPrt">{{termin.DatumBeginn | date: 'HH:mm'}}</td>
-        <td *ngIf="!termin.GanzerTag && !globals.bp_isSmScrPrt">{{termin.DatumEnde | date: 'HH:mm'}}</td>
+        <td  *ngIf="myGlobals.bp_isWideScreen" style="text-align:center;"> {{termin.AktCode}}</td>
+        <td  *ngIf="myGlobals.bp_isMidScreen || bp_isWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="termin.GanzerTag" onclick="return false;"/></td>
+        <td  *ngIf="myGlobals.bp_isWideScreen" style="text-align:center;"><input type="checkbox"  [checked]="termin.ZeitUnbestimmt" onclick="return false;"/></td>
+        <td *ngIf="!termin.GanzerTag && !myGlobals.bp_isSmScrPrt">{{termin.DatumBeginn | date: 'HH:mm'}}</td>
+        <td *ngIf="!termin.GanzerTag && !myGlobals.bp_isSmScrPrt">{{termin.DatumEnde | date: 'HH:mm'}}</td>
         <!--<td *ngIf="isWideScreen">{{termin.Hinweis}}</td>-->
         <td>
           <button type="submit"
                   (click)="onEdit(termin)"
                   class="btn btn-sm btn-success">
             <i class="fas fa-edit"></i>
-            <a *ngIf="globals.bp_isMidScreen || globals.bp_isWideScreen"> Edit</a>
+            <a *ngIf="myGlobals.bp_isMidScreen || myGlobals.bp_isWideScreen"> Edit</a>
           </button>
         </td>
         <td>
@@ -51,7 +53,7 @@
                   (click)="onDelete(termin)"
                   class="btn btn-sm btn-danger">
             <i class="fas fa-trash-alt"></i>
-            <a *ngIf="globals.bp_isMidScreen || globals.bp_isWideScreen"> Löschen</a>
+            <a *ngIf="myGlobals.bp_isMidScreen || myGlobals.bp_isWideScreen"> Löschen</a>
           </button>
         </td>
       </tr>

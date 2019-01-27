@@ -29,6 +29,29 @@
             <e p="workspace.xml" t="Include" />
           </e>
           <e p="angular.json" t="Include" />
+          <e p="dist" t="Include">
+            <e p="3rdpartylicenses.txt" t="Include" />
+            <e p="fa-brands-400.42f9fd6acee87559ac0d.svg" t="Include" />
+            <e p="fa-brands-400.659c4d58b00226541ef9.woff2" t="Include" />
+            <e p="fa-brands-400.8b7a9afd7b95f62e6ee8.woff" t="Include" />
+            <e p="fa-brands-400.b69de69a4ff8ca0abe96.ttf" t="Include" />
+            <e p="fa-brands-400.ec0716ae8aa1ba781a1a.eot" t="Include" />
+            <e p="fa-regular-400.0b5e3a5451fc62d9023c.woff" t="Include" />
+            <e p="fa-regular-400.0c41971339b9fc5b1cef.svg" t="Include" />
+            <e p="fa-regular-400.6493321d567eb0f22bd5.eot" t="Include" />
+            <e p="fa-regular-400.b48c48ea8457846a5695.ttf" t="Include" />
+            <e p="fa-regular-400.bdadb6ce95c5a2e7b673.woff2" t="Include" />
+            <e p="fa-solid-900.4478b4d7022cad174e4c.svg" t="Include" />
+            <e p="fa-solid-900.48f54f63d7711d0912a9.ttf" t="Include" />
+            <e p="fa-solid-900.bcb927a742a8370b7664.woff" t="Include" />
+            <e p="fa-solid-900.f29ad0031ad2c1c14b77.eot" t="Include" />
+            <e p="fa-solid-900.fb493903265cad425ccd.woff2" t="Include" />
+            <e p="index.html" t="Include" />
+            <e p="main.156e0518cb7f87d8d3a4.js" t="Include" />
+            <e p="polyfills.ca675e00d8c2c497e471.js" t="Include" />
+            <e p="runtime.ec2944dd8b20ec099bf3.js" t="Include" />
+            <e p="styles.d38458d58de283b47671.css" t="Include" />
+          </e>
           <e p="e2e" t="Include">
             <e p="app.e2e-spec.ts" t="Include" />
             <e p="app.po.ts" t="Include" />
