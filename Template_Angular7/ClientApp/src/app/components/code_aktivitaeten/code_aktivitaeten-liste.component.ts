@@ -13,6 +13,7 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
   code_aktivitaeten: VCode_aktivitaet[];
   title: string;
+  selectedAktivitaet: VCode_aktivitaet;
   showZeiten: boolean;
   showAllData: boolean;
   showDataJson: boolean = true;

@@ -15,6 +15,7 @@ export class TeilnehmerListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
   myTeilnehmer: VTeilnehmer[];
   title: string;
+  selectedTeilnehmer: VTeilnehmer;
   showAllData: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,

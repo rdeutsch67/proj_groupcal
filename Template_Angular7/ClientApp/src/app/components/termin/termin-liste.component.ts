@@ -16,6 +16,7 @@ export class TerminListeComponent implements OnInit, OnChanges {
   @Input() myGruppe: Gruppe;
   termine: Termin[];
   title: string;
+  selectedTermin: Termin;
   showAllData: boolean;
 
 
@@ -34,7 +35,7 @@ export class TerminListeComponent implements OnInit, OnChanges {
               //private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 
-    this.title = "Alle Termine zur Gruppe";
+    this.title = "Termine";
     this.termine = [];
 
     let id = +this.activatedRoute.snapshot.params["id"];  // Id der Gruppe

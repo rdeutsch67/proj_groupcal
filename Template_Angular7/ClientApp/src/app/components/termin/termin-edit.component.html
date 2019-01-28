@@ -1,7 +1,43 @@
 <div class="termine-edit container-fluid" id="page-top">
 
   <div aria-label="Termin-Edit Toolbar" class="mytoptoolbar btn-toolbar justify-content-between" role="toolbar">
-    <div class="btn-group btn-group-sm mr-2" role="group">
+
+
+      <div class="btn-group btn-group-sm mr-2" role="group">
+        <button *ngIf="editMode" [disabled]="form.invalid"
+                class="btn btn-sm btn-success"
+                (click)="onSubmit()"
+                type="button">
+          <i class="fas fa-save"></i>
+          Speichern
+        </button>
+        <button *ngIf="!editMode" [disabled]="form.invalid"
+                class="btn btn-sm btn-success"
+                (click)="onSubmit()"
+                type="button">
+          <i class="fas fa-plus-circle"></i>
+          Termin neu
+        </button>
+        <div class="btn-group btn-group-sm" role="group">
+          <button (click)="onBack()"
+                  class="btn btn-sm btn-secondary col-sm-12"
+                  type="button">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            Zurück
+          </button>
+        </div>
+      </div>
+      <div class="btn-group btn-group-sm float-right" role="group">
+        <button (click)="onShowDataJson('debug-info-page')" class={{showDebugInfoBtnClass}} id="btnShowDataJson"
+                type="button">
+          <i class={{showDataJsonBtnIcon}}></i>
+          {{showDataJsonTitle}}
+        </button>
+      </div>
+    </div>
+
+
+    <!--<div class="btn-group btn-group-sm mr-2" role="group">
       <button (click)="onSubmit()" *ngIf="editMode"
               [disabled]="form.invalid"
               class="btn btn-sm btn-success"
@@ -32,12 +68,13 @@
       </button>
     </div>
   </div>
+-->
 
+  <!--<div class="title" *ngIf="editMode">Termin: {{title}}</div>-->
 
-  <div class="title">Termin: {{title}}</div>
-  <div *ngIf="master">
+  <!--<div *ngIf="master" >
     <h5>Termin: {{master}}</h5>
-  </div>
+  </div>-->
 
   <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
 
@@ -285,7 +322,7 @@
   </form>
 </div>
 
-<!--<div id="debug-info-page">
+<div id="debug-info-page">
   <div *ngIf="showDataJson">
     <div class="form-debug-info">
       <div class="row">
@@ -323,4 +360,4 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>

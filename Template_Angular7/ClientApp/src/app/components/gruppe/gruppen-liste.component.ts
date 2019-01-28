@@ -26,7 +26,7 @@ export class GruppenListeComponent implements OnInit {
               private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
-    this.title = "Verfügbare Gruppen";
+    this.title = "Gruppen";
     this.gruppen = [];
 
     let count = +this.activatedRoute.snapshot.params["count"];

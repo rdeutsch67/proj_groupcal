@@ -114,7 +114,7 @@ export class TerminEditComponent implements OnInit, OnDestroy {
       }, error => console.error(error));
     }
     else {
-      this.title = "Erstelle neuen Termin";
+      this.title = "neuer Termin";
       this.master = "";
 
       let myday: Date = this.activatedRoute.snapshot.params["myday"];

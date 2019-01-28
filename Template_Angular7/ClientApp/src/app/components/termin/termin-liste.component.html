@@ -1,13 +1,24 @@
-<h3>Termine</h3>
-<div>
+<div class="container-fluid">
+  <div class="row">
+    <h4>{{title}}</h4>
+    <button *ngIf="!showAllData"
+            class="btn btn-sm btn-primary ml-auto"
+            (click)="onCreate()">
+      <i class="fa fa-plus-circle"></i>
+      neuer Termin
+    </button>
+  </div>
+</div>
+
+<!--<div>
 <a *ngIf="myGlobals.bp_isSmScreen">SmScreen</a>
 <a *ngIf="myGlobals.bp_isSmScrPrt">SmScrPrt</a>
 <a *ngIf="myGlobals.bp_isMidScreen">MidScreen</a>
 <a *ngIf="myGlobals.bp_isWideScreen">WideScreen</a>
-</div>
+</div>-->
 <div *ngIf="termine.length > 0">
   <div class="table-responsive">
-    <table class="table table-hover questions">
+    <table class="table table-hover questions table-striped">
       <thead>
       <tr>
         <th *ngIf="myGlobals.bp_isWideScreen">ID</th>
@@ -27,7 +38,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let termin of termine">
+      <tr *ngFor="let termin of termine"
+          [class.selected]="termin === selectedTermin"
+          (click)="onEdit(termin)">
         <td *ngIf="myGlobals.bp_isWideScreen">{{termin.Id}}</td>
         <td *ngIf="myGlobals.bp_isWideScreen">{{termin.IdTermin}}</td>
         <td>{{termin.DatumBeginn | date: 'dd.MM.yy'}}</td>
@@ -66,8 +79,8 @@
   Diese Gruppe hat (noch) keine Termine: klicke auf <strong>Neuen Termin erstellen</strong> Button um den Ersten zu erfassen!
 </div>
 
-<button *ngIf="!showAllData" (click)="onCreate()" class="btn btn-sm btn-primary">
+<!--<button *ngIf="!showAllData" (click)="onCreate()" class="btn btn-sm btn-primary">
   <i class="fa fa-plus-circle"></i>
   Neuen Termin erstellen
-</button>
+</button>-->
 
