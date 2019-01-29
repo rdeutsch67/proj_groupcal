@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
@@ -15,7 +15,6 @@ import localeDECH from '@angular/common/locales/de-CH';
 
 
 import {GruppenListeComponent} from "./components/gruppe/gruppen-liste.component";
-//import {GruppeComponent} from "./components/gruppe/gruppe.component";
 import {AboutComponent} from "./components/about/about.component";
 import {PageNotFoundComponent} from "./components/pagenotfound.component/pagenotfound.component";
 import {GruppeEditComponent} from "./components/gruppe/gruppe-edit.component";
@@ -36,13 +35,19 @@ import {NavbarService} from "./services/navbar.service";
 import { LayoutModule } from '@angular/cdk/layout';
 import {GlobalVariables} from "./global.variables";
 import {ResizeService} from "./services/resize.service";
-//import {ResizeService} from "./services/resize.service";
-
+import {RegisterComponent} from "./register";
+import {LoginComponent} from "./login";
+import {AuthGuard} from "./_guards";
+import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
+import {AlertComponent} from "./_components";
 
 registerLocaleData(localeDECH);
 
 @NgModule({
   declarations: [
+    LoginComponent,
+    RegisterComponent,
+    AlertComponent,
     AppComponent,
     NavMenuComponent,
     HomeComponent,
@@ -75,6 +80,9 @@ registerLocaleData(localeDECH);
       }
     ),
     RouterModule.forRoot([
+        /*{path: '', component: GruppenListeComponent, canActivate: [AuthGuard] },
+        {path: 'login', component: LoginComponent },
+        {path: 'register', component: RegisterComponent },*/
         {path: '', redirectTo: 'home', pathMatch: 'full'},
         {path: 'home', component: GruppenListeComponent},
         {path: 'gruppen/alle/:count', component: GruppenListeComponent},
@@ -99,10 +107,13 @@ registerLocaleData(localeDECH);
       {anchorScrolling: 'enabled'})
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
     PlanerdataService,
     NavbarService,
     ResizeService,
-    GlobalVariables, // als Singleton benutzer, dh. bei keiner anderen Komponente zusätzlich als Provider eintragen! (Grund: diese Variablen werden u.U. von anderen Komponenten verändert)
+    GlobalVariables, // als Singleton benutzen, dh. bei keiner anderen Komponente zusätzlich als Provider eintragen! (Grund: diese Variablen werden u.U. von anderen Komponenten verändert)
     {provide: LOCALE_ID, useValue: 'de-ch'}],
   bootstrap: [AppComponent]
 })

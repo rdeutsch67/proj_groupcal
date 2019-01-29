@@ -161,6 +161,31 @@
           <e p="src" t="Include">
             <e p="_variables.scss" t="Include" />
             <e p="app" t="Include">
+              <e p="_components" t="Include">
+                <e p="alert.component.html" t="Include" />
+                <e p="alert.component.ts" t="Include" />
+                <e p="index.ts" t="Include" />
+              </e>
+              <e p="_guards" t="Include">
+                <e p="auth.guard.ts" t="Include" />
+                <e p="index.ts" t="Include" />
+              </e>
+              <e p="_helpers" t="Include">
+                <e p="error.interceptor.ts" t="Include" />
+                <e p="fake-backend.ts" t="Include" />
+                <e p="index.ts" t="Include" />
+                <e p="jwt.interceptor.ts" t="Include" />
+              </e>
+              <e p="_models" t="Include">
+                <e p="index.ts" t="Include" />
+                <e p="user.ts" t="Include" />
+              </e>
+              <e p="_services" t="Include">
+                <e p="alert.service.ts" t="Include" />
+                <e p="authentication.service.ts" t="Include" />
+                <e p="index.ts" t="Include" />
+                <e p="user.service.ts" t="Include" />
+              </e>
               <e p="app.component.css" t="Include" />
               <e p="app.component.css.map" t="Include" />
               <e p="app.component.html" t="Include" />
@@ -243,6 +268,7 @@
               <e p="home" t="Include">
                 <e p="home.component.html" t="Include" />
                 <e p="home.component.ts" t="Include" />
+                <e p="index.ts" t="Include" />
               </e>
               <e p="interface" t="Include">
                 <e p="code_aktivitaet.ts" t="Include" />
@@ -251,12 +277,26 @@
                 <e p="termin.ts" t="Include" />
                 <e p="zzterminanzwiederholung.ts" t="Include" />
               </e>
+              <e p="login" t="Include">
+                <e p="index.ts" t="Include" />
+                <e p="login.component.html" t="Include" />
+                <e p="login.component.ts" t="Include" />
+              </e>
               <e p="nav-menu" t="Include">
                 <e p="nav-menu.component.css" t="Include" />
                 <e p="nav-menu.component.css.map" t="Include" />
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.scss" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
+              </e>
+              <e p="old_home" t="Include">
+                <e p="home.component.html" t="Include" />
+                <e p="home.component.ts" t="Include" />
+              </e>
+              <e p="register" t="Include">
+                <e p="index.ts" t="Include" />
+                <e p="register.component.html" t="Include" />
+                <e p="register.component.ts" t="Include" />
               </e>
               <e p="Services" t="Include">
                 <e p="navbar.service.ts" t="Include" />

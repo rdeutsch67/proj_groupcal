@@ -3,6 +3,9 @@ import {fromEvent, Observable, Subscription} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {GlobalVariables} from "./global.variables";
 import { Meta } from '@angular/platform-browser';
+import { AuthenticationService } from './_services';
+import { User } from './_models';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -11,20 +14,29 @@ import { Meta } from '@angular/platform-browser';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
+  currentUser: User;
   title = 'app';
-
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
-  constructor(private meta: Meta,
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router,
+              private meta: Meta,
               private breakpointObserver: BreakpointObserver,
               private globals: GlobalVariables) {
+
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
     //<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     this.meta.addTags([
       {name: 'viewport', content: 'initial-scale=1.0, user-scalable=no'}
 
     ]);
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
   ngOnInit() {
