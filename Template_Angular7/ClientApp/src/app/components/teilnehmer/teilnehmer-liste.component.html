@@ -15,7 +15,7 @@
 <!--<div class="suggestion" *ngIf="myTeilnehmer">-->
   <div class="table-responsive">
     <table class="table table-hover questions table-striped">
-      <thead>
+      <thead *ngIf="globals.bp_isMidOrWideScreen">
       <tr>
         <th>Name</th>
         <th *ngIf="globals.bp_isMidOrWideScreen">Gruppe</th>

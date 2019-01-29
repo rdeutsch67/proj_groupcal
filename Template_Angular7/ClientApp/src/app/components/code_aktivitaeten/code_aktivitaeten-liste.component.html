@@ -14,7 +14,7 @@
 <div *ngIf="code_aktivitaeten.length > 0">
   <div class="table-responsive">
     <table class="table table-hover table-striped questions">
-      <thead>
+      <thead  *ngIf="globals.bp_isMidOrWideScreen">
       <tr>
         <th>Code</th>
         <th>Bezeichnung</th>

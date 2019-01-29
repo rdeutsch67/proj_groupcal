@@ -47,7 +47,7 @@
             <e p="fa-solid-900.f29ad0031ad2c1c14b77.eot" t="Include" />
             <e p="fa-solid-900.fb493903265cad425ccd.woff2" t="Include" />
             <e p="index.html" t="Include" />
-            <e p="main.156e0518cb7f87d8d3a4.js" t="Include" />
+            <e p="main.bc4384a30b6a66baaf16.js" t="Include" />
             <e p="polyfills.ca675e00d8c2c497e471.js" t="Include" />
             <e p="runtime.ec2944dd8b20ec099bf3.js" t="Include" />
             <e p="styles.d38458d58de283b47671.css" t="Include" />
@@ -291,6 +291,7 @@
           <e p="GruppenController.cs" t="Include" />
           <e p="TeilnehmerController.cs" t="Include" />
           <e p="TermineController.cs" t="Include" />
+          <e p="UsersController.cs" t="Include" />
           <e p="ZzTerminAnzWiederholungenController.cs" t="Include" />
         </e>
         <e p="Data" t="Include">
@@ -303,6 +304,18 @@
             <e p="Teilnehmer.cs" t="Include" />
             <e p="Termin.cs" t="Include" />
           </e>
+        </e>
+        <e p="Dtos" t="Include">
+          <e p="UserDto.cs" t="Include" />
+        </e>
+        <e p="Entities" t="Include">
+          <e p="User.cs" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="AppException.cs" t="Include" />
+          <e p="AppSettings.cs" t="Include" />
+          <e p="AutoMapperProfile.cs" t="Include" />
+          <e p="DataContext.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
           <e p="20181221123954_InitialMigration.cs" t="Include" />
@@ -323,6 +336,9 @@
         </e>
         <e p="Program.cs" t="Include" />
         <e p="README.md" t="Include" />
+        <e p="Services" t="Include">
+          <e p="UserService.cs" t="Include" />
+        </e>
         <e p="Startup.cs" t="Include" />
         <e p="Template_Angular7.csproj" t="IncludeRecursive" />
         <e p="ViewModels" t="Include">

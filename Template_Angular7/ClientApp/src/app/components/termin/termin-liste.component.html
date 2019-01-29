@@ -19,7 +19,7 @@
 <div *ngIf="termine.length > 0">
   <div class="table-responsive">
     <table class="table table-hover questions table-striped">
-      <thead>
+      <thead *ngIf="myGlobals.bp_isWideScreen">
       <tr>
         <th *ngIf="myGlobals.bp_isWideScreen">ID</th>
         <th *ngIf="myGlobals.bp_isWideScreen">IdTermin</th>
