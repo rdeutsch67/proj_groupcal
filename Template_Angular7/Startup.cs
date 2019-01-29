@@ -35,7 +35,7 @@ namespace Template_Angular7
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddCors();
+            services.AddCors();
             services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper();
@@ -81,7 +81,7 @@ namespace Template_Angular7
             });
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();*/
+            services.AddScoped<IUserService, UserService>();
             
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -40,6 +40,7 @@ import {LoginComponent} from "./login";
 import {AuthGuard} from "./_guards";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
 import {AlertComponent} from "./_components";
+import {routing} from "./app.routing";
 
 registerLocaleData(localeDECH);
 
@@ -77,12 +78,13 @@ registerLocaleData(localeDECH);
     CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory
-      }
+      },
     ),
-    RouterModule.forRoot([
-        /*{path: '', component: GruppenListeComponent, canActivate: [AuthGuard] },
+    routing,
+      /*RouterModule.forRoot([
+        /!*{path: '', component: GruppenListeComponent, canActivate: [AuthGuard] },
         {path: 'login', component: LoginComponent },
-        {path: 'register', component: RegisterComponent },*/
+        {path: 'register', component: RegisterComponent },*!/
         {path: '', redirectTo: 'home', pathMatch: 'full'},
         {path: 'home', component: GruppenListeComponent},
         {path: 'gruppen/alle/:count', component: GruppenListeComponent},
@@ -104,9 +106,10 @@ registerLocaleData(localeDECH);
         {path: 'about', component: AboutComponent},
         {path: '**', component: PageNotFoundComponent}
       ],
-      {anchorScrolling: 'enabled'})
+      {anchorScrolling: 'enabled'})*/
   ],
-  providers: [
+
+providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
@@ -115,6 +118,7 @@ registerLocaleData(localeDECH);
     ResizeService,
     GlobalVariables, // als Singleton benutzen, dh. bei keiner anderen Komponente zusätzlich als Provider eintragen! (Grund: diese Variablen werden u.U. von anderen Komponenten verändert)
     {provide: LOCALE_ID, useValue: 'de-ch'}],
+
   bootstrap: [AppComponent]
 })
 

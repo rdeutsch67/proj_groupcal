@@ -192,6 +192,7 @@
               <e p="app.component.scss" t="Include" />
               <e p="app.component.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
+              <e p="app.routing.ts" t="Include" />
               <e p="components" t="Include">
                 <e p="about" t="Include">
                   <e p="about.component.html" t="Include" />
