@@ -4,22 +4,26 @@ using System;
 namespace Template_Angular7.ViewModels
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class GruppenViewModel
+    
+    public class LoginBenutzerViewModel
     {
         #region Constructor
-        public GruppenViewModel()
+        public LoginBenutzerViewModel()
         {
         }
         #endregion
         
         #region Properties
         public int Id { get; set; }
-        public string Code { get; set; }               
-        public string Bezeichnung { get; set; }
-        public string Beschreibung { get; set; }
-        public bool Aktiv { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Username { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         #endregion
     }
 }
+

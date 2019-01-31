@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;
 using Template_Angular7.Entities;
 
 namespace Template_Angular7.Helpers
@@ -9,4 +9,4 @@ namespace Template_Angular7.Helpers
 
         public DbSet<User> Users { get; set; }
     }
-}
+}*/

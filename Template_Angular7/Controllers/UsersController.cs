@@ -9,9 +9,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Template_Angular7.Data;
 using Template_Angular7.Services;
 using Template_Angular7.Dtos;
-using Template_Angular7.Entities;
+
 
 namespace Template_Angular7.Controllers
 {
@@ -60,7 +61,7 @@ namespace Template_Angular7.Controllers
             // return basic user info (without password) and token to store client side
             return Ok(new {
                 Id = user.Id,
-                Username = user.Username,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = tokenString
@@ -72,7 +73,7 @@ namespace Template_Angular7.Controllers
         public IActionResult Register([FromBody]UserDto userDto)
         {
             // map dto to entity
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<LoginBenutzer>(userDto);
 
             try 
             {
@@ -107,7 +108,7 @@ namespace Template_Angular7.Controllers
         public IActionResult Update(int id, [FromBody]UserDto userDto)
         {
             // map dto to entity and set id
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<LoginBenutzer>(userDto);
             user.Id = id;
 
             try 

@@ -1,6 +1,8 @@
 using AutoMapper;
+using Template_Angular7.Data;
 using Template_Angular7.Dtos;
-using Template_Angular7.Entities;
+
+//using Template_Angular7.Entities;
 
 namespace Template_Angular7.Helpers
 {
@@ -8,8 +10,8 @@ namespace Template_Angular7.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
+            CreateMap<LoginBenutzer, UserDto>();
+            CreateMap<UserDto, LoginBenutzer>();
         }
     }
 }

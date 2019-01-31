@@ -342,6 +342,7 @@
             <e p="ApplicationUser.cs" t="Include" />
             <e p="CodeAktivitaeten.cs" t="Include" />
             <e p="Gruppe.cs" t="Include" />
+            <e p="LoginBenutzer.cs" t="Include" />
             <e p="Teilnehmer.cs" t="Include" />
             <e p="Termin.cs" t="Include" />
           </e>
@@ -349,18 +350,14 @@
         <e p="Dtos" t="Include">
           <e p="UserDto.cs" t="Include" />
         </e>
-        <e p="Entities" t="Include">
-          <e p="User.cs" t="Include" />
-        </e>
         <e p="Helpers" t="Include">
           <e p="AppException.cs" t="Include" />
           <e p="AppSettings.cs" t="Include" />
           <e p="AutoMapperProfile.cs" t="Include" />
-          <e p="DataContext.cs" t="Include" />
         </e>
         <e p="Migrations" t="Include">
-          <e p="20181221123954_InitialMigration.cs" t="Include" />
-          <e p="20181221123954_InitialMigration.Designer.cs" t="Include" />
+          <e p="20190130173235_InitialMigration.cs" t="Include" />
+          <e p="20190130173235_InitialMigration.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -382,12 +379,16 @@
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Template_Angular7.csproj" t="IncludeRecursive" />
+        <e p="tokill" t="Include">
+          <e p="DataContext.cs" t="Include" />
+        </e>
         <e p="ViewModels" t="Include">
           <e p="CodeAktivitaetenViewModel.cs" t="Include" />
           <e p="GruppenViewModel.cs" t="Include" />
-          <e p="QuizViewModel.cs" t="Include" />
+          <e p="LoginBenutzerViewModel.cs" t="Include" />
           <e p="TeilnehmerViewModel.cs" t="Include" />
           <e p="TerminViewModel.cs" t="Include" />
+          <e p="User.cs" t="Include" />
           <e p="ZzTerminAnzWiederholungen.cs" t="Include" />
         </e>
         <e p="wwwroot" t="Include">

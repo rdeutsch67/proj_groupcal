@@ -20,8 +20,8 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  /*{path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: GruppenListeComponent},*/
+  //{path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: GruppenListeComponent},
   {path: 'gruppen/alle/:count', component: GruppenListeComponent},
   {path: 'gruppen/create', component: GruppeEditComponent},
   {path: 'gruppen/edit/:id', component: GruppeEditComponent},

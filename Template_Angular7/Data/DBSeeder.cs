@@ -4,16 +4,21 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Template_Angular7.Services;
 
 namespace Template_Angular7.Data
 {
     public static class DBSeeder
     {
+        
         #region Public Methods
         public static void Seed(ApplicationDbContext dbContext)
         {
             // Dummy-Benutzer erstellen
             if (!dbContext.Benutzer.Any()) CreateBenutzer(dbContext);
+            
+            // Dummy-Loginbenutzer erstellen
+            if (!dbContext.LoginBenutzer.Any()) CreateLoginBenutzer(dbContext);
 
             // Dummy-Gruppen erstellen
             if (!dbContext.Gruppen.Any()) CreateGruppen(dbContext);
@@ -48,39 +53,49 @@ namespace Template_Angular7.Data
 
             // Insert the Admin user into the Database
             dbContext.Benutzer.Add(user_Admin);
+            dbContext.SaveChanges();
+        }
+        
+        
+        // private helper methods
 
-#if DEBUG
-            // Create some sample registered user accounts (if they don't exist already)
-            var user_Ryan = new ApplicationUser()
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            if (password == null) throw new ArgumentNullException("password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Ryan",
-                Email = "ryan@testmakerfree.com",
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+        
+        private static void CreateLoginBenutzer(ApplicationDbContext dbContext)
+        {
+            // local variables
+            DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
+            DateTime lastModifiedDate = DateTime.Now;
+
+            // Create the "Admin" LoginBenutzer account (if it doesn't exist already)
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash("admin", out passwordHash, out passwordSalt);
+            
+            var userAdmin = new LoginBenutzer()
+            {
+                Id = 1,
+                UserName = "Admin",
+                FirstName = "Victor",
+                LastName =  "Kunz",
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                //Email = "admin@gruppenverwaltung.com",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             };
 
-            var user_Solice = new ApplicationUser()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Solice",
-                Email = "solice@testmakerfree.com",
-                CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
-            };
-
-            var user_Vodan = new ApplicationUser()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Vodan",
-                Email = "vodan@testmakerfree.com",
-                CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
-            };
-
-            // Insert sample registered users into the Database
-            dbContext.Benutzer.AddRange(user_Ryan, user_Solice, user_Vodan);
-#endif
+            // Insert the Admin user into the Database
+            dbContext.LoginBenutzer.Add(userAdmin);
             dbContext.SaveChanges();
         }
         

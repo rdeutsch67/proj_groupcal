@@ -50,6 +50,12 @@
             Info
           </a>
         </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" (click)="logout()">
+            <i class="fa fa-info-circle"></i>
+            Logout
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
