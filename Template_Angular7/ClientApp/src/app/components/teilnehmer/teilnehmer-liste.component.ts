@@ -1,8 +1,9 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import {PlanerdataService} from "../../Services/planerdata.service";
+import {PlanerdataService} from "../../services/planerdata.service";
 import {Observable} from "rxjs";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "teilnehmer-liste",
@@ -14,12 +15,14 @@ export class TeilnehmerListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
   myTeilnehmer: VTeilnehmer[];
   title: string;
+  selectedTeilnehmer: VTeilnehmer;
   showAllData: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
               private dataService: PlanerdataService,
+              private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Teilnehmer";
@@ -44,21 +47,6 @@ export class TeilnehmerListeComponent implements OnChanges {
       //}
     }
   }
-
-  /*loadData(id: number) {
-    let myUrl: string;
-    if (id > 0 ) {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/" + id;
-    }
-    else {
-      myUrl = this.baseUrl + "api/teilnehmer/alle/0";  // alle holen
-    }
-
-    this.http.get<Teilnehmer[]>(myUrl).subscribe(res => {
-      this.myTeilnehmer = res;
-    },
-        error => console.error(error));
-  }*/
 
   loadVTeilnehmer(id: number) {
 

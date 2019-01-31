@@ -1,6 +1,10 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {Component, Inject, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import * as moment from 'moment';
+import {filter} from "rxjs/operators";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "termin-liste",
@@ -8,18 +12,30 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./termin-liste.component.css']
 })
 
-export class TerminListeComponent implements OnChanges {
+export class TerminListeComponent implements OnInit, OnChanges {
   @Input() myGruppe: Gruppe;
   termine: Termin[];
   title: string;
+  selectedTermin: Termin;
   showAllData: boolean;
+
+
+
+  isSmScrPrt: boolean;
+  isMidScreen: boolean;
+  isWideScreen: boolean;
+
+
+
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
+              public myGlobals: GlobalVariables,
+              //private breakpointObserver: BreakpointObserver,
               @Inject('BASE_URL') private baseUrl: string) {
 
-    this.title = "Alle Termine zur Gruppe";
+    this.title = "Termine";
     this.termine = [];
 
     let id = +this.activatedRoute.snapshot.params["id"];  // Id der Gruppe
@@ -27,6 +43,15 @@ export class TerminListeComponent implements OnChanges {
     if (id <= 0) {
       this.loadData(id);
     }
+  }
+
+  ngOnInit() {
+    /*//this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 576px)');
+    /!*this.isMidScreen = this.breakpointObserver.isMatched('(min-width: 576px)');*!/
+    //this.isSmScreen = this.breakpointObserver.isMatched(Breakpoints.Handset);
+    this.isSmScrPrt = this.breakpointObserver.isMatched(Breakpoints.HandsetPortrait);
+    this.isMidScreen = this.breakpointObserver.isMatched(Breakpoints.Tablet);
+    this.isWideScreen = this.breakpointObserver.isMatched(Breakpoints.Web);*/
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -65,15 +90,46 @@ export class TerminListeComponent implements OnChanges {
   }
 
   onDelete(termin: Termin) {
-    if (confirm("Soll dieser Termin gelöscht werden?")) {
-      let url = this.baseUrl + "api/termine/" + termin.Id;
-      this.http
-        .delete(url)
-        .subscribe(res => {
-          console.log("Termin " + termin.Id + " wurde gelöscht.");
-          // refresh the question list
-          this.loadData(0);
-        }, error => console.log(error));
+    const filterByIdAndDatumBeginn = (resTermine: Termin[]) =>
+        resTermine.filter(x => ((x.IdTermin == termin.IdTermin) && (termin.IdTermin > 0)
+                                         && (x.DatumBeginn >= termin.DatumBeginn)));
+    const sortByDatumBeginn = (resTermine: Termin[]) =>
+        resTermine.sort((terminA: Termin, terminB: Termin) => {
+                                  if (terminA.DatumBeginn > terminB.DatumBeginn) return 1;
+                                  return -1;
+    });
+
+    let myTermine =  filterByIdAndDatumBeginn(this.termine);
+        myTermine =  sortByDatumBeginn(myTermine);
+
+    if (myTermine.length > 1) {
+      if (confirm("Sollen dieser und alle nachfolgenden Termine von diesem Typ (IdTermin = "+termin.IdTermin+") gelöscht werden?")) {
+        for (let i: number = 0; i <= myTermine.length; i++) {
+          //if ((myTermine[i].Id >= termin.Id) || (myTermine[i].DatumBeginn >= termin.DatumBeginn)) {
+            let url = this.baseUrl + "api/termine/" + myTermine[i].Id;
+            this.http
+              .delete(url)
+              .subscribe(res => {
+                console.log("Termin " + termin.Id + " wurde gelöscht.");
+                // refresh the question list
+                this.loadData(0);
+              }, error => console.log(error));
+          //}
+        }
+      }
+    }
+    else {
+      if (confirm("Soll dieser Termin ("+termin.AktCode+" vom "+ moment(termin.DatumBeginn, "DD.MM.YYYY")+") gelöscht werden?")) {
+      //if (confirm("Soll dieser Termin ("+termin.AktCode+") gelöscht werden?")) {
+        let url = this.baseUrl + "api/termine/" + termin.Id;
+        this.http
+          .delete(url)
+          .subscribe(res => {
+            console.log("Termin " + termin.Id + " wurde gelöscht.");
+            // refresh the question list
+            this.loadData(0);
+          }, error => console.log(error));
+      }
     }
   }
 }

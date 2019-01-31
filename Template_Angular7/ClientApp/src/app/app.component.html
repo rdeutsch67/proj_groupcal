@@ -1,6 +1,82 @@
-<app-nav-menu></app-nav-menu>
+<!--<div *ngIf="currentUser || nav.visible" class="main-nav">-->
+<div *ngIf="currentUser" class="main-nav">
+  <nav class="navbar navbar-default navbar-expand-md navbar-light box-shadow">
+    <a class="navbar-image" [routerLink]="['/home']">
+      <img src="/dist/logo.png" alt="Gruppenplaner"/>
+    </a>
+    <a class="navbar-brand" [routerLink]='["/"]' href="#" (click)='collapse()'>Planer</a>
+    <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse"
+            data-target="#navbarToggler" aria-expanded="false"
+            aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="isCollapsed"
+            aria-controls="navbarTogglerDemo02">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggler" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a data-toggle="collapse"  class="nav-link" [routerLink]="['/home']">
+            <i class="fas fa-address-book"></i>
+            Gruppen
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a data-toggle="collapse"  class="nav-link" [routerLink]="['/teilnehmer/vteilnehmer/0']">
+            <i class="fas fa-address-book"></i>
+            Teilnehmer
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/codesaktivitaeten/vaktivitaeten/0']">
+            <i class="fa fa-book"></i>
+            Aktivitätencodes
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/termine/vtermine/0']">
+            <i class="fa fa-calendar-alt"></i>
+            Termine
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/kalender/0']">
+            <i class="fa fa-calendar-alt"></i>
+            Kalender
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" [routerLink]="['/about']">
+            <i class="fa fa-info-circle"></i>
+            Info
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)='collapse()'>
+          <a class="nav-link" (click)="logout()">
+            <i class="fa fa-info-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- main app container -->
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <alert></alert>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<app-nav-menu ></app-nav-menu>
 <div class="container-fluid">
   <div class="starter-template">
     <router-outlet></router-outlet>
   </div>
-</div>
+</div>-->
+

@@ -11,7 +11,7 @@ import {
   CalendarView, DateFormatterParams,
   DAYS_OF_WEEK
 } from 'angular-calendar';
-import {PlanerdataService} from "../../Services/planerdata.service";
+import {PlanerdataService} from "../../services/planerdata.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {formatDate} from "@angular/common";
 
@@ -22,7 +22,7 @@ const colors: any = {
   }
 };
 
-class CustomDateFormatter extends CalendarDateFormatter {
+export class CustomDateFormatter extends CalendarDateFormatter {
 
   public monthViewColumnHeader({date, locale}: DateFormatterParams): string {
     return formatDate(date, 'EEE', locale); // use short week days
@@ -152,7 +152,6 @@ export class KalenderComponent {
   }
 
   onCreateTermin() {
-    //this.router.navigate(["termine/create", this.currentIdGruppe]);
     this.router.navigate(['termine/new_event', { id: this.currentIdGruppe, myday: this.clickedDate }]);
   }
 

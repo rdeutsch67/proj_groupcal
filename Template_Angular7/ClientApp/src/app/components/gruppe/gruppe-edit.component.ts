@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {NavbarService} from "../../services/navbar.service";
 
 @Component({
   selector: "gruppe-edit",
@@ -9,7 +10,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   styleUrls: ['./gruppe-edit.component.css']
 })
 
-export class GruppeEditComponent {
+export class GruppeEditComponent implements OnInit {
+  title: string;
   code: string;
   gruppe: Gruppe;
   form: FormGroup;
@@ -20,6 +22,7 @@ export class GruppeEditComponent {
               private router: Router,
               private http: HttpClient,
               private fb: FormBuilder,
+              public nav: NavbarService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     // create an empty object from the Gruppe interface
@@ -105,4 +108,10 @@ export class GruppeEditComponent {
       Aktiv: this.gruppe.Aktiv
     });
   }
+
+  ngOnInit() {
+    this.nav.show();
+  }
 }
+
+

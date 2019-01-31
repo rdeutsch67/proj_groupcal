@@ -1,9 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Template_Angular7.ViewModels
 {
@@ -18,9 +14,12 @@ namespace Template_Angular7.ViewModels
         
         #region Properties
         public int Id { get; set; }
+        public int IdTermin { get; set; }
+        
         public int IdGruppe { get; set; }
         public int IdTeilnehmer { get; set; }
         public int IdAktivitaet { get; set; }
+        public bool GanzerTag { get; set; }
         public DateTime DatumBeginn { get; set; }
         public DateTime DatumEnde { get; set; }
         public string Hinweis { get; set; }             

@@ -4,10 +4,14 @@
 table.code_aktivitaeten {
   min-width: 300px; }
 
-.table thead tr th {
-  border-bottom: 2px solid #8ec4e5;
-  border-top: 5px solid #8ec4e5; }
+.table {
+  border-top: 3px solid #8ec4e5;
+  border-bottom: 1px solid #8ec4e5; }
 
+/*.table thead tr th {
+  border-bottom: 2px solid #8ec4e5;
+  border-top: 5px solid #8ec4e5;
+}*/
 table.table-hover tbody :hover {
   background-color: rgba(158, 204, 229, 0.23); }
 

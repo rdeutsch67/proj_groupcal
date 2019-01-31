@@ -63,11 +63,13 @@ namespace Template_Angular7.Controllers
             var termin = new Termin();
             
             // properties taken from the request
+            termin.IdTermin = model.IdTermin;
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.DatumBeginn = model.DatumBeginn;
-            termin.DatumEnde = model.DatumEnde;
+            termin.GanzerTag = model.GanzerTag;
+            termin.DatumBeginn = model.DatumBeginn.ToLocalTime();
+            termin.DatumEnde = model.DatumEnde.ToLocalTime();
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
@@ -111,11 +113,13 @@ namespace Template_Angular7.Controllers
             // handle the update (without object-mapping)
             // by manually assigning the properties
             // we want to accept from the request
+            termin.IdTermin = model.IdTermin;
             termin.IdGruppe = model.IdGruppe;
             termin.IdTeilnehmer = model.IdTeilnehmer;
             termin.IdAktivitaet = model.IdAktivitaet;
-            termin.DatumBeginn = model.DatumBeginn;
-            termin.DatumEnde = model.DatumEnde;
+            termin.GanzerTag = model.GanzerTag;
+            termin.DatumBeginn = model.DatumBeginn.ToLocalTime();
+            termin.DatumEnde = model.DatumEnde.ToLocalTime();
             termin.Hinweis = model.Hinweis;
             
             // properties set from server-side
@@ -201,12 +205,16 @@ namespace Template_Angular7.Controllers
                              select new
                              {
                                  ut.Id,
+                                 ut.IdTermin,
                                  ut.IdGruppe,
                                  ut.IdTeilnehmer,
                                  ut.IdAktivitaet,
+                                 ut.GanzerTag,
                                  ut.DatumBeginn,
                                  ut.DatumEnde,
                                  ut.Hinweis,
+                                 ut.CreatedDate,
+                                 ut.LastModifiedDate,
                                  AktFarbe = ua.Farbe,
                                  AktCode = ua.Code,
                                  AktBezeichnung = ua.Bezeichnung,
@@ -215,7 +223,8 @@ namespace Template_Angular7.Controllers
                                  TnNachname = uu.Nachname,
                                  GrpCode = ug.Code,
                                  GrpBezeichnung = ug.Bezeichnung
-                             }).ToList();
+                             }).OrderBy(x => x.DatumBeginn)
+                               .ToList();
                 return new JsonResult(
                     query.Adapt<TerminViewModel[]>(),
                     JsonSettings);    
@@ -229,12 +238,16 @@ namespace Template_Angular7.Controllers
                     select new
                     {
                         ut.Id,
+                        ut.IdTermin,
                         ut.IdGruppe,
                         ut.IdTeilnehmer,
                         ut.IdAktivitaet,
+                        ut.GanzerTag,
                         ut.DatumBeginn,
                         ut.DatumEnde,
                         ut.Hinweis,
+                        ut.CreatedDate,
+                        ut.LastModifiedDate,
                         AktFarbe = ua.Farbe,
                         AktCode = ua.Code,
                         AktBezeichnung = ua.Bezeichnung,
@@ -243,7 +256,8 @@ namespace Template_Angular7.Controllers
                         TnNachname = uu.Nachname,
                         GrpCode = ug.Code,
                         GrpBezeichnung = ug.Bezeichnung
-                    }).ToList();
+                    }).OrderBy(x => x.DatumBeginn)
+                      .ToList();
                 return new JsonResult(
                     query.Adapt<TerminViewModel[]>(),
                     JsonSettings);

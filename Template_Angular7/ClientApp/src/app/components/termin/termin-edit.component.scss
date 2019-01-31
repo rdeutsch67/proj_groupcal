@@ -1,4 +1,215 @@
-.table thead tr th {
-  border-bottom: 2px solid #8ec4e5;
-  border-top: 5px solid #8ec4e5;
+$color-label: rgba(70, 89, 240, 0.99);
+
+input[type="color"],
+input[type="select"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+//select:focus,
+select,
+textarea {
+  font-size: 1rem;
 }
+
+/*
+.input-group-prepend {
+  width : 35%; !*adjust as needed*!
+}
+
+.input-group-prepend label {
+  width: 100%;
+  overflow: hidden;
+}*/
+
+.input-group-text {
+  min-width: 12ch; // 12 Zeichen lang, so werden die Textfelder alle gleich lang
+}
+
+
+
+.lbl-pad-right {
+  padding-right: 5px;
+}
+
+#tbwiederholungen {
+  padding-left: 20px;
+}
+
+.mobil_se { /* je nach Auflösung die HTML-Zeile aktiv setzen */
+  visibility: hidden;
+}
+
+.dp-label { /* datepicker label */
+  width: 80px;
+  margin-right: 50px;
+}
+
+.dp-label2 { /* datepicker label */
+  margin-right: 100px;
+}
+
+#mydatumbeginn, #mydatumende {
+  width: 100px;
+}
+
+.dp-picker {
+  width: 60px;
+}
+
+.no-space {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#idGruppe {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.chkganztaegig {
+  padding-left: 20px;
+  margin-top: 9px;
+}
+
+#section-wiederholungen {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-top: 1px solid $color-label;
+  border-bottom: 1px solid $color-label;
+
+  table {
+    width: 90%;
+    table-layout: fixed;
+    color: $color-label;
+    border-collapse: collapse;
+    //border-top: hidden;
+    border-color: $color-label;
+    //border-top: 1px solid $color-label;
+    //border-bottom: 1px solid $color-label;
+    margin-left: 20px;
+
+    thead {
+      //border-top:1px solid $color-label;
+      border-bottom: hidden;
+    }
+
+    tr {
+
+    }
+    td, th {
+      text-align: center;
+    }
+    #id_tbwiederholungen {
+
+    }
+  }
+}
+
+.mytoptoolbar {
+  display: block;
+  border-width: 5px;
+  background-color: rgba(70, 89, 240, 0.74);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.mybottomtoolbar {
+  display: none;
+}
+
+/* Auflösung > 576px */
+@media (min-width: 576px) {
+
+  .mobil_se { /* je nach Auflösung die HTML-Zeile aktiv setzen */
+    visibility: visible;
+  }
+
+  .dp-picker {
+    width: 10ch;
+    float: left;
+    margin-right: 60px;
+  }
+
+  .dp-label { /* datepicker label */
+    width: 90px;
+    margin-right: 0px;
+  }
+
+  .dp-label2 { /* datepicker label */
+    //width: inherit;
+  }
+
+  .mytoptoolbar {
+    display: none;
+  }
+
+  .mybottomtoolbar {
+    display: block;
+  }
+
+  .table thead tr th {
+    border-bottom: 2px solid #8ec4e5;
+    border-top: 5px solid #8ec4e5;
+  }
+
+  .datepicker-width {
+    width: 105px;
+    padding: 0px;
+
+  }
+
+  .chkganztaegig {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+
+  .tabwiederholungen {
+    color: #5bc0de;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+  }
+
+  .td_size {
+    width: 35px;
+    height: 20px;
+    text-align: center;
+  }
+
+  .selAnzWHLabel {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    padding-top: 27px;
+    padding-left: 15px;
+  }
+
+  /*.selAnzWH {
+    width: 120px;
+    padding-left: 15px;
+  }
+*/
+  .mytextbox {
+    margin-left: 30px;
+    width: 110px;
+  }
+}
+
+
+
+

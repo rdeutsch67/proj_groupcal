@@ -1,6 +1,33 @@
-@media (max-width: 767px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+/*@media (max-width: 767px) {
+  !* On small screens, the nav menu spans the full width of the screen. Leave a space for it. *!
   .body-content {
     padding-top: 50px;
+  }
+}*/
+
+/*@media (max-width: 500px) {
+  //! *On small screens, the nav menu spans the full width of the screen . Leave a space for it . *!
+  .body-content {
+    padding-top: 150px;
+  }
+  label,
+  select,
+  textarea,
+  input {
+    font-size: 26px;
+  }
+}*/
+
+
+
+.container-fluid {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+@media (min-width: 576px) {
+  .container-fluid {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import {GlobalVariables} from "../../global.variables";
 
 @Component({
   selector: "code_aktivitaeten-liste",
@@ -12,15 +13,19 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   @Input() myGruppe: Gruppe;
   code_aktivitaeten: VCode_aktivitaet[];
   title: string;
+  selectedAktivitaet: VCode_aktivitaet;
+  showZeiten: boolean;
   showAllData: boolean;
   showDataJson: boolean = true;
-  showDataJsonTitle: string;
-  showDataJsonBtnClass: string;
+  showDebugInfoTitle: string;
+  showDebugInfoBtnClass: string;
+  showDebugInfoBtnIcon: string;
   showDataJsonBtnIcon: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
               private router: Router,
+              private globals: GlobalVariables,
               @Inject('BASE_URL') private baseUrl: string) {
 
     this.title = "Aktivitäten";
@@ -88,14 +93,14 @@ export class Code_aktivitaetenListeComponent implements OnChanges {
   onShowDataJson() {
     this.showDataJson = !this.showDataJson;
     if (this.showDataJson){
-      this.showDataJsonTitle = 'JSON-Daten verbergen'
-      this.showDataJsonBtnClass = 'btn btn-sm btn-warning';
-      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-up';
+      this.showDebugInfoTitle = 'JSON-Daten verbergen'
+      this.showDebugInfoBtnClass = 'btn btn-sm btn-warning';
+      this.showDebugInfoBtnIcon = 'fas fa-arrow-circle-up';
     }
     else {
-      this.showDataJsonTitle = 'JSON-Daten anzeigen'
-      this.showDataJsonBtnClass = 'btn btn-sm btn-primary';
-      this.showDataJsonBtnIcon = 'fas fa-arrow-circle-down';
+      this.showDebugInfoTitle = 'JSON-Daten anzeigen'
+      this.showDebugInfoBtnClass = 'btn btn-sm btn-primary';
+      this.showDebugInfoBtnIcon = 'fas fa-arrow-circle-down';
     }
   }
 }

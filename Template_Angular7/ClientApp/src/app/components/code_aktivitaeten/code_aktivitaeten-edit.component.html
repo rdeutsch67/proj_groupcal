@@ -1,6 +1,6 @@
-<div class="code_aktivitaeten-edit">
-  <h2>{{title}}</h2>
+<div class="code_aktivitaeten-edit  container-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>{{title}}</h2>
     <div class="form-group row">
       <label for="code" class="col-sm-2 col-form-label">Kurzbezeichnung:</label>
       <div class="col-sm-3">
@@ -23,9 +23,29 @@
       <label for="aktcolor" class="col-sm-2 col-form-label">Farbe:</label>
       <div class="col-sm-3">
         <input type="color" id="aktcolor" formControlName="Farbe"
-               class="form-control" [value]="Farbe" />
+               class="form-control" />
+
       </div>
     </div>
+    <div class="input-group row">
+      <label for="ganzertag" class="col-sm-2 col-form-label">Ganztägig:</label>
+      <div class="input-group-prepend col-sm-3">
+        <div class="input-group-text">
+          <input id="ganzertag" type="checkbox" formControlName="GanzerTag"
+                 (change)="onChangeGanzerTag($event)">
+        </div>
+      </div>
+    </div>
+    <div class="input-group row">
+      <label for="zeitUnbestimmt" class="col-sm-2 col-form-label">Dauer unbestimmt:</label>
+      <div class="input-group-prepend col-sm-3">
+        <div class="input-group-text">
+          <input class="formcontrol" id="zeitUnbestimmt" type="checkbox" formControlName="ZeitUnbestimmt"
+                 (change)="onChangeZeitUnbestimmt($event)">
+        </div>
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="zeitBeginn" class="col-sm-2 col-form-label">Beginn:</label>
       <div class="col-sm-3">
@@ -40,6 +60,7 @@
                formControlName="ZeitEnde"/>
       </div>
     </div>
+
     <div class="input-group row">
       <label for="summieren" class="col-sm-2 col-form-label">Summieren:</label>
       <div class="input-group-prepend col-sm-3">
@@ -61,7 +82,6 @@
         <i class="fas fa-plus-circle"></i>
         Aktivität erstellen
       </button>
-      <!--<button *ngIf="!editMode" type="submit"-->
       <button type="submit"
               (click)="onBack()"
               class="btn btn-sm btn-secondary">

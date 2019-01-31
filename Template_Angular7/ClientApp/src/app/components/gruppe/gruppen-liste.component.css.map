@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,aAAc;EACZ,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,OAAO;;AAGjB,sBAAuB;EACrB,gBAAgB,EAAE,OAAO;;AAG3B,8BAA+B;EAC7B,gBAAgB,EAAE,yBAAyB;;AAG7C,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB",
+"mappings": "AAAA,SAAU;EACR,OAAO,EAAE,KAAK;;AAIhB,aAAc;EACZ,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,OAAO;;AAGjB,sBAAuB;EACrB,gBAAgB,EAAE,OAAO;;AAG3B,8BAA+B;EAC7B,gBAAgB,EAAE,yBAAyB;;AAG7C,kBAAmB;EACjB,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,iBAAiB",
 "sources": ["gruppen-liste.component.scss"],
 "names": [],
 "file": "gruppen-liste.component.css"

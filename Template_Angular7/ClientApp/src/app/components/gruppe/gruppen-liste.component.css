@@ -1,3 +1,6 @@
+.main-nav {
+  display: block; }
+
 ul.gruppen li {
   color: #000acb;
   cursor: pointer; }

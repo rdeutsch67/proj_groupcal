@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "Template_Angular7\Template_Angular7.csproj", "{02717EA4-F801-42C4-AEB6-197675FDC573}"
 EndProject
@@ -12,5 +12,6 @@ Global
 		{02717EA4-F801-42C4-AEB6-197675FDC573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02717EA4-F801-42C4-AEB6-197675FDC573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02717EA4-F801-42C4-AEB6-197675FDC573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02717EA4-F801-42C4-AEB6-197675FDC573}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

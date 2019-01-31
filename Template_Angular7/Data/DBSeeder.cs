@@ -4,16 +4,21 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Template_Angular7.Services;
 
 namespace Template_Angular7.Data
 {
     public static class DBSeeder
     {
+        
         #region Public Methods
         public static void Seed(ApplicationDbContext dbContext)
         {
             // Dummy-Benutzer erstellen
             if (!dbContext.Benutzer.Any()) CreateBenutzer(dbContext);
+            
+            // Dummy-Loginbenutzer erstellen
+            if (!dbContext.LoginBenutzer.Any()) CreateLoginBenutzer(dbContext);
 
             // Dummy-Gruppen erstellen
             if (!dbContext.Gruppen.Any()) CreateGruppen(dbContext);
@@ -48,39 +53,49 @@ namespace Template_Angular7.Data
 
             // Insert the Admin user into the Database
             dbContext.Benutzer.Add(user_Admin);
+            dbContext.SaveChanges();
+        }
+        
+        
+        // private helper methods
 
-#if DEBUG
-            // Create some sample registered user accounts (if they don't exist already)
-            var user_Ryan = new ApplicationUser()
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            if (password == null) throw new ArgumentNullException("password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Ryan",
-                Email = "ryan@testmakerfree.com",
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+        
+        private static void CreateLoginBenutzer(ApplicationDbContext dbContext)
+        {
+            // local variables
+            DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
+            DateTime lastModifiedDate = DateTime.Now;
+
+            // Create the "Admin" LoginBenutzer account (if it doesn't exist already)
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash("admin", out passwordHash, out passwordSalt);
+            
+            var userAdmin = new LoginBenutzer()
+            {
+                Id = 1,
+                UserName = "Admin",
+                FirstName = "Victor",
+                LastName =  "Kunz",
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                //Email = "admin@gruppenverwaltung.com",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             };
 
-            var user_Solice = new ApplicationUser()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Solice",
-                Email = "solice@testmakerfree.com",
-                CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
-            };
-
-            var user_Vodan = new ApplicationUser()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "Vodan",
-                Email = "vodan@testmakerfree.com",
-                CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
-            };
-
-            // Insert sample registered users into the Database
-            dbContext.Benutzer.AddRange(user_Ryan, user_Solice, user_Vodan);
-#endif
+            // Insert the Admin user into the Database
+            dbContext.LoginBenutzer.Add(userAdmin);
             dbContext.SaveChanges();
         }
         
@@ -150,8 +165,9 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser, Teilnehmer",
                 Summieren = false,
                 Farbe = "#f44141",
-                ZeitBeginn = new DateTime(2018,01,01,19,00,00),
-                ZeitEnde = new DateTime(2018,01,01,21,00,00),
+                GanzerTag = false,
+                ZeitBeginn = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,19,00,00),
+                ZeitEnde = new DateTime(createdDate.Year,createdDate.Month,createdDate.Day,21,00,00),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -163,6 +179,7 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Jasser + Teilnehmer",
                 Summieren = false,
                 Farbe = "#41f46a",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
@@ -176,6 +193,7 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Reserve, einsetzbar bei Bedarf",
                 Summieren = false,
                 Farbe = "#4141f4",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
                 CreatedDate = createdDate,
@@ -189,8 +207,23 @@ namespace Template_Angular7.Data
                 Bezeichnung = "Klärt noch ab",
                 Summieren = false,
                 Farbe = "#dc41f4",
+                GanzerTag = false,
                 ZeitBeginn = new DateTime(2018,01,01,19,00,00),
                 ZeitEnde = new DateTime(2018,01,01,21,00,00),
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate
+            });
+            
+            EntityEntry<CodeAktivitaeten> e5 = dbContext.CodesAktivitaeten.Add(new CodeAktivitaeten()
+            {
+                GruppenId = gruppeId,
+                Code = "??",
+                Bezeichnung = "Jasser-Ausflug",
+                Summieren = false,
+                Farbe = "#345675",
+                GanzerTag = true,
+                ZeitBeginn = new DateTime(2018,01,01,00,00,00),
+                ZeitEnde = new DateTime(2018,01,01,23,59,59),
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             });
@@ -286,6 +319,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 1,
                 IdAktivitaet = 1,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Bin gerne mit dabei.",
@@ -298,6 +332,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 2,
                 IdAktivitaet = 2,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Bin auch mit dabei.",
@@ -310,6 +345,7 @@ namespace Template_Angular7.Data
                 IdGruppe = gruppeId,
                 IdTeilnehmer = 3,
                 IdAktivitaet = 4,
+                GanzerTag = false,
                 DatumBeginn = createdDate,
                 DatumEnde = createdDate,
                 Hinweis = "Mal guggen.",

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NavbarService} from "../../services/navbar.service";
 
 @Component({
   selector: "teilnehmer-edit.component",
@@ -19,6 +20,7 @@ export class TeilnehmerEditComponent {
               private router: Router,
               private http: HttpClient,
               private fb: FormBuilder,
+              public nav: NavbarService,
               @Inject('BASE_URL') private baseUrl: string) {
 
     // leeres Aktivität-Objekt erstellen

@@ -24,6 +24,8 @@ namespace Template_Angular7.ViewModels
         public bool Summieren { get; set; }
         public string Farbe { get; set; }
         
+        public bool GanzerTag { get; set; }
+        public bool ZeitUnbestimmt { get; set; }
         public DateTime ZeitBeginn { get; set; }
         public DateTime ZeitEnde { get; set; }
         
@@ -34,6 +36,8 @@ namespace Template_Angular7.ViewModels
         
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        
+        public bool ShowZeiten { get; set; }
         #endregion
     }
 }
