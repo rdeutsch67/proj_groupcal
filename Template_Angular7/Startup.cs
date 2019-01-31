@@ -63,7 +63,7 @@ namespace Template_Angular7
                         var user = userService.GetById(userId);
                         if (user == null)
                         {
-                            // return unauthorized if user no longer exists
+                            // return  unauthorized if user no longer exists
                             context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
