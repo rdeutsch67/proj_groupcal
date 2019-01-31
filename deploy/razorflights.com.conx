@@ -1,0 +1,195 @@
+#ATTENTION!
+#
+#DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY,
+#SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED.
+
+server {
+	listen 93.90.188.34:443 ssl http2;
+
+	server_name razorflights.com;
+	server_name www.razorflights.com;
+	server_name ipv4.razorflights.com;
+
+	ssl_certificate             /usr/local/psa/var/certificates/certLvMNnSk;
+	ssl_certificate_key         /usr/local/psa/var/certificates/certLvMNnSk;
+
+	client_max_body_size 128m;
+
+	root "/var/www/vhosts/razorflights.com/httpdocs/gruppenplaner/ClientApp/dist";
+	access_log "/var/www/vhosts/system/razorflights.com/logs/proxy_access_ssl_log";
+	error_log "/var/www/vhosts/system/razorflights.com/logs/proxy_error_log";
+
+	if ($host ~* ^razorflights\.com$) {
+		rewrite ^(.*)$ https://www.razorflights.com$1 permanent;
+	}
+
+	#extension letsencrypt begin
+	location /.well-known/acme-challenge/ {
+		root /var/www/vhosts/default/htdocs;
+
+		types { }
+		default_type text/plain;
+
+		satisfy any;
+		auth_basic off;
+		allow all;
+
+		location ~ ^/\.well-known/acme-challenge.*/\. {
+			deny all;
+		}
+	}
+	#extension letsencrypt end
+
+	location / {
+		proxy_pass https://93.90.188.34:7081;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location /internal-nginx-static-location/ {
+		alias /var/www/vhosts/razorflights.com/httpdocs/gruppenplaner/ClientApp/dist/;
+		internal;
+	}
+
+	location ~ ^/(plesk-stat|awstats-icon|webstat|webstat-ssl|ftpstat|anon_ftpstat) {
+		proxy_pass https://93.90.188.34:7081;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location ~ ^/~(.+?)(/.*?\.php)(/.*)?$ {
+		alias /var/www/vhosts/razorflights.com/web_users/$1/$2;
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_pass "unix:///var/www/vhosts/system/razorflights.com/php-fpm.sock";
+		include /etc/nginx/fastcgi.conf;
+
+	}
+
+	location ~ ^/~(.+?)(/.*)?$ {
+		proxy_pass https://93.90.188.34:7081;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location ~ \.php(/.*)?$ {
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_pass "unix:///var/www/vhosts/system/razorflights.com/php-fpm.sock";
+		include /etc/nginx/fastcgi.conf;
+
+	}
+
+	location ~ /$ {
+		index "index.html" "index.cgi" "index.pl" "index.php" "index.xhtml" "index.htm" "index.shtml";
+	}
+
+	add_header X-Powered-By PleskLin;
+
+}
+
+server {
+	listen 93.90.188.34:80;
+
+	server_name razorflights.com;
+	server_name www.razorflights.com;
+	server_name ipv4.razorflights.com;
+
+	client_max_body_size 128m;
+
+	root "/var/www/vhosts/razorflights.com/httpdocs/gruppenplaner/ClientApp/dist";
+	access_log "/var/www/vhosts/system/razorflights.com/logs/proxy_access_log";
+	error_log "/var/www/vhosts/system/razorflights.com/logs/proxy_error_log";
+
+	if ($host ~* ^razorflights\.com$) {
+		rewrite ^(.*)$ http://www.razorflights.com$1 permanent;
+	}
+
+	#extension letsencrypt begin
+	location /.well-known/acme-challenge/ {
+		root /var/www/vhosts/default/htdocs;
+
+		types { }
+		default_type text/plain;
+
+		satisfy any;
+		auth_basic off;
+		allow all;
+
+		location ~ ^/\.well-known/acme-challenge.*/\. {
+			deny all;
+		}
+	}
+	#extension letsencrypt end
+
+	location / {
+		proxy_pass http://93.90.188.34:7080;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location /internal-nginx-static-location/ {
+		alias /var/www/vhosts/razorflights.com/httpdocs/gruppenplaner/ClientApp/dist/;
+		internal;
+	}
+
+	location ~ ^/(plesk-stat|awstats-icon|webstat|webstat-ssl|ftpstat|anon_ftpstat) {
+		proxy_pass http://93.90.188.34:7080;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location ~ ^/~(.+?)(/.*?\.php)(/.*)?$ {
+		alias /var/www/vhosts/razorflights.com/web_users/$1/$2;
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_pass "unix:///var/www/vhosts/system/razorflights.com/php-fpm.sock";
+		include /etc/nginx/fastcgi.conf;
+
+	}
+
+	location ~ ^/~(.+?)(/.*)?$ {
+		proxy_pass http://93.90.188.34:7080;
+		proxy_set_header Host             $host;
+		proxy_set_header X-Real-IP        $remote_addr;
+		proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+		access_log off;
+
+	}
+
+	location ~ \.php(/.*)?$ {
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_pass "unix:///var/www/vhosts/system/razorflights.com/php-fpm.sock";
+		include /etc/nginx/fastcgi.conf;
+
+	}
+
+	location ~ /$ {
+		index "index.html" "index.cgi" "index.pl" "index.php" "index.xhtml" "index.htm" "index.shtml";
+	}
+
+	add_header X-Powered-By PleskLin;
+
+}
